@@ -1,0 +1,41 @@
+№55
+delete from company
+where id in (
+		select company
+		from trip
+		GROUP by company
+		having count(*) = (
+			select min(t)
+			from (
+				select count(*) as t
+				from trip
+				GROUP by company
+			)as a
+		)
+	)
+
+
+№58
+insert into Reviews
+VALUES(23,
+	(SELECT Reservations.id
+		from Reservations
+			JOIN Users on Users.id = Reservations.user_id
+			join rooms on rooms.id = Reservations.room_id
+		where Users.name = "George Clooney"
+			and Rooms.address = "11218, Friel Place, New York"),5);
+
+
+№60
+select teacher
+from (SELECT teacher.id as teacher,
+		count(distinct class) as count
+		from teacher
+			join Schedule on teacher.id = Schedule.teacher
+			JOIN class on class.id = Schedule.class
+		where class.name like "11%"
+		GROUP by teacher.id) as t1
+where t1.count = (
+		select count(DISTINCT name)
+		from class
+		where name like "11%")
