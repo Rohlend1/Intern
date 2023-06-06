@@ -46,7 +46,7 @@ public class Space {
 
     @Override
     public String toString() {
-        return "entities.Space{" +
+        return "Space{" +
                 "isBusy=" + isBusy +
                 ", id=" + id +
                 '}';

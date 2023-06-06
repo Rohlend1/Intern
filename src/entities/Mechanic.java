@@ -1,7 +1,6 @@
 package entities;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 public class Mechanic {
@@ -74,7 +73,7 @@ public class Mechanic {
 
     @Override
     public String toString() {
-        return "entities.Mechanic{" +
+        return "Mechanic{" +
                 "id=" + id +
                 ", age=" + age +
                 ", name='" + name + '\'' +

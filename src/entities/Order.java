@@ -114,7 +114,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "entities.Order{" +
+        return "Order{" +
                 "id=" + id +
                 ", createdAt=" + createdAt +
                 ", willBeReadyBy=" + willBeReadyBy +
