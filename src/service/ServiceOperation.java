@@ -8,9 +8,7 @@ import errors.OrderNotFoundException;
 import errors.SpaceNotFoundException;
 
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class ServiceOperation {
 
@@ -31,9 +29,11 @@ public class ServiceOperation {
     public boolean addMechanic(Mechanic mechanic){
         return mechanics.add(mechanic);
     }
+
     public boolean removeMechanic(Mechanic mechanic){
         return mechanics.remove(mechanic);
     }
+
     public boolean removeMechanic(int mechanicId){
         return mechanics.remove(findMechanicById(mechanicId));
     }
@@ -41,6 +41,7 @@ public class ServiceOperation {
     public boolean addNewGarageSpace(){
         return garage.add(new Space());
     }
+
     public boolean removeGarageSpace(int spaceId){
         return garage.remove(findSpaceById(spaceId));
     }
@@ -53,6 +54,7 @@ public class ServiceOperation {
         }
         throw new SpaceNotFoundException();
     }
+
     private Mechanic findMechanicById(int mechanicId){
         for(Mechanic mechanic : mechanics){
             if(mechanic.getId() == mechanicId) {
@@ -63,15 +65,21 @@ public class ServiceOperation {
     }
 
     public boolean addOrder(Order order){
-        order.setSpaceId(garage.get(new Random().nextInt(1,garage.size())).getId());
+        order.setSpaceId(garage.get(new Random().nextInt(0,garage.size())).getId());
+        Mechanic mechanic = mechanics.get(new Random().nextInt(0,mechanics.size()));
+        order.setMechanicId(mechanic.getId());
+        mechanic.getOrdersQueue().offer(order);
         return openOrders.add(order);
     }
+
     public boolean removeOrder(int orderId){
         return openOrders.remove(findOrderById(orderId));
     }
+
     public boolean removeOrder(Order order){
         return openOrders.remove(order);
     }
+
     public boolean closeOrder(int orderId){
         Order foundOrder = findOrderById(orderId);
         foundOrder.setClosed(true);
@@ -99,6 +107,51 @@ public class ServiceOperation {
         Order foundOrder = findOrderById(orderId);
         openOrders.stream().filter(order -> foundOrder.getSpaceId() == order.getSpaceId())
                 .forEach(order -> order.setWillBeReadyBy(order.getWillBeReadyBy().plus(value,unit)));
+    }
+
+    public void setOrderToExecuting(int orderId){
+        findOrderById(orderId).setExecuting(true);
+    }
+
+    public void setSpaceIsBusy(int spaceId){
+        findSpaceById(spaceId).setBusy(true);
+    }
+
+    public List<Space> getFreeSpace(){
+        return garage.stream().filter(space -> !space.isBusy()).toList();
+    }
+
+    public List<Order> getExecutingOrders(){
+        List<Order> sortedOrders = new ArrayList<>(openOrders.stream().filter(Order::isExecuting).toList());
+        this.sortOrders(sortedOrders);
+        return sortedOrders;
+    }
+
+    public List<Order> getSortedOrders(){
+        this.sortOrders(openOrders);
+        return openOrders;
+    }
+
+    public List<Mechanic> getSortedMechanics(){
+        return mechanics.stream().sorted((m1,m2)->{
+            if(m1.getName().equals(m2.getName())){
+                return m1.getOrdersQueue().size() - m2.getOrdersQueue().size();
+            }
+            return m1.getName().compareTo(m2.getName());
+        }).toList();
+    }
+
+    public List<Order> getOrdersByMechanicId(int mechanicId){
+        return openOrders.stream().filter(o1 -> o1.getMechanicId() == mechanicId).toList();
+    }
+
+    private void sortOrders(List<Order> orders){
+        orders.sort((o1,o2)->{
+            if(o1.getCreatedAt().isEqual(o2.getCreatedAt())){
+                return o1.getWillBeReadyBy().compareTo(o2.getWillBeReadyBy());
+            }
+            return o1.getCreatedAt().compareTo(o2.getCreatedAt());
+        });
     }
 
     public List<Mechanic> getMechanics() {
