@@ -3,107 +3,176 @@ package general;
 import entities.Mechanic;
 import entities.Order;
 import entities.Space;
-import errors.MechanicNotFoundException;
-import errors.OrderNotFoundException;
-import errors.SpaceNotFoundException;
 
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 
 public class CarService {
-    private static final List<Mechanic> mechanics = new ArrayList<>();
-    private static final List<Order> openOrders = new ArrayList<>();
-    private static final List<Order> cancelledOrders = new ArrayList<>();
-    private static final List<Order> closedOrders = new ArrayList<>();
-    private static final List<Space> garage = new ArrayList<>();
-    public static boolean addMechanic(Mechanic mechanic){
-        return mechanics.add(mechanic);
-    }
-     public static boolean removeMechanic(Mechanic mechanic){
-        return mechanics.remove(mechanic);
-    }
-    public static boolean removeMechanic(int mechanicId){
-        return mechanics.remove(findMechanicById(mechanicId));
+    private final ServiceOperation serviceOperation;
+
+    public CarService() {
+        serviceOperation = new ServiceOperation();
     }
 
-    public static boolean addNewGarageSpace(){
-        return garage.add(new Space());
+    public boolean addNewGarageSpace(){
+        return serviceOperation.addNewGarageSpace();
     }
-    public static boolean removeGarageSpace(int spaceId){
-        return garage.remove(findSpaceById(spaceId));
+    public boolean addMechanic(Mechanic mechanic){
+        return serviceOperation.addMechanic(mechanic);
+    }
+    public boolean removeMechanic(Mechanic mechanic){
+        return serviceOperation.removeMechanic(mechanic);
+    }
+    public boolean removeMechanic(int mechanicId){
+        return serviceOperation.removeMechanic(mechanicId);
+    }
+    public boolean addOrder(Order order){
+        return serviceOperation.addOrder(order);
+    }
+    public boolean removeOrder(int orderId){
+        return serviceOperation.removeOrder(orderId);
+    }
+    public boolean removeOrder(Order order){
+        return serviceOperation.removeOrder(order);
+    }
+    public boolean closeOrder(int orderId){
+        return serviceOperation.closeOrder(orderId);
+    }
+    public boolean cancelOrder(int orderId){
+        return serviceOperation.cancelOrder(orderId);
+    }
+    public boolean removeGarageSpace(int spaceId){
+        return serviceOperation.removeGarageSpace(spaceId);
+    }
+    public List<Mechanic> getMechanics(){
+        return serviceOperation.getMechanics();
+    }
+    public void shiftExecutionTime(int orderId, int value, ChronoUnit unit){
+        serviceOperation.shiftExecutionTime(orderId,value,unit);
+    }
+    public List<Order> getOpenOrders(){
+        return serviceOperation.getOpenOrders();
+    }
+    public List<Order> getCancelledOrders(){
+        return serviceOperation.getCancelledOrders();
+    }
+    public List<Space> getGarage(){
+        return serviceOperation.getGarage();
+    }
+    public List<Order> getClosedOrders(){
+        return serviceOperation.getClosedOrders();
+    }
+    public void testAddSpace(){
+        System.out.println("Test add space");
+        System.out.println("---------------------------------");
+        prepareTestEnvironment();
+        System.out.println(this.getGarage());
+        System.out.println("---------------------------------");
     }
 
-    private static Space findSpaceById(int spaceId){
-        for(Space space : garage){
-            if(space.getId() == spaceId) {
-                return space;
-            }
-        }
-        throw new SpaceNotFoundException();
-    }
-    private static Mechanic findMechanicById(int mechanicId){
-        for(Mechanic mechanic : mechanics){
-            if(mechanic.getId() == mechanicId) {
-                return mechanic;
-            }
-        }
-        throw new MechanicNotFoundException();
+    public void testRemoveSpace(){
+        System.out.println("Test remove space");
+        prepareTestEnvironment();
+        System.out.println("-------------BEFORE:------------");
+        System.out.println(this.getGarage());
+        this.removeGarageSpace(this.getGarage().get(1).getId());
+        System.out.println("-------------AFTER:------------");
+        System.out.println(this.getGarage());
+        System.out.println("---------------------------------");
     }
 
-    public static boolean addOrder(Order order){
-        order.setSpaceId(garage.get(new Random().nextInt(1,garage.size())).getId());
-        return openOrders.add(order);
-    }
-    public static boolean removeOrder(int orderId){
-        return openOrders.remove(findOrderById(orderId));
-    }
-    public static boolean removeOrder(Order order){
-        return openOrders.remove(order);
-    }
-    public static boolean closeOrder(int orderId){
-        Order foundOrder = findOrderById(orderId);
-        foundOrder.setClosed(true);
-        openOrders.remove(foundOrder);
-        return closedOrders.add(foundOrder);
+    public void testAddMechanic(){
+        System.out.println("Test add mechanic");
+        System.out.println("---------------------------------");
+        prepareTestEnvironment();
+        System.out.println(this.getMechanics());
+        System.out.println("---------------------------------");
     }
 
-    public static boolean cancelOrder(int orderId){
-        Order foundOrder = findOrderById(orderId);
-        foundOrder.setCancelled(true);
-        openOrders.remove(foundOrder);
-        return cancelledOrders.add(foundOrder);
+    public void testRemoveMechanic(){
+        System.out.println("Test remove mechanic");
+        prepareTestEnvironment();
+        Mechanic mechanic = new Mechanic(40,"Rick", LocalDate.now());
+        this.addMechanic(mechanic);
+        System.out.println("-------------BEFORE:------------");
+        System.out.println(this.getMechanics());
+        this.removeMechanic(mechanic);
+        this.removeMechanic(this.getMechanics().get(0).getId());
+        System.out.println("-------------AFTER:------------");
+        System.out.println(this.getMechanics());
+        System.out.println("---------------------------------");
     }
 
-    private static Order findOrderById(int orderId){
-        for(Order order : openOrders){
-            if(order.getId() == orderId){
-                return order;
-            }
-        }
-        throw new OrderNotFoundException();
+    public void testAddOrder(){
+        System.out.println("Test add order");
+        prepareTestEnvironment();
+        System.out.println(this.getOpenOrders());
+        System.out.println("---------------------------------");
+    }
+    public void testShiftExecutionTime(){
+        System.out.println("Test shift execution time");
+        System.out.println("---------------------------------");
+        prepareTestEnvironment();
+        System.out.println(this.getOpenOrders());
+        this.shiftExecutionTime(this.getOpenOrders().get(1).getId(),3, ChronoUnit.DAYS);
+        System.out.println(this.getOpenOrders());
+        System.out.println("---------------------------------");
+    }
+    public void testCloseOrder(){
+        System.out.println("Test close order");
+        System.out.println("---------------------------------");
+        prepareTestEnvironment();
+        this.closeOrder(this.getOpenOrders().get(0).getId());
+        System.out.println(this.getOpenOrders());
+        System.out.println(this.getClosedOrders());
+        System.out.println("---------------------------------");
     }
 
-    public static void shiftExecutionTime(int orderId, int value, ChronoUnit unit){
-        Order foundOrder = findOrderById(orderId);
-        openOrders.stream().filter(order -> foundOrder.getSpaceId() == order.getSpaceId())
-                .forEach(order -> order.setWillBeReadyBy(order.getWillBeReadyBy().plus(value,unit)));
+    public void testCancelOrder(){
+        System.out.println("Test cancel order");
+        System.out.println("---------------------------------");
+        prepareTestEnvironment();
+        this.cancelOrder(this.getOpenOrders().get(0).getId());
+        System.out.println(this.getCancelledOrders());
+        System.out.println(this.getOpenOrders());
+        System.out.println("---------------------------------");
     }
-    public static List<Mechanic> getMechanics(){
-        return mechanics;
+    public void testRemoveOrder(){
+        System.out.println("Test remove order");
+        prepareTestEnvironment();
+        Order order = new Order("bbbb");
+        this.addOrder(order);
+        System.out.println("-------------BEFORE:------------");
+        System.out.println(this.getCancelledOrders());
+        System.out.println(this.getOpenOrders());
+        System.out.println(this.getClosedOrders());
+        this.removeOrder(this.getOpenOrders().get(0).getId());
+        this.removeOrder(order);
+        System.out.println("-------------AFTER:------------");
+        System.out.println(this.getCancelledOrders());
+        System.out.println(this.getOpenOrders());
+        System.out.println(this.getClosedOrders());
+        System.out.println("---------------------------------");
     }
-    public static List<Order> getOpenOrders(){
-        return openOrders;
-    }
-    public static List<Order> getCancelledOrders(){
-        return cancelledOrders;
-    }
-    public static List<Space> getGarage(){
-        return garage;
-    }
-    public static List<Order> getClosedOrders(){
-        return closedOrders;
+    private void prepareTestEnvironment(){
+        this.getCancelledOrders().clear();
+        this.getClosedOrders().clear();
+        this.getGarage().clear();
+        this.getMechanics().clear();
+        this.getOpenOrders().clear();
+
+        this.addNewGarageSpace();
+        this.addNewGarageSpace();
+        this.addNewGarageSpace();
+        this.addOrder(new Order("456"));
+        this.addOrder(new Order("789"));
+        this.addOrder(new Order("qwe"));
+        this.addOrder(new Order("rty"));
+        this.addMechanic(new Mechanic(25,"Alex", LocalDate.now()));
+        this.addMechanic(new Mechanic(18,"Bob", LocalDate.now()));
+        this.addMechanic(new Mechanic(50,"John", LocalDate.now()));
     }
 }

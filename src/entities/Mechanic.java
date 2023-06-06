@@ -1,5 +1,6 @@
 package entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -8,9 +9,9 @@ public class Mechanic {
     private int id;
     private int age;
     private String name;
-    private Date birthDate;
+    private LocalDate birthDate;
 
-    public Mechanic(int age, String name, Date birthDate) {
+    public Mechanic(int age, String name, LocalDate birthDate) {
         this.id = ++counter;
         this.age = age;
         this.name = name;
@@ -41,11 +42,11 @@ public class Mechanic {
         this.name = name;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
