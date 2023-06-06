@@ -1,4 +1,4 @@
-package general;
+package service;
 
 import entities.Mechanic;
 import entities.Order;

@@ -1,6 +1,6 @@
 package test;
 
-import general.CarService;
+import service.CarService;
 
 //Первое задание: 1. Написать программу:
 //Электронный администратор автосервиса
