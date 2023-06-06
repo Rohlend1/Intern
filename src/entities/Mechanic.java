@@ -1,7 +1,9 @@
 package entities;
 
 import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.Objects;
+import java.util.Queue;
 
 public class Mechanic {
     private static int counter = 0;
@@ -10,11 +12,14 @@ public class Mechanic {
     private String name;
     private LocalDate birthDate;
 
+    private final Queue<Order> ordersQueue;
+
     public Mechanic(int age, String name, LocalDate birthDate) {
         this.id = ++counter;
         this.age = age;
         this.name = name;
         this.birthDate = birthDate;
+        this.ordersQueue = new LinkedList<>();
     }
 
     public int getId() {
@@ -49,6 +54,10 @@ public class Mechanic {
         this.birthDate = birthDate;
     }
 
+    public Queue<Order> getOrdersQueue() {
+        return ordersQueue;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -59,7 +68,8 @@ public class Mechanic {
         if (id != mechanic.id) return false;
         if (age != mechanic.age) return false;
         if (!Objects.equals(name, mechanic.name)) return false;
-        return Objects.equals(birthDate, mechanic.birthDate);
+        if (!Objects.equals(birthDate, mechanic.birthDate)) return false;
+        return ordersQueue.equals(mechanic.ordersQueue);
     }
 
     @Override
@@ -68,6 +78,7 @@ public class Mechanic {
         result = 31 * result + age;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
+        result = 31 * result + ordersQueue.hashCode();
         return result;
     }
 
@@ -78,6 +89,7 @@ public class Mechanic {
                 ", age=" + age +
                 ", name='" + name + '\'' +
                 ", birthDate=" + birthDate +
+                ", count orders=" + ordersQueue.size()+
                 '}';
     }
 }
