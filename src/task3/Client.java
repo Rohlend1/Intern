@@ -19,6 +19,9 @@ public class Client extends Thread{
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+            finally {
+                op.backToPool();
+            }
         }
     }
 

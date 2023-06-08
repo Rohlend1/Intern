@@ -2,13 +2,9 @@ package task3;
 
 import java.util.concurrent.*;
 
-//попробуй теперь переделать задачу, чтобы клиент брал операторов из пула потоков (реализуй сам кастомный пул потоков),
-// какая то логика звонка, после окончания звонка оператор возвращается обратно в пул потоков
 public class TaskThree {
 
     public static void main(String[] args) {
-//        Operator operator1 = new Operator("Tom");
-//        Operator operator2 = new Operator("Bob");
 
         MyThreadPool operators = new MyThreadPool(2,2);
 
@@ -16,13 +12,6 @@ public class TaskThree {
         Client client2 = new Client("Alex");
         Client client3 = new Client("Ivan");
         Client client4 = new Client("Cole");
-        Client client5 = new Client("Miley");
-        Client client6 = new Client("Rihanna");
-        Client client7 = new Client("Adele");
-        Client client8 = new Client("Lana");
-        Client client9 = new Client("Rick");
-
-
 
         client1.setOp(operators.getOperator());
         client2.setOp(operators.getOperator());
@@ -32,19 +21,7 @@ public class TaskThree {
         client4.setOp(operators.getOperator());
         client3.start();
         client4.start();
-//        client5.setOp(operators.get(0));
-//        client6.setOp(operators.get(1));
-//        client7.setOp(operators.get(1));
-//        client8.setOp(operators.get(1));
-//        client9.setOp(operators.get(1));
-//
 
-//        client4.start();
-//        client5.start();
-//        client6.start();
-//        client7.start();
-//        client8.start();
-//        client9.start();
         operators.shutdown();
     }
 
@@ -90,6 +67,7 @@ class MyThreadPool{
 
     final class Operator extends Thread{
 
+        private MyThreadPool owner = MyThreadPool.this;
         private final String opName;
         public Operator(String opName) {
             this.opName = opName;
@@ -112,6 +90,9 @@ class MyThreadPool{
         }
         public String getOpName(){
             return opName;
+        }
+        public void backToPool(){
+            opeartors.offer(this);
         }
     }
 }
