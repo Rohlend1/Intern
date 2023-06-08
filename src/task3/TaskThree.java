@@ -29,12 +29,10 @@ public class TaskThree {
 class MyThreadPool{
 
     private final ArrayBlockingQueue<Runnable> tasksQueue;
-    private int poolCapacity;
     private final ArrayBlockingQueue<Operator> opeartors;
 
     MyThreadPool(int tasksCapacity, int poolCapacity) {
         this.tasksQueue = new ArrayBlockingQueue<>(tasksCapacity);
-        this.poolCapacity = poolCapacity;
         opeartors = new ArrayBlockingQueue<>(poolCapacity);
         for(int i = 0; i < poolCapacity;i++){
             opeartors.add(new Operator("Bob-"+i));
@@ -66,8 +64,6 @@ class MyThreadPool{
     }
 
     final class Operator extends Thread{
-
-        private MyThreadPool owner = MyThreadPool.this;
         private final String opName;
         public Operator(String opName) {
             this.opName = opName;
