@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="69b3868e-5793-4557-8027-cff7826d9506" name="Changes" comment="task 1 and task 2">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/concurrent/task1/TaskOne$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/concurrent/task1/TaskOne$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/concurrent/task1/TaskOne$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/concurrent/task1/TaskOne$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/concurrent/task1/TaskOne$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/concurrent/task1/TaskOne.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/task2/TaskTwo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/task2/TaskTwo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/task2/text1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/task2/text1.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,12 +36,15 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "concurrent",
-    "last_opened_file_path": "C:/Program Files/Java/Projects/intern",
+    "last_opened_file_path": "/home/user/IdeaProjects/Intern",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -123,5 +119,16 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="task 1 and task 2" />
     <option name="LAST_COMMIT_MESSAGE" value="task 1 and task 2" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/task2/TaskTwo.java</url>
+          <line>15</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
