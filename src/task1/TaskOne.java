@@ -1,15 +1,6 @@
 package task1;
 
 
-//Первая задачка по многопоточке:
-//Необходимо создать новый поток и воспроизвести все его состояния, выведя их в консоль.
-//Необходимые состояния:
-//- NEW,
-//- RUNNABLE,
-//- BLOCKED,
-//- WAITING,
-//- TIMED_WAITING,
-//- TERMINATED;
 public class TaskOne {
 
     public static void main(String[] args) {
