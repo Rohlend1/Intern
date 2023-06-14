@@ -1,48 +1,49 @@
 package task4;
 
+import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ConcurrentHashMap;
 
-public class Broker extends Thread{
+public class Broker{
     private final String name;
-    private final ConcurrentHashMap<Stock,Integer> stocks = new ConcurrentHashMap<>();
-    private final StockExchange stockExchange;
-    Broker(String name, StockExchange stockExchange) {
-        this.name = name;
-        this.stockExchange = stockExchange;
-        this.start();
-    }
+    private final List<String> stocks;
+    private Action action;
 
-    @Override
-    public void run() {
-        Random random = new Random();
-        while(true){
-            if(random.nextInt(0,10) < 5){
-                stockExchange.sell(random.nextInt(0,1000),
-                        stockExchange.getStocks().get(random.nextInt(stockExchange.getStocks().size())),this);
-            }
-            else{
-                stockExchange.buy(random.nextInt(0,1000),
-                        stockExchange.getStocks().get(random.nextInt(stockExchange.getStocks().size())),this);
-            }
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+    static class Action{
+        int amount;
+        String stockName;
+
+        Type typeOfAction;
+        Action(int amount, String stockName, Type typeOfAction){
+            this.amount = amount;
+            this.stockName = stockName;
+            this.typeOfAction = typeOfAction;
         }
     }
-    public void addStockToPortfolio(Stock stock, int amount){
-        stocks.put(stock,amount);
-    }
-    public void sellStockFromPortfolio(Stock stock, int amount){
-        stocks.put(stock,stocks.get(stock)-amount);
-    }
-    public boolean hasEnough(int amount, Stock stock){
-        return stocks.getOrDefault(stock,0) >= amount;
+
+    enum Type{
+        BUY,SELL,NONE
     }
 
+    Broker(String name, List<String> stocks) {
+        this.name = name;
+        this.stocks = stocks;
+        randomizeAction();
+    }
+
+    public void randomizeAction(){
+        Random random = new Random();
+        if(random.nextInt(10)>5) {
+            action = new Action(random.nextInt(1, 1000), stocks.get(random.nextInt(0, stocks.size())), Type.BUY);
+        }
+        else{
+            action = new Action(random.nextInt(1, 1000), stocks.get(random.nextInt(0, stocks.size())), Type.SELL);
+        }
+    }
     public String getBrokerName() {
         return name;
+    }
+
+    public Action getAction() {
+        return action;
     }
 }

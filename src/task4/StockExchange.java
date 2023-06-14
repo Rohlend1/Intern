@@ -1,103 +1,124 @@
 package task4;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class StockExchange extends Thread{
-    private double index;
-    private final double START_INDEX;
+    private final double CRITICAL_INDEX;
     private final ReentrantLock lock = new ReentrantLock();
+    private final List<Broker> brokers;
+    private final IndexStorage index = new IndexStorage();
+    private final Semaphore semaphore = new Semaphore(2);
 
-    private final List<Stock> stocks;
-    public StockExchange(List<Stock> stocks) {
-        this.stocks = stocks;
-        countIndex();
-        START_INDEX = this.index;
+    public StockExchange(List<Stock> stocks, List<Broker> brokers) {
+        CRITICAL_INDEX = 300000;
+        for(Stock stock : stocks){
+            index.addStock(stock,1000);
+        }
+        index.countIndex();
+        this.brokers = brokers;
         this.start();
     }
 
     @Override
     public void run() {
+        int usedPermits = 0;
         while (true) {
-            if (index < 0.0) {
-                freeze();
+            checkIndex();
+            try {
+                Broker brokerWhoSells = null;
+                Broker brokerWhoBuys = null;
+                String stockName = null;
+                int amount = 0;
+                for(Broker broker : brokers) {
+                    if (brokerWhoSells == null && broker.getAction().typeOfAction == Broker.Type.SELL) {
+                        semaphore.acquire();
+                        stockName = broker.getAction().stockName;
+                        amount = broker.getAction().amount;
+                        brokerWhoSells = broker;
+                        usedPermits += 1;
+                        continue;
+                    }
+                    if (brokerWhoBuys == null && broker.getAction().typeOfAction == Broker.Type.BUY) {
+                        semaphore.acquire();
+                        brokerWhoBuys = broker;
+                        usedPermits += 1;
+                        continue;
+                    }
+                    if(brokerWhoBuys != null && brokerWhoSells != null && brokerWhoSells.getAction().stockName.equals(brokerWhoBuys.getAction().stockName)){
+                        exchange(stockName, Math.max(amount, broker.getAction().amount), brokerWhoSells, brokerWhoBuys);
+                        usedPermits = 2;
+                        brokerWhoBuys.randomizeAction();
+                        brokerWhoSells.randomizeAction();
+                        continue;
+                    }
+                    broker.randomizeAction();
+                    Thread.sleep(500);
+                }
+            }
+            catch (InterruptedException ignored){
+
+            }
+            finally {
+                semaphore.release(usedPermits);
+                usedPermits = 0;
+                Collections.shuffle(brokers);
             }
         }
     }
 
-    public boolean buy(int amount, Stock stock, Broker broker){
+
+    public boolean exchange(String stockName, int amount, Broker brokerWhoSells, Broker brokerWhoBuys){
         lock.lock();
-        try {
-            Stock stockToBuy = isExists(stock);
-            if (isEnough(amount, stockToBuy)) {
-                System.out.println(broker.getBrokerName()+" is buying "+stockToBuy.getCompanyName()+" stocks");
-                stockToBuy.buy(amount);
-                broker.addStockToPortfolio(stockToBuy, amount);
-                countIndex();
+        try{
+            if (isEnough(amount, stockName) && isExists(stockName)) {
+                System.out.println(brokerWhoBuys.getBrokerName()+" is buying "+stockName+" stocks");
+                System.out.println(brokerWhoSells.getBrokerName()+" is selling "+stockName+" stocks");
+                if(amount > 750){
+                    index.findByName(stockName).changePrice(50);
+                }
+                else{
+                    index.findByName(stockName).changePrice(-50);
+                }
+                index.countIndex();
                 checkIndex();
                 return true;
             } else {
+                System.out.println("Transaction denied");
                 return false;
             }
         }
         finally {
             lock.unlock();
         }
-    }
-    public boolean sell(int amount, Stock stock, Broker broker){
-        lock.lock();
-        try {
-            Stock stockToSell = isExists(stock);
-            if(broker.hasEnough(amount,stockToSell)){
-                System.out.println(broker.getBrokerName()+" is selling "+stockToSell.getCompanyName()+" stocks");
-                stockToSell.sell(amount);
-                broker.sellStockFromPortfolio(stockToSell,amount);
-                countIndex();
-                checkIndex();
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-        finally {
-            lock.unlock();
-        }
-    }
-    private void countIndex(){
-        this.index = stocks.stream().mapToDouble(Stock::countFullPrice).sum()/1000;
     }
 
     private void checkIndex(){
-        if(START_INDEX/index > 2){
+        if(index.getCurrentIndex() < CRITICAL_INDEX){
             freeze();
         }
     }
-    private boolean isEnough(int amountToBuy, Stock stock){
-        return amountToBuy <= stock.getAmount().get();
+    private boolean isEnough(int amountToBuy, String stockName){
+        return amountToBuy <= index.getAmountOf(stockName);
     }
 
-    private Stock isExists(Stock stock){
-        return stocks.stream().filter(s->s.getCompanyName().equals(stock.getCompanyName())).findAny().orElseThrow();
+    private boolean isExists(String stockName){
+        return index.isExists(stockName) != null;
     }
-
 
     public void freeze(){
         try{
             lock.lock();
             System.out.println("Trading is suspended");
-            index += index/2;
-            Thread.sleep(1000);
+            index.reset();
+            Thread.sleep(2500);
         }
         catch (InterruptedException ignored){
-
         }
         finally {
             lock.unlock();
         }
-    }
-
-    public List<Stock> getStocks() {
-        return stocks;
     }
 }
