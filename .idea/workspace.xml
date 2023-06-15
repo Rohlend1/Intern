@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69b3868e-5793-4557-8027-cff7826d9506" name="Changes" comment="task 1 and task 2">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="69b3868e-5793-4557-8027-cff7826d9506" name="Changes" comment="task 5">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/task2/TaskTwo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/task2/TaskTwo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/task2/text1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/task2/text1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/task4/Broker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/task4/Broker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/task4/Stock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/task4/Stock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/task4/StockExchange.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/task4/StockExchange.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/task4/TaskFour.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/task4/TaskFour.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +20,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -36,19 +38,22 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "concurrent",
-    "last_opened_file_path": "/home/user/IdeaProjects/Intern",
+    "last_opened_file_path": "C:/Program Files/Java/Projects/intern",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
+    "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="task4" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Program Files\Java\Projects\intern\src\task2" />
     </key>
@@ -81,6 +86,8 @@
       <workItem from="1686163659787" duration="6000" />
       <workItem from="1686163672909" duration="7295000" />
       <workItem from="1686173707207" duration="359000" />
+      <workItem from="1686298965921" duration="4648000" />
+      <workItem from="1686747860622" duration="15783000" />
     </task>
     <task id="LOCAL-00001" summary="task 1 and task 2">
       <created>1686173068568</created>
@@ -110,7 +117,42 @@
       <option name="project" value="LOCAL" />
       <updated>1686174057259</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="task 1 and task 2">
+      <created>1686211151285</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1686211151285</updated>
+    </task>
+    <task id="LOCAL-00006" summary="task 3">
+      <created>1686215289878</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1686215289878</updated>
+    </task>
+    <task id="LOCAL-00007" summary="task 3">
+      <created>1686221188488</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1686221188488</updated>
+    </task>
+    <task id="LOCAL-00008" summary="task 4">
+      <created>1686260975534</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1686260975534</updated>
+    </task>
+    <task id="LOCAL-00009" summary="task 5">
+      <created>1686303674916</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1686303674916</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,7 +160,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="task 1 and task 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="task 1 and task 2" />
+    <MESSAGE value="task 3" />
+    <MESSAGE value="task 4" />
+    <MESSAGE value="task 5" />
+    <option name="LAST_COMMIT_MESSAGE" value="task 5" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -128,7 +173,22 @@
           <line>15</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/task3/TaskThree.java</url>
+          <line>24</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/task4/StockExchange.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="task4.Broker" memberName="stocks" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>
