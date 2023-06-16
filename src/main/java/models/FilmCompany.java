@@ -15,7 +15,6 @@ public class FilmCompany {
     private LocalDate dateOfFoundation;
 
     public FilmCompany() {
-
     }
 
     public FilmCompany(String name, List<Movie> movies, LocalDate dateOfFoundation) {

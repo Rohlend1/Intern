@@ -1,14 +1,16 @@
 package repositories;
 
+import errors.ModelNotFoundException;
 import models.Review;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class ReviewRepository {
 
-    private List<Review> reviews;
+    private final List<Review> reviews = new ArrayList<>();
 
     public List<Review> findAll() {
         return reviews;
@@ -19,11 +21,11 @@ public class ReviewRepository {
     }
 
     public Review findOne(Review review){
-        return reviews.stream().filter(a->a.equals(review)).findAny().orElse(null);
+        return reviews.stream().filter(a->a.equals(review)).findAny().orElseThrow(ModelNotFoundException::new);
     }
 
     public Review findById(int id){
-        return reviews.stream().filter(a->a.getId()==id).findAny().orElse(null);
+        return reviews.stream().filter(a->a.getId()==id).findAny().orElseThrow(ModelNotFoundException::new);
     }
 
     public void delete(Review review){

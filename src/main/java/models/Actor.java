@@ -1,5 +1,7 @@
 package models;
 
+import util.Gender;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -9,21 +11,30 @@ public class Actor {
 
     private int id;
 
-    private String name;
+    private String firstName;
 
-    private int height;
+    private String lastName;
+
+    private Gender gender;
+
+    private String country;
 
     private LocalDate birthDate;
+
+    private int age;
 
     private List<Movie> movies;
 
     public Actor() {
     }
 
-    public Actor(String name, int height, LocalDate birthDate, List<Movie> movies) {
-        this.name = name;
-        this.height = height;
+    public Actor(String firstName, String lastName, int height, Gender gender, String country, LocalDate birthDate, int age, List<Movie> movies) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.country = country;
         this.birthDate = birthDate;
+        this.age = age;
         this.movies = movies;
     }
 
@@ -35,20 +46,36 @@ public class Actor {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getCountry() {
+        return country;
     }
 
-    public int getHeight() {
-        return height;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     public LocalDate getBirthDate() {
@@ -63,21 +90,28 @@ public class Actor {
         return movies;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
     }
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Actor actor = (Actor) o;
-        return id == actor.id && height == actor.height && Objects.equals(name, actor.name) && Objects.equals(birthDate, actor.birthDate) && Objects.equals(movies, actor.movies);
+        return id == actor.id && age == actor.age && Objects.equals(firstName, actor.firstName) && Objects.equals(lastName, actor.lastName) && gender == actor.gender && Objects.equals(country, actor.country) && Objects.equals(birthDate, actor.birthDate) && Objects.equals(movies, actor.movies);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, height, birthDate, movies);
+        return Objects.hash(id, firstName, lastName, gender, country, birthDate, age, movies);
     }
 }

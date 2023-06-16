@@ -8,25 +8,36 @@ public class Movie {
 
     private int id;
 
-    private String name;
+    private String title;
 
     private List<Actor> actors;
 
-    private LocalDate dateOfShooting;
+    private LocalDate dateOfRelease;
 
-    private List<Review> reviews;
+    private FilmCompany filmCompany;
 
-    private List<Comment> comments;
+    private int duration;
+
+    private int boxOffice;
 
     public Movie() {
     }
 
-    public Movie(String name, List<Actor> actors, LocalDate dateOfShooting, List<Review> reviews, List<Comment> comments) {
-        this.name = name;
+    public Movie(String title, List<Actor> actors, LocalDate dateOfRelease, FilmCompany filmCompany, int duration, int boxOffice) {
+        this.title = title;
         this.actors = actors;
-        this.dateOfShooting = dateOfShooting;
-        this.reviews = reviews;
-        this.comments = comments;
+        this.dateOfRelease = dateOfRelease;
+        this.filmCompany = filmCompany;
+        this.duration = duration;
+        this.boxOffice = boxOffice;
+    }
+
+    public FilmCompany getFilmCompany() {
+        return filmCompany;
+    }
+
+    public void setFilmCompany(FilmCompany filmCompany) {
+        this.filmCompany = filmCompany;
     }
 
     public int getId() {
@@ -37,12 +48,12 @@ public class Movie {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String name) {
+        this.title = name;
     }
 
     public List<Actor> getActors() {
@@ -53,28 +64,28 @@ public class Movie {
         this.actors = actors;
     }
 
-    public LocalDate getDateOfShooting() {
-        return dateOfShooting;
+    public LocalDate getDateOfRelease() {
+        return dateOfRelease;
     }
 
-    public void setDateOfShooting(LocalDate dateOfShooting) {
-        this.dateOfShooting = dateOfShooting;
+    public void setDateOfRelease(LocalDate dateOfRelease) {
+        this.dateOfRelease = dateOfRelease;
     }
 
-    public List<Review> getReviews() {
-        return reviews;
+    public int getDuration() {
+        return duration;
     }
 
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
-    public List<Comment> getComments() {
-        return comments;
+    public int getBoxOffice() {
+        return boxOffice;
     }
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
+    public void setBoxOffice(int boxOffice) {
+        this.boxOffice = boxOffice;
     }
 
     @Override
@@ -82,11 +93,11 @@ public class Movie {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Movie movie = (Movie) o;
-        return id == movie.id && Objects.equals(name, movie.name) && Objects.equals(actors, movie.actors) && Objects.equals(dateOfShooting, movie.dateOfShooting) && Objects.equals(reviews, movie.reviews) && Objects.equals(comments, movie.comments);
+        return id == movie.id && duration == movie.duration && boxOffice == movie.boxOffice && Objects.equals(title, movie.title) && Objects.equals(actors, movie.actors) && Objects.equals(dateOfRelease, movie.dateOfRelease) && Objects.equals(filmCompany, movie.filmCompany);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, actors, dateOfShooting, reviews, comments);
+        return Objects.hash(id, title, actors, dateOfRelease, filmCompany, duration, boxOffice);
     }
 }

@@ -1,14 +1,16 @@
 package repositories;
 
+import errors.ModelNotFoundException;
 import models.Comment;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class CommentRepository {
 
-    private List<Comment> comments;
+    private final List<Comment> comments = new ArrayList<>();
 
     public List<Comment> findAll() {
         return comments;
@@ -19,11 +21,11 @@ public class CommentRepository {
     }
 
     public Comment findOne(Comment comment){
-        return comments.stream().filter(a->a.equals(comment)).findAny().orElse(null);
+        return comments.stream().filter(a->a.equals(comment)).findAny().orElseThrow(ModelNotFoundException::new);
     }
 
     public Comment findById(int id){
-        return comments.stream().filter(a->a.getId()==id).findAny().orElse(null);
+        return comments.stream().filter(a->a.getId()==id).findAny().orElseThrow(ModelNotFoundException::new);
     }
 
     public void delete(Comment comment){

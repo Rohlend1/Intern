@@ -1,14 +1,16 @@
 package repositories;
 
+import errors.ModelNotFoundException;
 import models.Movie;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class MovieRepository {
 
-    private List<Movie> movies;
+    private final List<Movie> movies = new ArrayList<>();
 
     public List<Movie> findAll() {
         return movies;
@@ -19,11 +21,11 @@ public class MovieRepository {
     }
 
     public Movie findOne(Movie movie){
-        return movies.stream().filter(a->a.equals(movie)).findAny().orElse(null);
+        return movies.stream().filter(a->a.equals(movie)).findAny().orElseThrow(ModelNotFoundException::new);
     }
 
     public Movie findById(int id){
-        return movies.stream().filter(a->a.getId()==id).findAny().orElse(null);
+        return movies.stream().filter(a->a.getId()==id).findAny().orElseThrow(ModelNotFoundException::new);
     }
 
     public void delete(Movie movie){
