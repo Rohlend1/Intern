@@ -49,5 +49,7 @@ public class SpringConfig {
         userService.delete(user2);
 
         System.out.println(userService.findAll());
+
+        context.close();
     }
 }
