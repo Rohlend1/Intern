@@ -54,4 +54,13 @@ public class Subscribe {
     public int hashCode() {
         return Objects.hash(id, subscribedBy, subscribedAt);
     }
+
+    @Override
+    public String toString() {
+        return "Subscribe{" +
+                "id=" + id +
+                ", subscribedBy=" + subscribedBy +
+                ", subscribedAt=" + subscribedAt +
+                '}';
+    }
 }

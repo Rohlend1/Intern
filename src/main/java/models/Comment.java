@@ -100,4 +100,16 @@ public class Comment {
     public int hashCode() {
         return Objects.hash(id, description, createdAt, updatedAt, owner, replies, review);
     }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", owner=" + owner +
+                ", replies=" + replies +
+                '}';
+    }
 }

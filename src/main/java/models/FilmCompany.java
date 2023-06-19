@@ -67,4 +67,13 @@ public class FilmCompany {
     public int hashCode() {
         return Objects.hash(id, name, movies, dateOfFoundation);
     }
+
+    @Override
+    public String toString() {
+        return "FilmCompany{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", dateOfFoundation=" + dateOfFoundation +
+                '}';
+    }
 }

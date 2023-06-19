@@ -88,4 +88,16 @@ public class Review {
     public int hashCode() {
         return Objects.hash(id, content, createdAt, updatedAt, user, comment);
     }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", user=" + user +
+                ", comment=" + comment +
+                '}';
+    }
 }

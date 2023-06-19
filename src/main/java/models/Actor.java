@@ -28,7 +28,7 @@ public class Actor {
     public Actor() {
     }
 
-    public Actor(String firstName, String lastName, int height, Gender gender, String country, LocalDate birthDate, int age, List<Movie> movies) {
+    public Actor(String firstName, String lastName, Gender gender, String country, LocalDate birthDate, int age, List<Movie> movies) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -113,5 +113,18 @@ public class Actor {
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, gender, country, birthDate, age, movies);
+    }
+
+    @Override
+    public String toString() {
+        return "Actor{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", gender=" + gender +
+                ", country='" + country + '\'' +
+                ", birthDate=" + birthDate +
+                ", age=" + age +
+                '}';
     }
 }

@@ -10,9 +10,9 @@ import java.util.List;
 @Service
 public class ActorService {
 
+    @Autowired
     private final ActorRepository actorRepository;
 
-    @Autowired
     public ActorService(ActorRepository actorRepository) {
         this.actorRepository = actorRepository;
     }
