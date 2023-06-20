@@ -1,7 +1,7 @@
 package services;
 
+import container.AutoConnect;
 import models.Actor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repositories.ActorRepository;
 
@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class ActorService {
 
-    @Autowired
+    @AutoConnect
     private final ActorRepository actorRepository;
 
     public ActorService(ActorRepository actorRepository) {
@@ -38,4 +38,6 @@ public class ActorService {
         actor.setId(id);
         actorRepository.save(actor);
     }
+
+
 }

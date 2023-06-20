@@ -1,5 +1,6 @@
 package services;
 
+import container.AutoConnect;
 import models.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import java.util.List;
 @Service
 public class CommentService {
 
+    @AutoConnect
     private final CommentRepository commentRepository;
 
     @Autowired
