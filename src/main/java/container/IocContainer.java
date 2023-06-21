@@ -10,38 +10,28 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.function.Supplier;
 
 public class IocContainer {
-   static List<Class<?>> classes = new ArrayList<>();
-   static List<Object> beans = new ArrayList<>();
+   private final List<Class<?>> classes = new ArrayList<>();
+   private final List<Object> beans = new ArrayList<>();
 
-    static String path = "C:\\Program Files\\Java\\Projects\\intern\\src\\main\\java";
-    public static void main(String[] args) {
+    private final String pathToScan;
 
-        scanFiles(path);
-        System.out.println(classes);
-
+    public IocContainer(String pathToScan) {
+        this.pathToScan = pathToScan;
+        scanFiles(pathToScan);
         try {
             createBeans();
-        } catch (InvocationTargetException e) {
+        } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-        for (Object obj : beans){
-            System.out.println(obj);
         }
     }
-
-    public static void scanFiles(String path){
+    private void scanFiles(String path){
         File file = new File(path);
         helper(file.listFiles());
     }
-    public static void helper(File[] files){
+    private void helper(File[] files){
         if(files == null) return;
         for(File file : files){
             if(file.isDirectory()){
@@ -50,7 +40,7 @@ public class IocContainer {
             else if(file.isFile()){
                 if(file.getName().endsWith(".java")){
                     try {
-                        String relativePath = Path.of(path).relativize(Path.of(file.getPath())).toString().replaceAll("\\\\",".");
+                        String relativePath = Path.of(pathToScan).relativize(Path.of(file.getPath())).toString().replaceAll("[\\\\/]",".");
                         Class<?> clazz = Class.forName(relativePath.substring(0,relativePath.length()-5));
                         if(clazz.isAnnotationPresent(Component.class) || clazz.isAnnotationPresent(Repository.class) || clazz.isAnnotationPresent(Service.class)){
                             classes.add(clazz);
@@ -63,7 +53,7 @@ public class IocContainer {
         }
     }
 
-    public static void createBeans() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    private void createBeans() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         for (Class<?> clazz : classes) {
             List<Object> dependencies = new ArrayList<>();
             for (Field field : clazz.getDeclaredFields()) {
@@ -79,7 +69,7 @@ public class IocContainer {
     }
 
 
-    private static Object createBean(Class<?> clazz) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private Object createBean(Class<?> clazz) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         List<Object> dependencies = new ArrayList<>();
         for (Field field : clazz.getDeclaredFields()) {
             if (field.isAnnotationPresent(AutoConnect.class)) {
@@ -98,12 +88,27 @@ public class IocContainer {
         }
     }
 
-    public static boolean checkIfDefaultConstructorExists(Class<?> clazz){
+    public boolean checkIfDefaultConstructorExists(Class<?> clazz){
         for(Constructor<?> constructor : clazz.getConstructors()){
             if(constructor.getParameterCount() == 0){
                 return true;
             }
         }
         return false;
+    }
+
+    public <T> T getBean(String name, Class<T> clazz) throws Throwable {
+        Object object = beans.stream().filter(obj->obj.getClass().getSimpleName().equals(name)).findAny().orElseThrow((Supplier<Throwable>) () -> new RuntimeException("Bean doesn't exist"));
+        if(clazz.isInstance(object)){
+            return (T) object;
+        }
+        else{
+            throw new RuntimeException("Unexpected exception");
+        }
+    }
+
+    public void close(){
+        beans.clear();
+        classes.clear();
     }
 }

@@ -1,40 +1,15 @@
-import config.SpringConfig;
-import models.User;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import services.UserService;
+import container.IocContainer;
+import services.ActorService;
 
 public class Application {
 
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
-
-        UserService userService = context.getBean("userService", UserService.class);
-
-        User user1 = new User("John");
-        User user2 = new User("Tom");
-        User user3 = new User("Bob");
-
-        user1.setId(1);
-        user2.setId(2);
-        user3.setId(3);
-
-        userService.save(user1);
-        userService.save(user2);
-        userService.save(user3);
-
-
-        System.out.println(userService.findAll());
-
-        System.out.println(userService.findById(1));
-
-        userService.update(1,new User("Jerry"));
-
-        System.out.println(userService.findById(1));
-
-        userService.delete(user2);
-
-        System.out.println(userService.findAll());
-
-        context.close();
+        IocContainer iocContainer = new IocContainer("/home/user/IdeaProjects/Intern/src/main/java");
+        try {
+            System.out.println(iocContainer.getBean("ActorService", ActorService.class));
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+        iocContainer.close();
     }
 }

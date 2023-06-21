@@ -39,5 +39,10 @@ public class ActorService {
         actorRepository.save(actor);
     }
 
-
+    @Override
+    public String toString() {
+        return "ActorService{" +
+                "actorRepository=" + actorRepository +
+                '}';
+    }
 }
