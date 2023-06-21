@@ -13,9 +13,9 @@ import java.util.*;
 import java.util.function.Supplier;
 
 public class IocContainer {
-   private final List<Class<?>> classes = new ArrayList<>();
-   private final List<Object> beans = new ArrayList<>();
-
+    private final List<Class<?>> classes = new ArrayList<>();
+    private final List<Object> beans = new ArrayList<>();
+    private final Set<Class<?>> alreadyCreated = new HashSet<>();
     private final String pathToScan;
 
     public IocContainer(String pathToScan) {
@@ -27,15 +27,17 @@ public class IocContainer {
             throw new RuntimeException(e);
         }
     }
+
     private void scanFiles(String path){
         File file = new File(path);
-        helper(file.listFiles());
+        recursiveScanDirectoriesAndFiles(file.listFiles());
     }
-    private void helper(File[] files){
+
+    private void recursiveScanDirectoriesAndFiles(File[] files){
         if(files == null) return;
         for(File file : files){
             if(file.isDirectory()){
-                helper(file.listFiles());
+                recursiveScanDirectoriesAndFiles(file.listFiles());
             }
             else if(file.isFile()){
                 if(file.getName().endsWith(".java")){
@@ -55,30 +57,60 @@ public class IocContainer {
 
     private void createBeans() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         for (Class<?> clazz : classes) {
-            List<Object> dependencies = new ArrayList<>();
-            for (Field field : clazz.getDeclaredFields()) {
-                if (field.isAnnotationPresent(AutoConnect.class)) {
-                    dependencies.add(createBean(field.getType()));
+            if(!alreadyCreated.contains(clazz)) {
+                List<Object> dependencies = new ArrayList<>();
+                for (Field field : clazz.getDeclaredFields()) {
+                    if (field.isAnnotationPresent(AutoConnect.class)) {
+                        Object dependency;
+                        if ((dependency = findBeanIfExist(field.getType().getSimpleName())) == null) {
+                            dependency = createDependencyBean(field.getType());
+                            beans.add(dependency);
+                        }
+                        dependencies.add(dependency);
+                        alreadyCreated.add(dependency.getClass());
+                    }
                 }
-            }
-            if (!dependencies.isEmpty()) {
-                Class<?>[] parameterTypes = dependencies.stream().map(Object::getClass).toArray(Class<?>[]::new);
-                beans.add(clazz.getConstructor(parameterTypes).newInstance(dependencies.toArray()));
+                if (!dependencies.isEmpty()) {
+                    Class<?>[] parameterTypes = dependencies.stream().map(Object::getClass).toArray(Class<?>[]::new);
+                    beans.add(createBean(clazz, parameterTypes, dependencies));
+                } else if (checkIfDefaultConstructorExists(clazz)) {
+                   beans.add(clazz.getConstructor().newInstance());
+                }
+                alreadyCreated.add(clazz);
             }
         }
     }
 
+    private Object createBean(Class<?> clazz, Class<?>[] parameterTypes, List<Object> dependencies){
+        try {
+            if (checkIfConstructorWithParametersExists(parameterTypes, clazz)) {
+                return clazz.getConstructor(parameterTypes).newInstance(dependencies.toArray());
+            }
+            else if(checkIfDefaultConstructorExists(clazz)
+                    && areSettersExist(parameterTypes,clazz)){
+                Object obj = clazz.getConstructor().newInstance();
+                injectDependency(dependencies,obj);
+                return obj;
+            }
+            else{
+                throw new RuntimeException(clazz.getSimpleName()+" doesn't has a default constructor or set method");
+            }
+        }
+        catch (InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-    private Object createBean(Class<?> clazz) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private Object createDependencyBean(Class<?> clazz) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         List<Object> dependencies = new ArrayList<>();
         for (Field field : clazz.getDeclaredFields()) {
             if (field.isAnnotationPresent(AutoConnect.class)) {
-                dependencies.add(createBean((field.getType())));
+                dependencies.add(createDependencyBean((field.getType())));
             }
         }
         if (!dependencies.isEmpty()) {
             Class<?>[] parameterTypes = dependencies.stream().map(Object::getClass).toArray(Class<?>[]::new);
-            return clazz.getConstructor(parameterTypes).newInstance(dependencies.toArray());
+            return createBean(clazz,parameterTypes,dependencies);
         }
         else{
             if(checkIfDefaultConstructorExists(clazz)){
@@ -88,7 +120,50 @@ public class IocContainer {
         }
     }
 
-    public boolean checkIfDefaultConstructorExists(Class<?> clazz){
+    private Object findBeanIfExist(String name){
+        try{
+            return findBean(name);
+        }
+        catch (Throwable ignored){
+            return null;
+        }
+    }
+
+    private boolean checkIfConstructorWithParametersExists(Class<?>[] parameterTypes,Class<?> clazz){
+        try{
+            clazz.getConstructor(parameterTypes);
+            return true;
+        }
+        catch (NoSuchMethodException ignored){
+            return false;
+        }
+    }
+
+    private boolean injectDependency(List<Object> dependencies, Object obj){
+        try{
+            for(Object dependency: dependencies){
+                obj.getClass().getDeclaredMethod("set"+dependency.getClass().getSimpleName(),dependency.getClass()).invoke(obj,dependency);
+            }
+            return true;
+        }
+        catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ignored){
+            return false;
+        }
+    }
+
+    private boolean areSettersExist(Class<?>[] parameterTypes,Class<?> clazz){
+        try{
+            for(Class<?> parameter: parameterTypes){
+                clazz.getDeclaredMethod("set"+parameter.getSimpleName(),parameter);
+            }
+            return true;
+        }
+        catch (NoSuchMethodException ignored){
+            return false;
+        }
+    }
+
+    private boolean checkIfDefaultConstructorExists(Class<?> clazz){
         for(Constructor<?> constructor : clazz.getConstructors()){
             if(constructor.getParameterCount() == 0){
                 return true;
@@ -97,10 +172,16 @@ public class IocContainer {
         return false;
     }
 
-    public <T> T getBean(String name, Class<T> clazz) throws Throwable {
-        Object object = beans.stream().filter(obj->obj.getClass().getSimpleName().equals(name)).findAny().orElseThrow((Supplier<Throwable>) () -> new RuntimeException("Bean doesn't exist"));
-        if(clazz.isInstance(object)){
-            return (T) object;
+    private Object findBean(String name) throws Throwable {
+        return beans.stream().filter(obj->obj.getClass().getSimpleName().equals(name))
+                .findAny()
+                .orElseThrow((Supplier<Throwable>) () -> new RuntimeException(name+" bean doesn't exist"));
+    }
+
+    public <T> T getBean(String name, Class<T> classToCast) throws Throwable {
+        Object bean = findBean(name);
+        if(classToCast.isInstance(bean)){
+            return (T) bean;
         }
         else{
             throw new RuntimeException("Unexpected exception");
@@ -110,5 +191,6 @@ public class IocContainer {
     public void close(){
         beans.clear();
         classes.clear();
+        alreadyCreated.clear();
     }
 }
