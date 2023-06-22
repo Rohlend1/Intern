@@ -3,6 +3,7 @@ package models;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+
 public class Review {
 
     private int id;
@@ -13,18 +14,18 @@ public class Review {
 
     private LocalDateTime updatedAt;
 
-    private User user;
+    private User owner;
 
     private Comment comment;
 
     public Review() {
     }
 
-    public Review(String content, LocalDateTime createdAt, LocalDateTime updatedAt, User user, Comment comment) {
+    public Review(String content, LocalDateTime createdAt, LocalDateTime updatedAt, User owner, Comment comment) {
         this.content = content;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.user = user;
+        this.owner = owner;
         this.comment = comment;
     }
 
@@ -44,12 +45,12 @@ public class Review {
         this.content = content;
     }
 
-    public User getUser() {
-        return user;
+    public User getOwner() {
+        return owner;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public Comment getComment() {
@@ -81,12 +82,12 @@ public class Review {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Review review = (Review) o;
-        return id == review.id && Objects.equals(content, review.content) && Objects.equals(createdAt, review.createdAt) && Objects.equals(updatedAt, review.updatedAt) && Objects.equals(user, review.user) && Objects.equals(comment, review.comment);
+        return id == review.id && Objects.equals(content, review.content) && Objects.equals(createdAt, review.createdAt) && Objects.equals(updatedAt, review.updatedAt) && Objects.equals(owner, review.owner) && Objects.equals(comment, review.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, content, createdAt, updatedAt, user, comment);
+        return Objects.hash(id, content, createdAt, updatedAt, owner, comment);
     }
 
     @Override
@@ -96,7 +97,7 @@ public class Review {
                 ", content='" + content + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
-                ", user=" + user +
+                ", user=" + owner +
                 ", comment=" + comment +
                 '}';
     }

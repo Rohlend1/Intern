@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+                                     http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
+                 version="2.2">
+
+    <entity name="Review" class="models.Review">
+        <table name="Review"/>
+
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="content">
+                <column name="content"/>
+            </basic>
+            <basic name="createdAt">
+                <column name="created_at"/>
+            </basic>
+            <basic name="updatedAt">
+                <column name="updated_at"/>
+            </basic>
+            <many-to-one name="owner" fetch="EAGER">
+                <join-column name="user_id"/>
+            </many-to-one>
+            <one-to-one name="comment" fetch="EAGER">
+                <join-column name="comment_id"/>
+            </one-to-one>
+        </attributes>
+    </entity>
+
+</entity-mappings>

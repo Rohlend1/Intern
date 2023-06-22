@@ -1,6 +1,8 @@
 package models;
 
+import java.util.List;
 import java.util.Objects;
+
 
 public class User {
 
@@ -8,8 +10,14 @@ public class User {
 
     private String username;
 
-    public User(String username) {
+    private List<Comment> comments;
+
+    private List<Review> reviews;
+
+    public User(String username, List<Comment> comments, List<Review> reviews) {
         this.username = username;
+        this.comments = comments;
+        this.reviews = reviews;
     }
 
     public User() {
@@ -31,17 +39,42 @@ public class User {
         this.username = username;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         User user = (User) o;
-        return id == user.id && Objects.equals(username, user.username);
+
+        if (id != user.id) return false;
+        if (!Objects.equals(username, user.username)) return false;
+        if (!Objects.equals(comments, user.comments)) return false;
+        return Objects.equals(reviews, user.reviews);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username);
+        int result = id;
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (comments != null ? comments.hashCode() : 0);
+        result = 31 * result + (reviews != null ? reviews.hashCode() : 0);
+        return result;
     }
 
     @Override

@@ -15,7 +15,7 @@ public class Comment {
 
     private User owner;
 
-    private Comment replies;
+    private Comment reply;
 
     private Review review;
 
@@ -23,13 +23,13 @@ public class Comment {
 
     }
 
-    public Comment(String description, LocalDateTime createdAt, LocalDateTime updatedAt, Comment replies, User owner, Review review) {
+    public Comment(String description, LocalDateTime createdAt, LocalDateTime updatedAt, User owner, Review review, Comment reply) {
         this.description = description;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.replies = replies;
         this.owner = owner;
         this.review = review;
+        this.reply = reply;
     }
 
     public int getId() {
@@ -80,12 +80,12 @@ public class Comment {
         this.owner = owner;
     }
 
-    public Comment getReplies() {
-        return replies;
+    public Comment getReply() {
+        return reply;
     }
 
-    public void setReplies(Comment replies) {
-        this.replies = replies;
+    public void setReply(Comment reply) {
+        this.reply = reply;
     }
 
     @Override
@@ -93,12 +93,12 @@ public class Comment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Comment comment = (Comment) o;
-        return id == comment.id && Objects.equals(description, comment.description) && Objects.equals(createdAt, comment.createdAt) && Objects.equals(updatedAt, comment.updatedAt) && Objects.equals(owner, comment.owner) && Objects.equals(replies, comment.replies) && Objects.equals(review, comment.review);
+        return id == comment.id && Objects.equals(description, comment.description) && Objects.equals(createdAt, comment.createdAt) && Objects.equals(updatedAt, comment.updatedAt) && Objects.equals(owner, comment.owner) && Objects.equals(reply, comment.reply) && Objects.equals(review, comment.review);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, description, createdAt, updatedAt, owner, replies, review);
+        return Objects.hash(id, description, createdAt, updatedAt, owner, reply, review);
     }
 
     @Override
@@ -109,7 +109,6 @@ public class Comment {
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", owner=" + owner +
-                ", replies=" + replies +
                 '}';
     }
 }

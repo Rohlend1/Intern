@@ -20,16 +20,19 @@ public class Movie {
 
     private int boxOffice;
 
+    private List<Genre> genres;
+
     public Movie() {
     }
 
-    public Movie(String title, List<Actor> actors, LocalDate dateOfRelease, FilmCompany filmCompany, int duration, int boxOffice) {
+    public Movie(String title, List<Actor> actors, LocalDate dateOfRelease, FilmCompany filmCompany, int duration, int boxOffice, List<Genre> genres) {
         this.title = title;
         this.actors = actors;
         this.dateOfRelease = dateOfRelease;
         this.filmCompany = filmCompany;
         this.duration = duration;
         this.boxOffice = boxOffice;
+        this.genres = genres;
     }
 
     public FilmCompany getFilmCompany() {
@@ -88,17 +91,25 @@ public class Movie {
         this.boxOffice = boxOffice;
     }
 
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Movie movie = (Movie) o;
-        return id == movie.id && duration == movie.duration && boxOffice == movie.boxOffice && Objects.equals(title, movie.title) && Objects.equals(actors, movie.actors) && Objects.equals(dateOfRelease, movie.dateOfRelease) && Objects.equals(filmCompany, movie.filmCompany);
+        return id == movie.id && duration == movie.duration && boxOffice == movie.boxOffice && Objects.equals(title, movie.title) && Objects.equals(actors, movie.actors) && Objects.equals(dateOfRelease, movie.dateOfRelease) && Objects.equals(filmCompany, movie.filmCompany) && Objects.equals(genres, movie.genres);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, actors, dateOfRelease, filmCompany, duration, boxOffice);
+        return Objects.hash(id, title, actors, dateOfRelease, filmCompany, duration, boxOffice, genres);
     }
 
     @Override
