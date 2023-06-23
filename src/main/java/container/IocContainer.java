@@ -8,6 +8,7 @@ import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Parameter;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Supplier;
@@ -83,8 +84,22 @@ public class IocContainer {
 
     private Object createBean(Class<?> clazz, Class<?>[] parameterTypes, List<Object> dependencies){
         try {
-            if (checkIfConstructorWithParametersExists(parameterTypes, clazz)) {
-                return clazz.getConstructor(parameterTypes).newInstance(dependencies.toArray());
+            Constructor<?> constructor = findConstructorWithParameters(parameterTypes,clazz);
+            if (constructor != null) {
+                Class<?>[] constructorParameterTypes = constructor.getParameterTypes();
+
+                Object[] arguments = new Object[constructorParameterTypes.length];
+
+                for (int i = 0; i < constructorParameterTypes.length; i++) {
+
+                    for (int j = 0; j < parameterTypes.length; j++) {
+                        if (constructorParameterTypes[i].isAssignableFrom(parameterTypes[j])) {
+                            arguments[i] = dependencies.get(j);
+                            break;
+                        }
+                    }
+                }
+                return constructor.newInstance(arguments);
             }
             else if(checkIfDefaultConstructorExists(clazz)
                     && areSettersExist(parameterTypes,clazz)){
@@ -129,14 +144,14 @@ public class IocContainer {
         }
     }
 
-    private boolean checkIfConstructorWithParametersExists(Class<?>[] parameterTypes,Class<?> clazz){
-        try{
-            clazz.getConstructor(parameterTypes);
-            return true;
+    private Constructor<?> findConstructorWithParameters(Class<?>[] parameterTypes,Class<?> clazz){
+        Set<Class<?>> parameters = new HashSet<>(Arrays.stream(parameterTypes).toList());
+        for(Constructor<?> constructor : clazz.getConstructors()){
+            if(parameters.containsAll(Arrays.stream(constructor.getParameters()).map(Parameter::getType).toList())){
+                return constructor;
+            }
         }
-        catch (NoSuchMethodException ignored){
-            return false;
-        }
+        return null;
     }
 
     private boolean injectDependency(List<Object> dependencies, Object obj){
