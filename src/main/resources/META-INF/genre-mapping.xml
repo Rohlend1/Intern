@@ -5,7 +5,7 @@
                                      http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
                  version="2.2">
 
-    <entity name="Genre" class="models.Genre">
+    <entity name="Genre" class="com.senlainc.models.Genre">
         <table name="genre"/>
 
         <attributes>
@@ -15,7 +15,7 @@
             <basic name="name">
                 <column name="name"/>
             </basic>
-            <many-to-many name="movies" target-entity="models.Movie">
+            <many-to-many name="movies" target-entity="com.senlainc.models.Movie">
                 <join-table name="genre_movie">
                     <join-column name="genre_id" referenced-column-name="id"/>
                     <inverse-join-column name="movie_id" referenced-column-name="id"/>

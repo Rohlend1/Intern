@@ -5,7 +5,7 @@
                                      http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
                  version="2.2">
 
-    <entity class="models.Actor" name="Actor">
+    <entity class="com.senlainc.models.Actor" name="Actor">
         <table name="Actor"/>
         <attributes>
             <id name="id">
@@ -29,7 +29,7 @@
             <basic name="age">
                 <column name="age"/>
             </basic>
-            <many-to-many name="movies" target-entity="models.Movie">
+            <many-to-many name="movies" target-entity="com.senlainc.models.Movie">
                 <join-table name="Actor_Movie">
                     <join-column name="actor_id" referenced-column-name="id"/>
                     <inverse-join-column name="movie_id" referenced-column-name="id"/>

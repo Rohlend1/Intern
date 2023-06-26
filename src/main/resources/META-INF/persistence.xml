@@ -14,13 +14,13 @@
         <mapping-file>META-INF/user-mapping.xml</mapping-file>
         <mapping-file>META-INF/genre-mapping.xml</mapping-file>
 
-        <class>models.Movie</class>
-        <class>models.Actor</class>
-        <class>models.FilmCompany</class>
-        <class>models.Comment</class>
-        <class>models.Review</class>
-        <class>models.User</class>
-        <class>models.Genre</class>
+        <class>com.senlainc.models.Movie</class>
+        <class>com.senlainc.models.Actor</class>
+        <class>com.senlainc.models.FilmCompany</class>
+        <class>com.senlainc.models.Comment</class>
+        <class>com.senlainc.models.Review</class>
+        <class>com.senlainc.models.User</class>
+        <class>com.senlainc.models.Genre</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/movie_db"/>

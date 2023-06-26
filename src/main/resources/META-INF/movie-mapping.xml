@@ -5,7 +5,7 @@
                                      http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
                  version="2.2">
 
-    <entity class="models.Movie" name="Movie">
+    <entity class="com.senlainc.models.Movie" name="Movie">
         <table name="Movie"/>
         <attributes>
             <id name="id">
@@ -23,10 +23,10 @@
             <basic name="boxOffice">
                 <column name="box_office"/>
             </basic>
-            <many-to-one name="filmCompany" target-entity="models.FilmCompany" fetch="EAGER">
+            <many-to-one name="filmCompany" target-entity="com.senlainc.models.FilmCompany" fetch="EAGER">
                 <join-column name="film_company_id" referenced-column-name="id"/>
             </many-to-one>
-            <many-to-many name="actors" target-entity="models.Actor">
+            <many-to-many name="actors" target-entity="com.senlainc.models.Actor">
                 <join-table name="Actor_Movie">
                     <join-column name="movie_id" referenced-column-name="id"/>
                     <inverse-join-column name="actor_id" referenced-column-name="id"/>
@@ -35,7 +35,7 @@
                     <cascade-all/>
                 </cascade>
             </many-to-many>
-            <many-to-many name="genres" target-entity="models.Genre">
+            <many-to-many name="genres" target-entity="com.senlainc.models.Genre">
                 <join-table name="genre_movie">
                     <join-column name="movie_id" referenced-column-name="id"/>
                     <inverse-join-column name="genre_id" referenced-column-name="id"/>

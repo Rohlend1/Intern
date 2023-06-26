@@ -5,7 +5,7 @@
                                      http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
                  version="2.2">
 
-    <entity name="Review" class="models.Review">
+    <entity name="Review" class="com.senlainc.models.Review">
         <table name="Review"/>
 
         <attributes>

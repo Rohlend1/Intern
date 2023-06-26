@@ -5,7 +5,7 @@
                                      http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
                  version="2.2">
 
-    <entity name="User" class="models.User">
+    <entity name="User" class="com.senlainc.models.User">
         <table name="users"/>
         <attributes>
             <id name="id">
@@ -14,13 +14,13 @@
             <basic name="username">
                 <column name="username"/>
             </basic>
-            <one-to-many name="comments" target-entity="models.Comment" fetch="EAGER">
+            <one-to-many name="comments" target-entity="com.senlainc.models.Comment" fetch="EAGER">
                 <join-column name="user_id" referenced-column-name="id"/>
                 <cascade>
                     <cascade-all/>
                 </cascade>
             </one-to-many>
-            <one-to-many name="reviews" target-entity="models.Review" fetch="EAGER">
+            <one-to-many name="reviews" target-entity="com.senlainc.models.Review" fetch="EAGER">
                 <join-column name="user_id" referenced-column-name="id"/>
                 <cascade>
                     <cascade-all/>

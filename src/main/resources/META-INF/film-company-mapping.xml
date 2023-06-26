@@ -5,7 +5,7 @@
                                      http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
                  version="2.2">
 
-    <entity name="FilmCompany" class="models.FilmCompany">
+    <entity name="FilmCompany" class="com.senlainc.models.FilmCompany">
         <table name="FilmCompany"/>
         <attributes>
             <id name="id">
@@ -17,7 +17,7 @@
                 <column name="date_of_foundation"/>
             </basic>
 
-            <one-to-many name="movies" target-entity="models.Movie">
+            <one-to-many name="movies" target-entity="com.senlainc.models.Movie">
                 <join-column name="film_company_id" referenced-column-name="id"/>
             </one-to-many>
         </attributes>
