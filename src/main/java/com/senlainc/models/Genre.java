@@ -20,8 +20,7 @@ public class Genre {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(joinColumns = @JoinColumn(name = "genre_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"))
+    @ManyToMany(mappedBy = "genres")
     private List<Movie> movies;
 
     public Genre(String name, List<Movie> movies) {

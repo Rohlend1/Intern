@@ -22,20 +22,18 @@ public class Application {
         EntityManager em = emf.createEntityManager();
 
         Actor actor = new Actor("Paul","Walker", Gender.MALE,"USA", LocalDate.now(),40,new ArrayList<>());
-        Comment comment = new Comment("Wow", LocalDateTime.now(),LocalDateTime.now(),null,null,null);
-        Review review = new Review("Super",LocalDateTime.now(),LocalDateTime.now(),null,comment);
-        User user = new User("HH",new ArrayList<>(),new ArrayList<>());
+        User user = new User("HH", new ArrayList<>());
+        Comment comment = new Comment("Wow", LocalDateTime.now(),LocalDateTime.now(),user,null,null);
+        Review review = new Review("Super",LocalDateTime.now(),LocalDateTime.now(),null);
         FilmCompany filmCompany = new FilmCompany("WB",new ArrayList<>(),LocalDate.now());
         Movie movie = new Movie("Fast and furious",new ArrayList<>(),LocalDate.now(),filmCompany,120,2_000_000,new ArrayList<>());
         Genre genre = new Genre("Action",new ArrayList<>());
-
+        Comment reply = new Comment("a",LocalDateTime.now(),LocalDateTime.now(),user,null,null);
         actor.getMovies().add(movie);
         review.setOwner(user);
-        comment.setOwner(user);
-        comment.setReply(comment);
+        comment.setReplyTo(reply);
         comment.setReview(review);
         user.getReviews().add(review);
-        user.getComments().add(comment);
         filmCompany.getMovies().add(movie);
         movie.getGenres().add(genre);
         movie.getActors().add(actor);
@@ -51,6 +49,5 @@ public class Application {
         em.persist(genre);
         em.persist(movie);
 
-        em.getTransaction().commit();
     }
 }

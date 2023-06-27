@@ -22,14 +22,10 @@ public class User {
     private String username;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    private List<Comment> comments;
-
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
-    public User(String username, List<Comment> comments, List<Review> reviews) {
+    public User(String username, List<Review> reviews) {
         this.username = username;
-        this.comments = comments;
         this.reviews = reviews;
     }
 }

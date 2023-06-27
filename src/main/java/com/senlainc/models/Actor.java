@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "Actor")
 @Data
-@NoArgsConstructor()
+@NoArgsConstructor
 public class Actor {
 
     @Id
@@ -37,7 +37,7 @@ public class Actor {
     @Column(name = "age")
     private int age;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "actor_movie", joinColumns = @JoinColumn(name = "actor_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"))
     private List<Movie> movies;
 

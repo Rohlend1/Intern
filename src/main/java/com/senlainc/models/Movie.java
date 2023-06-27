@@ -27,7 +27,7 @@ public class Movie {
     @Column(name = "date_of_release")
     private LocalDate dateOfRelease;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "film_company",referencedColumnName = "company_id")
     private FilmCompany filmCompany;
 
@@ -37,7 +37,8 @@ public class Movie {
     @Column(name = "box_office")
     private int boxOffice;
 
-    @ManyToMany(mappedBy = "movies")
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "movie_genre", joinColumns = @JoinColumn(name = "movie_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private List<Genre> genres;
 
     public Movie(String title, List<Actor> actors, LocalDate dateOfRelease, FilmCompany filmCompany, int duration, int boxOffice, List<Genre> genres) {

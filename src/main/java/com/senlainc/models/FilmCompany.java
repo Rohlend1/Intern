@@ -22,7 +22,7 @@ public class FilmCompany {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "filmCompany",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "filmCompany",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH, CascadeType.REMOVE})
     private List<Movie> movies;
 
     @Column(name = "date_of_foundation")
