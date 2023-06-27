@@ -1,32 +1,44 @@
 package com.senlainc.models;
 
 import com.senlainc.util.Gender;
+import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 
+@Entity
+@Table(name = "Actor")
+@Data
 public class Actor {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "actor_id")
     private int id;
 
+    @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "gender")
     private Gender gender;
 
+    @Column(name = "country")
     private String country;
 
+    @Column(name = "birth_date")
     private LocalDate birthDate;
 
+    @Column(name = "age")
     private int age;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "actor_movie", joinColumns = @JoinColumn(name = "actor_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"))
     private List<Movie> movies;
-
-    public Actor() {
-    }
 
     public Actor(String firstName, String lastName, Gender gender, String country, LocalDate birthDate, int age, List<Movie> movies) {
         this.firstName = firstName;
@@ -36,95 +48,5 @@ public class Actor {
         this.birthDate = birthDate;
         this.age = age;
         this.movies = movies;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public List<Movie> getMovies() {
-        return movies;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setMovies(List<Movie> movies) {
-        this.movies = movies;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Actor actor = (Actor) o;
-        return id == actor.id && age == actor.age && Objects.equals(firstName, actor.firstName) && Objects.equals(lastName, actor.lastName) && gender == actor.gender && Objects.equals(country, actor.country) && Objects.equals(birthDate, actor.birthDate) && Objects.equals(movies, actor.movies);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, gender, country, birthDate, age, movies);
-    }
-
-    @Override
-    public String toString() {
-        return "Actor{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", gender=" + gender +
-                ", country='" + country + '\'' +
-                ", birthDate=" + birthDate +
-                ", age=" + age +
-                '}';
     }
 }

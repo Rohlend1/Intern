@@ -6,14 +6,6 @@
              version="2.0">
     <persistence-unit name="MovieProject">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <mapping-file>META-INF/actor-mapping.xml</mapping-file>
-        <mapping-file>META-INF/movie-mapping.xml</mapping-file>
-        <mapping-file>META-INF/film-company-mapping.xml</mapping-file>
-        <mapping-file>META-INF/comment-mapping.xml</mapping-file>
-        <mapping-file>META-INF/review-mapping.xml</mapping-file>
-        <mapping-file>META-INF/user-mapping.xml</mapping-file>
-        <mapping-file>META-INF/genre-mapping.xml</mapping-file>
-
         <class>com.senlainc.models.Movie</class>
         <class>com.senlainc.models.Actor</class>
         <class>com.senlainc.models.FilmCompany</class>
