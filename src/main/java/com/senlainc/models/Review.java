@@ -1,6 +1,7 @@
 package com.senlainc.models;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "Review")
 @Data
+@NoArgsConstructor
 public class Review {
 
     @Id

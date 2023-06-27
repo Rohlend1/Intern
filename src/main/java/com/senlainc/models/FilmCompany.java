@@ -2,6 +2,7 @@ package com.senlainc.models;
 
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "film_company")
 @Data
+@NoArgsConstructor
 public class FilmCompany {
 
     @Id
@@ -20,7 +22,7 @@ public class FilmCompany {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "filmCompany",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "filmCompany",cascade = CascadeType.ALL)
     private List<Movie> movies;
 
     @Column(name = "date_of_foundation")

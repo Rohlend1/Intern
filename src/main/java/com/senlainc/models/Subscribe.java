@@ -1,8 +1,10 @@
 package com.senlainc.models;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class Subscribe {
 
     private int id;

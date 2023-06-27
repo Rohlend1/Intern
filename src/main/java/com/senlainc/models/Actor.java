@@ -11,6 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "Actor")
 @Data
+@NoArgsConstructor()
 public class Actor {
 
     @Id
