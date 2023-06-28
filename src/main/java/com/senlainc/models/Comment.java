@@ -38,7 +38,7 @@ public class Comment {
     @JoinColumn(name = "reply_to",referencedColumnName = "comment_id")
     private Comment replyTo;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "review",referencedColumnName = "review_id")
     private Review review;
 
