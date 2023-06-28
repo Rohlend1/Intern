@@ -2,7 +2,7 @@ package com.senlainc;
 
 import com.senlainc.config.SpringConfig;
 import com.senlainc.models.*;
-import com.senlainc.util.SubscribeId;
+import com.senlainc.models.SubscribeId;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import com.senlainc.util.Gender;
 

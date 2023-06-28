@@ -2,7 +2,7 @@ package com.senlainc.repositories;
 
 import com.senlainc.errors.ModelNotFoundException;
 import com.senlainc.models.Subscribe;
-import com.senlainc.util.SubscribeId;
+import com.senlainc.models.SubscribeId;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

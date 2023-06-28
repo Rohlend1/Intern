@@ -1,4 +1,4 @@
-package com.senlainc.util;
+package com.senlainc.models;
 
 import com.senlainc.models.User;
 import lombok.Data;

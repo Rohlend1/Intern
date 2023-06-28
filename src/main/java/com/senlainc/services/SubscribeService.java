@@ -1,7 +1,7 @@
 package com.senlainc.services;
 
 import com.senlainc.models.Subscribe;
-import com.senlainc.util.SubscribeId;
+import com.senlainc.models.SubscribeId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.senlainc.repositories.SubscribeRepository;

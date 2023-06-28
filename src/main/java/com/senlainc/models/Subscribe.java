@@ -1,6 +1,5 @@
 package com.senlainc.models;
 
-import com.senlainc.util.SubscribeId;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
