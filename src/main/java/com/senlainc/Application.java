@@ -25,12 +25,9 @@ public class Application {
         Actor actor = new Actor("Paul","Walker", Gender.MALE,"USA", LocalDate.now(),40,new ArrayList<>());
         User user = new User("HH", new ArrayList<>());
         User user1 = new User("AA", new ArrayList<>());
-
         Subscribe subscribe = new Subscribe();
         SubscribeId subscribeId = new SubscribeId();
-        subscribeId.setSubscribedTo(user1);
-        subscribeId.setSubscriber(user);
-        subscribe.setId(subscribeId);
+
         Comment comment = new Comment("Wow", LocalDateTime.now(),LocalDateTime.now(),user,null,null);
         Review review = new Review("Super",LocalDateTime.now(),LocalDateTime.now(),null);
         FilmCompany filmCompany = new FilmCompany("WB",new ArrayList<>(),LocalDate.now());
@@ -46,6 +43,7 @@ public class Application {
         movie.getGenres().add(genre);
         movie.getActors().add(actor);
         genre.getMovies().add(movie);
+        subscribe.setId(subscribeId);
 
         em.getTransaction().begin();
 
@@ -57,9 +55,10 @@ public class Application {
         em.persist(filmCompany);
         em.persist(genre);
         em.persist(movie);
+        subscribeId.setSubscribedTo(user1.getId());
+        subscribeId.setSubscriber(user.getId());
         em.persist(subscribe);
 
         em.getTransaction().commit();
-
     }
 }

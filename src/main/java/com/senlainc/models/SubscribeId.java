@@ -1,6 +1,5 @@
 package com.senlainc.models;
 
-import com.senlainc.models.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,11 +11,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class SubscribeId implements Serializable {
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE,CascadeType.REFRESH})
-    @JoinColumn(name = "subscriber",referencedColumnName = "user_id")
-    private User subscriber;
+    @Column(name = "subscriber")
+    private Integer subscriber;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE,CascadeType.REFRESH})
-    @JoinColumn(name = "subsribed_to", referencedColumnName = "user_id")
-    private User subscribedTo;
+    @Column(name = "subscribe_to")
+    private Integer subscribedTo;
 }

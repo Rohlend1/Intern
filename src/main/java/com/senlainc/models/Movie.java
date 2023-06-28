@@ -16,7 +16,7 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "movie_id")
-    private int id;
+    private Integer id;
 
     @Column(name = "title")
     private String title;
@@ -35,7 +35,7 @@ public class Movie {
     private int duration;
 
     @Column(name = "box_office")
-    private int boxOffice;
+    private double boxOffice;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "movie_genre", joinColumns = @JoinColumn(name = "movie_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
