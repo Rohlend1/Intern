@@ -1,6 +1,7 @@
 package com.senlainc.services;
 
 import com.senlainc.models.Subscribe;
+import com.senlainc.util.SubscribeId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.senlainc.repositories.SubscribeRepository;
@@ -21,7 +22,7 @@ public class SubscribeService {
         return subscribeRepository.findAll();
     }
 
-    public Subscribe findById(int id){
+    public Subscribe findById(SubscribeId id){
         return subscribeRepository.findById(id);
     }
 
@@ -33,7 +34,7 @@ public class SubscribeService {
         subscribeRepository.delete(subscribe);
     }
 
-    public void update(int id, Subscribe subscribe){
+    public void update(SubscribeId id, Subscribe subscribe){
         subscribeRepository.delete(subscribeRepository.findById(id));
         subscribe.setId(id);
         subscribeRepository.save(subscribe);

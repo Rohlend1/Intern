@@ -1,21 +1,18 @@
 package com.senlainc.models;
 
+import com.senlainc.util.SubscribeId;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
+@Entity
 @Data
 @NoArgsConstructor
+@Table(name="subscribe")
 public class Subscribe {
 
-    private int id;
-
-    private User subscribedBy;
-
-    private User subscribedAt;
-
-
-    public Subscribe(User subscribedTo, User subscribedAt) {
-        this.subscribedBy = subscribedTo;
-        this.subscribedAt = subscribedAt;
-    }
+    @EmbeddedId
+    @Column(name = "subscribe_id")
+    private SubscribeId id;
 }

@@ -2,6 +2,7 @@ package com.senlainc;
 
 import com.senlainc.config.SpringConfig;
 import com.senlainc.models.*;
+import com.senlainc.util.SubscribeId;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import com.senlainc.util.Gender;
 
@@ -23,6 +24,13 @@ public class Application {
 
         Actor actor = new Actor("Paul","Walker", Gender.MALE,"USA", LocalDate.now(),40,new ArrayList<>());
         User user = new User("HH", new ArrayList<>());
+        User user1 = new User("AA", new ArrayList<>());
+
+        Subscribe subscribe = new Subscribe();
+        SubscribeId subscribeId = new SubscribeId();
+        subscribeId.setSubscribedTo(user1);
+        subscribeId.setSubscriber(user);
+        subscribe.setId(subscribeId);
         Comment comment = new Comment("Wow", LocalDateTime.now(),LocalDateTime.now(),user,null,null);
         Review review = new Review("Super",LocalDateTime.now(),LocalDateTime.now(),null);
         FilmCompany filmCompany = new FilmCompany("WB",new ArrayList<>(),LocalDate.now());
@@ -41,6 +49,7 @@ public class Application {
 
         em.getTransaction().begin();
 
+        em.persist(user1);
         em.persist(actor);
         em.persist(review);
         em.persist(comment);
@@ -48,6 +57,9 @@ public class Application {
         em.persist(filmCompany);
         em.persist(genre);
         em.persist(movie);
+        em.persist(subscribe);
+
+        em.getTransaction().commit();
 
     }
 }
