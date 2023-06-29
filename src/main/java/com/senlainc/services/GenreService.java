@@ -1,9 +1,9 @@
 package com.senlainc.services;
 
 import com.senlainc.models.Genre;
+import com.senlainc.repositories.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.senlainc.repositories.GenreRepository;
 
 import java.util.List;
 
@@ -34,8 +34,20 @@ public class GenreService {
     }
 
     public void update(int id, Genre genre){
-        delete(genreRepository.findById(id));
+        genreRepository.delete(genreRepository.findById(id));
         genre.setId(id);
         genreRepository.save(genre);
+    }
+
+    public List<Genre> findGenreLike(char ch){
+        return genreRepository.findGenreLike(ch);
+    }
+
+    public Genre findMostPopularGenre(){
+        return genreRepository.findMostPopularGenre();
+    }
+
+    public List<Genre> findMoviesGreaterThanAndMoviesDurationGreaterThan(int amount, int duration){
+        return genreRepository.findMoviesGreaterThanAndMoviesDurationGreaterThan(amount,duration);
     }
 }

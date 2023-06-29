@@ -1,9 +1,9 @@
 package com.senlainc.services;
 
 import com.senlainc.models.FilmCompany;
+import com.senlainc.repositories.FilmCompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.senlainc.repositories.FilmCompanyRepository;
 
 import java.util.List;
 
@@ -37,5 +37,9 @@ public class FilmCompanyService {
         filmCompanyRepository.delete(filmCompanyRepository.findById(id));
         filmCompany.setId(id);
         filmCompanyRepository.save(filmCompany);
+    }
+
+    public FilmCompany findByName(String name){
+        return filmCompanyRepository.findByName(name);
     }
 }

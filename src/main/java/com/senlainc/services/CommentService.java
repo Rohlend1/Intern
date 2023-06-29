@@ -4,13 +4,10 @@ import com.senlainc.models.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.senlainc.repositories.CommentRepository;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true)
 public class CommentService {
 
     private final CommentRepository commentRepository;

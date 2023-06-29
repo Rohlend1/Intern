@@ -1,9 +1,10 @@
 package com.senlainc.services;
 
+import com.senlainc.models.FilmCompany;
 import com.senlainc.models.Movie;
+import com.senlainc.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.senlainc.repositories.MovieRepository;
 
 import java.util.List;
 
@@ -37,5 +38,21 @@ public class MovieService {
         movieRepository.delete(movieRepository.findById(id));
         movie.setId(id);
         movieRepository.save(movie);
+    }
+
+    public List<Movie> findDateOfReleaseBetween(int year1, int year2){
+        return movieRepository.findDateOfReleaseBetween(year1, year2);
+    }
+
+    public List<Movie> findFilmCompanyEqualsAndBoxOfficeGreaterThan(FilmCompany filmCompany, double millions){
+        return movieRepository.findFilmCompanyEqualsAndBoxOfficeGreaterThan(filmCompany, millions);
+    }
+
+    public List<Movie> findActorsLowerThan(long amount){
+        return movieRepository.findActorsLowerThan(amount);
+    }
+
+    public List<Movie> findAllPagination(int page, int moviesPerPage){
+        return movieRepository.findAllPagination(page,moviesPerPage);
     }
 }

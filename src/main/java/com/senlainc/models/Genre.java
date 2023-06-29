@@ -10,6 +10,7 @@ import java.util.List;
 @Table(name = "Genre")
 @Data
 @NoArgsConstructor
+@NamedQuery(name = "findGenreLike", query = "SELECT g FROM Genre g WHERE g.name LIKE :character")
 public class Genre {
 
     @Id

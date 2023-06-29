@@ -1,35 +1,44 @@
 package com.senlainc.repositories;
 
-import com.senlainc.errors.ModelNotFoundException;
 import com.senlainc.models.Subscribe;
 import com.senlainc.models.SubscribeId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 @Repository
+@Transactional
 public class SubscribeRepository {
 
-    private final List<Subscribe> subscribes = new ArrayList<>();
+    private final EntityManagerFactory entityManagerFactory;
 
+    private final EntityManager entityManager;
+
+    @Autowired
+    public SubscribeRepository(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+        entityManager = entityManagerFactory.createEntityManager();
+    }
+
+    @Transactional(readOnly = true)
     public List<Subscribe> findAll() {
-        return subscribes;
+        return entityManager.createQuery("SELECT m Subscribe Movie m", Subscribe.class).getResultList();
     }
 
     public void save(Subscribe subscribe) {
-        subscribes.add(subscribe);
+        entityManager.persist(subscribe);
     }
 
-    public Subscribe findOne(Subscribe subscribe){
-        return subscribes.stream().filter(a->a.equals(subscribe)).findAny().orElseThrow(ModelNotFoundException::new);
-    }
-
+    @Transactional(readOnly = true)
     public Subscribe findById(SubscribeId id){
-        return subscribes.stream().filter(a->a.getId().equals(id)).findAny().orElseThrow(ModelNotFoundException::new);
+        return entityManager.find(Subscribe.class,id);
     }
 
     public void delete(Subscribe subscribe){
-        subscribes.remove(subscribe);
+        entityManager.remove(subscribe);
     }
 }

@@ -1,9 +1,9 @@
 package com.senlainc.services;
 
 import com.senlainc.models.Review;
+import com.senlainc.repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.senlainc.repositories.ReviewRepository;
 
 import java.util.List;
 

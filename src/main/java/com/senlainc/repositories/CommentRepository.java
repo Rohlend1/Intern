@@ -13,29 +13,25 @@ import java.util.List;
 @Transactional
 public class CommentRepository {
 
-    @Autowired
     private final EntityManagerFactory entityManagerFactory;
 
     private final EntityManager entityManager;
 
+    @Autowired
     public CommentRepository(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
         entityManager = entityManagerFactory.createEntityManager();
     }
 
-
     @Transactional(readOnly = true)
     public List<Comment> findAll() {
-        return entityManager.createQuery("SELECT m FROM Comment m").getResultList();
+        return entityManager.createQuery("SELECT m FROM Comment m", Comment.class).getResultList();
     }
 
     public void save(Comment comment) {
         entityManager.persist(comment);
     }
 
-//    public Comment findOne(Comment comment){
-//        return comments.stream().filter(a->a.equals(comment)).findAny().orElseThrow(ModelNotFoundException::new);
-//    }
     @Transactional(readOnly = true)
     public Comment findById(int id){
         return entityManager.find(Comment.class,id);
@@ -44,5 +40,4 @@ public class CommentRepository {
     public void delete(Comment comment){
         entityManager.remove(comment);
     }
-
 }

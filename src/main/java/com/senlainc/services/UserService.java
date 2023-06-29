@@ -1,9 +1,9 @@
 package com.senlainc.services;
 
 import com.senlainc.models.User;
+import com.senlainc.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.senlainc.repositories.UserRepository;
 
 import java.util.List;
 

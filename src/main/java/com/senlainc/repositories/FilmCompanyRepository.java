@@ -1,34 +1,50 @@
 package com.senlainc.repositories;
 
-import com.senlainc.errors.ModelNotFoundException;
 import com.senlainc.models.FilmCompany;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 @Repository
+@Transactional
 public class FilmCompanyRepository {
 
-    private final List<FilmCompany> FilmCompanies = new ArrayList<>();
+    private final EntityManagerFactory entityManagerFactory;
 
+    private final EntityManager entityManager;
+
+    @Autowired
+    public FilmCompanyRepository(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+        entityManager = entityManagerFactory.createEntityManager();
+    }
+
+    @Transactional(readOnly = true)
     public List<FilmCompany> findAll() {
-        return FilmCompanies;
+        return entityManager.createQuery("SELECT m FROM FilmCompany m", FilmCompany.class).getResultList();
     }
 
     public void save(FilmCompany filmCompany) {
-        FilmCompanies.add(filmCompany);
+        entityManager.persist(filmCompany);
     }
 
-    public FilmCompany findOne(FilmCompany filmCompany){
-        return FilmCompanies.stream().filter(a->a.equals(filmCompany)).findAny().orElseThrow(ModelNotFoundException::new);
-    }
-
+    @Transactional(readOnly = true)
     public FilmCompany findById(int id){
-        return FilmCompanies.stream().filter(a->a.getId()==id).findAny().orElseThrow(ModelNotFoundException::new);
+        return entityManager.find(FilmCompany.class,id);
     }
 
     public void delete(FilmCompany filmCompany){
-        FilmCompanies.remove(filmCompany);
+        entityManager.remove(filmCompany);
+    }
+
+    @Transactional(readOnly = true)
+    public FilmCompany findByName(String name){
+        return entityManager.createQuery("SELECT fc FROM FilmCompany fc WHERE name = :name", FilmCompany.class)
+                .setParameter("name",name)
+                .getSingleResult();
     }
 }

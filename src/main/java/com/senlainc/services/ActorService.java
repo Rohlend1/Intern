@@ -1,18 +1,18 @@
 package com.senlainc.services;
 
 import com.senlainc.models.Actor;
+import com.senlainc.repositories.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.senlainc.repositories.ActorRepository;
 
 import java.util.List;
 
 @Service
 public class ActorService {
 
-    @Autowired
     private final ActorRepository actorRepository;
 
+    @Autowired
     public ActorService(ActorRepository actorRepository) {
         this.actorRepository = actorRepository;
     }

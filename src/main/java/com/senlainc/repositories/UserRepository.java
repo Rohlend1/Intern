@@ -1,34 +1,43 @@
 package com.senlainc.repositories;
 
-import com.senlainc.errors.ModelNotFoundException;
 import com.senlainc.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 @Repository
+@Transactional
 public class UserRepository {
 
-    private final List<User> users = new ArrayList<>();
+    private final EntityManagerFactory entityManagerFactory;
 
+    private final EntityManager entityManager;
+
+    @Autowired
+    public UserRepository(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+        entityManager = entityManagerFactory.createEntityManager();
+    }
+
+    @Transactional(readOnly = true)
     public List<User> findAll() {
-        return users;
+        return entityManager.createQuery("SELECT m User Movie m", User.class).getResultList();
     }
 
     public void save(User user) {
-        users.add(user);
+        entityManager.persist(user);
     }
 
-    public User findOne(User user){
-        return users.stream().filter(a->a.equals(user)).findAny().orElseThrow(ModelNotFoundException::new);
-    }
-
+    @Transactional(readOnly = true)
     public User findById(int id){
-        return users.stream().filter(a->a.getId()==id).findAny().orElseThrow(ModelNotFoundException::new);
+        return entityManager.find(User.class,id);
     }
 
     public void delete(User user){
-        users.remove(user);
+        entityManager.remove(user);
     }
 }

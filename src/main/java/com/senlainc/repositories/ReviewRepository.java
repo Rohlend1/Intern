@@ -1,34 +1,43 @@
 package com.senlainc.repositories;
 
-import com.senlainc.errors.ModelNotFoundException;
 import com.senlainc.models.Review;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 @Repository
+@Transactional
 public class ReviewRepository {
 
-    private final List<Review> reviews = new ArrayList<>();
+    private final EntityManagerFactory entityManagerFactory;
 
+    private final EntityManager entityManager;
+
+    @Autowired
+    public ReviewRepository(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+        entityManager = entityManagerFactory.createEntityManager();
+    }
+
+    @Transactional(readOnly = true)
     public List<Review> findAll() {
-        return reviews;
+        return entityManager.createQuery("SELECT m FROM Review m", Review.class).getResultList();
     }
 
     public void save(Review review) {
-        reviews.add(review);
+        entityManager.persist(review);
     }
 
-    public Review findOne(Review review){
-        return reviews.stream().filter(a->a.equals(review)).findAny().orElseThrow(ModelNotFoundException::new);
-    }
-
+    @Transactional(readOnly = true)
     public Review findById(int id){
-        return reviews.stream().filter(a->a.getId()==id).findAny().orElseThrow(ModelNotFoundException::new);
+        return entityManager.find(Review.class,id);
     }
 
     public void delete(Review review){
-        reviews.remove(review);
+        entityManager.remove(review);
     }
 }
