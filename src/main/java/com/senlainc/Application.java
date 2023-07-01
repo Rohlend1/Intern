@@ -15,7 +15,7 @@ public class Application {
         ReviewService reviewService = context.getBean(ReviewService.class);
         UserService userService = context.getBean(UserService.class);
 
-        System.out.println(userService.findTotalUsersWith());
+        System.out.println(userService.findTotalUsersWithNoEditedReviews());
 
         System.out.println(userService.findByUsernameMatchingToRegexp("[A]+"));
 

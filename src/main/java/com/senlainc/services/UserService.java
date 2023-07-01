@@ -39,8 +39,8 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public Long findTotalUsersWith(){
-        return userRepository.findTotalUsersWith();
+    public Long findTotalUsersWithNoEditedReviews(){
+        return userRepository.findTotalUsersWithNoEditedReviews();
     }
 
     public List<User> findByUsernameMatchingToRegexp(String regex){
@@ -49,5 +49,9 @@ public class UserService {
 
     public List<User> findByUsernameConsistsOfTextAndHasAtLeastOneReview(){
         return userRepository.findByUsernameConsistsOfTextAndHasAtLeastOneReview();
+    }
+
+    public User findByUsername(String username){
+        return userRepository.findByUsername(username);
     }
 }

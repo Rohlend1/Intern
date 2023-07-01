@@ -42,7 +42,7 @@ public class UserRepository {
     }
 
     @Transactional(readOnly = true)
-    public Long findTotalUsersWith(){
+    public Long findTotalUsersWithNoEditedReviews(){
         return entityManager.createQuery("SELECT COUNT(DISTINCT r.owner) FROM Review r " +
                 "WHERE r.updatedAt = r.createdAt OR r.updatedAt IS NULL", Long.class).getSingleResult();
     }
@@ -56,7 +56,14 @@ public class UserRepository {
 
     @Transactional(readOnly = true)
     public List<User> findByUsernameConsistsOfTextAndHasAtLeastOneReview(){
-        return entityManager.createNativeQuery("SELECT * From users where users.username ~ '^[a-zA-Z\\s]*$' " +
+        return entityManager.createNativeQuery("SELECT * From users WHERE users.username ~ '^[a-zA-Z\\s]*$' " +
                 "AND users.user_id IN (SELECT DISTINCT owner FROM Review)",User.class).getResultList();
+    }
+
+    @Transactional(readOnly = true)
+    public User findByUsername(String username){
+        return entityManager.createQuery("SELECT u From User u WHERE u.username = :username",User.class)
+                .setParameter("username",username)
+                .getSingleResult();
     }
 }
