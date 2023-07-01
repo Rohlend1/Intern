@@ -57,7 +57,7 @@ public class MovieRepository {
     }
 
     @Transactional(readOnly = true)
-    public List<Movie> findActorsLowerThan(long amount){
+    public List<Movie> findActorsLessThan(long amount){
         return entityManager.createQuery("SELECT m FROM Movie m JOIN m.actors a GROUP BY m HAVING COUNT(m) < :amount", Movie.class)
                 .setParameter("amount", amount)
                 .getResultList();

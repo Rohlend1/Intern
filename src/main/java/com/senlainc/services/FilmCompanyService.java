@@ -42,4 +42,20 @@ public class FilmCompanyService {
     public FilmCompany findByName(String name){
         return filmCompanyRepository.findByName(name);
     }
+
+    public List<FilmCompany> findDateOfFoundationLessThan(int year){
+        return filmCompanyRepository.findDateOfFoundationLessThan(year);
+    }
+
+    public List<FilmCompany> findAllSortByName() {
+        return filmCompanyRepository.findAllSortByName();
+    }
+
+    public List<FilmCompany> findByNameWithTwoWordsAndDateOfFoundationBetween(int year1, int year2){
+        return filmCompanyRepository.findByNameWithTwoWordsAndDateOfFoundationBetween(year1,year2);
+    }
+
+    public FilmCompany findLeastPopularFilmCompany(){
+        return filmCompanyRepository.findLeastPopularFilmCompany();
+    }
 }

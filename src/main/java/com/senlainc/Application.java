@@ -1,10 +1,12 @@
 package com.senlainc;
 
 import com.senlainc.config.SpringConfig;
-import com.senlainc.services.FilmCompanyService;
-import com.senlainc.services.GenreService;
-import com.senlainc.services.MovieService;
+import com.senlainc.models.User;
+import com.senlainc.services.*;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 
 public class Application {
@@ -13,24 +15,16 @@ public class Application {
 
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
 
-        FilmCompanyService filmCompanyService = context.getBean(FilmCompanyService.class);
+        ReviewService reviewService = context.getBean(ReviewService.class);
 
-        GenreService genreService = context.getBean(GenreService.class);
+        UserService userService = context.getBean(UserService.class);
 
-        MovieService movieService = context.getBean(MovieService.class);
+        System.out.println(reviewService.findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(2,6,2023));
 
-        System.out.println(movieService.findDateOfReleaseBetween(2021,2022));
+        System.out.println(reviewService.findContentGreaterThanAndUpdated(1));
 
-        System.out.println(movieService.findFilmCompanyEqualsAndBoxOfficeGreaterThan(filmCompanyService.findByName("WB"),1.5));
+        System.out.println(reviewService.findAllPagination(0,1));
 
-        System.out.println(movieService.findActorsLowerThan(4));
-
-        System.out.println(movieService.findAllPagination(0,10));
-
-        System.out.println(genreService.findGenreLike('a'));
-
-        System.out.println(genreService.findMoviesGreaterThanAndMoviesDurationGreaterThan(1,70));
-
-        System.out.println(genreService.findMostPopularGenre());
+        System.out.println(reviewService.findByUser(userService.findById(50)));
     }
 }

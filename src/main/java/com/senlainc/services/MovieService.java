@@ -49,7 +49,7 @@ public class MovieService {
     }
 
     public List<Movie> findActorsLowerThan(long amount){
-        return movieRepository.findActorsLowerThan(amount);
+        return movieRepository.findActorsLessThan(amount);
     }
 
     public List<Movie> findAllPagination(int page, int moviesPerPage){
