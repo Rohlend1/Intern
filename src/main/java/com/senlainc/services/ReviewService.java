@@ -48,8 +48,8 @@ public class ReviewService {
         return reviewRepository.findAllPagination(page, reviewsPerPage);
     }
 
-    public List<Review> findContentGreaterThanAndUpdated(int amountOfCharacters) {
-        return reviewRepository.findContentGreaterThanAndUpdated(amountOfCharacters);
+    public List<Review> findByContentGreaterThanAndUpdated(int amountOfCharacters) {
+        return reviewRepository.findByContentGreaterThanAndUpdated(amountOfCharacters);
     }
 
     public List<Review> findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(int minutes, int month, int year) {

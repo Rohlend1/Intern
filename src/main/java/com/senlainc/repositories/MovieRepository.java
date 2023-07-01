@@ -43,21 +43,21 @@ public class MovieRepository {
     }
 
     @Transactional(readOnly = true)
-    public List<Movie> findDateOfReleaseBetween(int year1, int year2){
+    public List<Movie> findByDateOfReleaseBetween(int year1, int year2){
         return entityManager.createQuery("SELECT m FROM Movie m where YEAR(date_of_release) BETWEEN :year1 AND :year2", Movie.class)
                 .setParameter("year1",year1)
                 .setParameter("year2",year2).getResultList();
     }
 
     @Transactional(readOnly = true)
-    public List<Movie> findFilmCompanyEqualsAndBoxOfficeGreaterThan(FilmCompany filmCompany, double millions){
+    public List<Movie> findByFilmCompanyEqualsAndBoxOfficeGreaterThan(FilmCompany filmCompany, double millions){
         return entityManager.createQuery("SELECT m FROM Movie m WHERE film_company = :filmCompanyId AND box_office > :boxOffice", Movie.class)
                 .setParameter("filmCompanyId",filmCompany.getId())
                 .setParameter("boxOffice",millions*1_000_000).getResultList();
     }
 
     @Transactional(readOnly = true)
-    public List<Movie> findActorsLessThan(long amount){
+    public List<Movie> findByActorsLessThan(long amount){
         return entityManager.createQuery("SELECT m FROM Movie m JOIN m.actors a GROUP BY m HAVING COUNT(m) < :amount", Movie.class)
                 .setParameter("amount", amount)
                 .getResultList();

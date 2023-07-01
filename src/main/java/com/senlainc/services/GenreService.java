@@ -47,7 +47,7 @@ public class GenreService {
         return genreRepository.findMostPopularGenre();
     }
 
-    public List<Genre> findMoviesGreaterThanAndMoviesDurationGreaterThan(int amount, int duration){
-        return genreRepository.findMoviesGreaterThanAndMoviesDurationGreaterThan(amount,duration);
+    public List<Genre> findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(int amount, int duration){
+        return genreRepository.findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(amount,duration);
     }
 }

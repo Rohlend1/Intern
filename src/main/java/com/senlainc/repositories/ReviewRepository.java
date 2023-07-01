@@ -58,7 +58,7 @@ public class ReviewRepository {
     }
 
     @Transactional(readOnly = true)
-    public List<Review> findContentGreaterThanAndUpdated(int amountOfCharacters){
+    public List<Review> findByContentGreaterThanAndUpdated(int amountOfCharacters){
         return entityManager.createQuery("SELECT r FROM Review r " +
                         "WHERE LENGTH(r.content) > :amount_of_characters " +
                         "AND r.updatedAt IS NOT NULL AND r.updatedAt != r.createdAt", Review.class)

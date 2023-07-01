@@ -1,7 +1,6 @@
 package com.senlainc.repositories;
 
 import com.senlainc.models.FilmCompany;
-import com.senlainc.models.Genre;
 import com.senlainc.models.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -56,7 +55,7 @@ public class FilmCompanyRepository {
     }
 
     @Transactional(readOnly = true)
-    public List<FilmCompany> findDateOfFoundationLessThan(int year){
+    public List<FilmCompany> findByDateOfFoundationLessThan(int year){
         return entityManager.createQuery("SELECT fc FROM FilmCompany fc WHERE YEAR(date_of_foundation) < :year", FilmCompany.class)
                 .setParameter("year",year)
                 .getResultList();

@@ -40,4 +40,23 @@ public class UserRepository {
     public void delete(User user){
         entityManager.remove(user);
     }
+
+    @Transactional(readOnly = true)
+    public Long findTotalUsersWith(){
+        return entityManager.createQuery("SELECT COUNT(DISTINCT r.owner) FROM Review r " +
+                "WHERE r.updatedAt = r.createdAt OR r.updatedAt IS NULL", Long.class).getSingleResult();
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> findByUsernameMatchingToRegexp(String regex){
+        return entityManager.createNativeQuery("SELECT * FROM users u WHERE u.username ~ :regex", User.class)
+                .setParameter("regex",regex)
+                .getResultList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> findByUsernameConsistsOfTextAndHasAtLeastOneReview(){
+        return entityManager.createNativeQuery("SELECT * From users where users.username ~ '^[a-zA-Z\\s]*$' " +
+                "AND users.user_id IN (SELECT DISTINCT owner FROM Review)",User.class).getResultList();
+    }
 }

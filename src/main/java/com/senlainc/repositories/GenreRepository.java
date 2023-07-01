@@ -50,7 +50,7 @@ public class GenreRepository {
     }
 
     @Transactional(readOnly = true)
-    public List<Genre> findMoviesGreaterThanAndMoviesDurationGreaterThan(long amount, int duration){
+    public List<Genre> findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(long amount, int duration){
         return entityManager.createNativeQuery("SELECT genre.genre_id, genre.name FROM genre " +
                         "JOIN movie_genre ON genre.genre_id = movie_genre.genre_id " +
                         "JOIN movie ON movie.movie_id = movie_genre.movie_id  "+

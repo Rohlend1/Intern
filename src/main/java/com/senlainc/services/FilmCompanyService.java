@@ -43,8 +43,8 @@ public class FilmCompanyService {
         return filmCompanyRepository.findByName(name);
     }
 
-    public List<FilmCompany> findDateOfFoundationLessThan(int year){
-        return filmCompanyRepository.findDateOfFoundationLessThan(year);
+    public List<FilmCompany> findByDateOfFoundationLessThan(int year){
+        return filmCompanyRepository.findByDateOfFoundationLessThan(year);
     }
 
     public List<FilmCompany> findAllSortByName() {

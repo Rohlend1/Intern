@@ -38,4 +38,16 @@ public class UserService {
         user.setId(id);
         userRepository.save(user);
     }
+
+    public Long findTotalUsersWith(){
+        return userRepository.findTotalUsersWith();
+    }
+
+    public List<User> findByUsernameMatchingToRegexp(String regex){
+        return userRepository.findByUsernameMatchingToRegexp(regex);
+    }
+
+    public List<User> findByUsernameConsistsOfTextAndHasAtLeastOneReview(){
+        return userRepository.findByUsernameConsistsOfTextAndHasAtLeastOneReview();
+    }
 }

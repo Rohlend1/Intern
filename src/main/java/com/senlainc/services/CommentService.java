@@ -1,6 +1,8 @@
 package com.senlainc.services;
 
 import com.senlainc.models.Comment;
+import com.senlainc.models.Review;
+import com.senlainc.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.senlainc.repositories.CommentRepository;
@@ -37,5 +39,21 @@ public class CommentService {
         commentRepository.delete(commentRepository.findById(id));
         comment.setId(id);
         commentRepository.save(comment);
+    }
+
+    public List<Comment> findByParentCommentEqualsAndReviewEquals(Comment parentComment, Review review){
+        return commentRepository.findByParentCommentAndReviewEquals(parentComment,review);
+    }
+
+    public Long findTotalUniqueReviewsCommentedBy(User user){
+        return commentRepository.findTotalUniqueReviewsCommentedBy(user);
+    }
+
+    public List<Comment> findByParentCommentSortedASC(Comment parentComment){
+        return commentRepository.findByParentCommentSortedASC(parentComment);
+    }
+
+    public Integer findIdMostPopularComment(){
+        return commentRepository.findIdMostPopularComment();
     }
 }

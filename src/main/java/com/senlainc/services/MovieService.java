@@ -40,16 +40,16 @@ public class MovieService {
         movieRepository.save(movie);
     }
 
-    public List<Movie> findDateOfReleaseBetween(int year1, int year2){
-        return movieRepository.findDateOfReleaseBetween(year1, year2);
+    public List<Movie> findByDateOfReleaseBetween(int year1, int year2){
+        return movieRepository.findByDateOfReleaseBetween(year1, year2);
     }
 
-    public List<Movie> findFilmCompanyEqualsAndBoxOfficeGreaterThan(FilmCompany filmCompany, double millions){
-        return movieRepository.findFilmCompanyEqualsAndBoxOfficeGreaterThan(filmCompany, millions);
+    public List<Movie> findByFilmCompanyEqualsAndBoxOfficeGreaterThan(FilmCompany filmCompany, double millions){
+        return movieRepository.findByFilmCompanyEqualsAndBoxOfficeGreaterThan(filmCompany, millions);
     }
 
-    public List<Movie> findActorsLowerThan(long amount){
-        return movieRepository.findActorsLessThan(amount);
+    public List<Movie> findByActorsLessThan(long amount){
+        return movieRepository.findByActorsLessThan(amount);
     }
 
     public List<Movie> findAllPagination(int page, int moviesPerPage){
