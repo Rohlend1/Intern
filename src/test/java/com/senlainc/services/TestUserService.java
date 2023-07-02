@@ -34,7 +34,7 @@ public class TestUserService {
 
     @Test
     public void testFindTotalUsersWith(){
-        assertEquals(3L,(long) userService.findTotalUsersWithNoEditedReviews());
+        assertEquals(2L,(long) userService.findTotalUsersWithNoEditedReviews());
     }
 
     @Test
@@ -49,7 +49,7 @@ public class TestUserService {
     }
 
     @Test
-    public void test(){
+    public void testFindByUsernameMatchingToRegexp(){
         assertEquals(userService.findByUsername("Frog"),userService.findByUsernameMatchingToRegexp("[F]+").get(0));
     }
 }

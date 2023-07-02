@@ -25,6 +25,7 @@ public class DatabasePreparer {
 
 
     public static void prepareDatabase(AnnotationConfigApplicationContext context){
+
         EntityManagerFactory emf = context.getBean(EntityManagerFactory.class);
         EntityManager em = emf.createEntityManager();
 
@@ -39,7 +40,6 @@ public class DatabasePreparer {
         User user3 = new User("Frog", new ArrayList<>());
         User user4 = new User("Axe", new ArrayList<>());
         User user5 = new User("Punisher!", new ArrayList<>());
-
 
         Subscribe subscribe1 = new Subscribe();
         Subscribe subscribe2 = new Subscribe();
@@ -65,9 +65,11 @@ public class DatabasePreparer {
         FilmCompany filmCompany2 = new FilmCompany("21 Century",new ArrayList<>(),LocalDate.of(1899,Month.DECEMBER,25));
         FilmCompany filmCompany3 = new FilmCompany("Blumhouse",new ArrayList<>(),LocalDate.of(1999,Month.JANUARY,30));
 
-        Movie movie1 = new Movie("Fast and furious",new ArrayList<>(),LocalDate.now(),filmCompany1,120,2_000_000,new ArrayList<>());
-        Movie movie2 = new Movie("The mask",new ArrayList<>(),LocalDate.now(),filmCompany2,120,35_000_000,new ArrayList<>());
-        Movie movie3 = new Movie("Captain America",new ArrayList<>(),LocalDate.now(),filmCompany3,120,400_000_000,new ArrayList<>());
+        Movie movie1 = new Movie("Fast and furious",new ArrayList<>(),LocalDate.of(1980,Month.DECEMBER,20),filmCompany1,120,2_000_000,new ArrayList<>());
+        Movie movie2 = new Movie("The mask",new ArrayList<>(),LocalDate.of(2007,Month.OCTOBER,12),filmCompany2,105,35_000_000,new ArrayList<>());
+        Movie movie3 = new Movie("Captain America",new ArrayList<>(),LocalDate.of(2013,Month.JULY,8),filmCompany3,110,400_000_000,new ArrayList<>());
+        Movie movie4 = new Movie("MOCK1",new ArrayList<>(),LocalDate.now(),filmCompany1,110,400_000_000,new ArrayList<>());
+        Movie movie5 = new Movie("MOCK2",new ArrayList<>(),LocalDate.now(),filmCompany2,110,400_000_000,new ArrayList<>());
 
         Genre genre1 = new Genre("Action",new ArrayList<>());
         Genre genre2 = new Genre("Romance",new ArrayList<>());
@@ -83,13 +85,80 @@ public class DatabasePreparer {
         Comment reply7 = new Comment("It's a masterpiece",LocalDateTime.of(2023, Month.JUNE,12,14,14),null,user3,comment5.getReview(),comment5);
         Comment reply8 = new Comment("The truth",LocalDateTime.now(),null,user3,comment6.getReview(),comment6);
 
-
         em.getTransaction().begin();
 
         user1.getReviews().add(review1);
         user1.getReviews().add(review2);
         user3.getReviews().add(review3);
         user5.getReviews().add(review4);
+
+        movie1.getActors().add(actor1);
+        movie1.getActors().add(actor2);
+        movie1.getActors().add(actor3);
+
+
+        movie2.getActors().add(actor2);
+        movie2.getActors().add(actor3);
+        movie2.getActors().add(actor4);
+        movie2.getActors().add(actor5);
+
+        movie3.getActors().add(actor1);
+        movie3.getActors().add(actor2);
+        movie3.getActors().add(actor3);
+        movie3.getActors().add(actor4);
+        movie3.getActors().add(actor5);
+
+        movie4.getActors().add(actor1);
+
+        movie5.getActors().add(actor1);
+
+        actor1.getMovies().add(movie1);
+        actor1.getMovies().add(movie3);
+        actor1.getMovies().add(movie4);
+        actor1.getMovies().add(movie5);
+
+        actor2.getMovies().add(movie1);
+        actor2.getMovies().add(movie2);
+        actor2.getMovies().add(movie3);
+
+        actor3.getMovies().add(movie1);
+        actor3.getMovies().add(movie2);
+        actor3.getMovies().add(movie3);
+
+        actor4.getMovies().add(movie2);
+        actor4.getMovies().add(movie3);
+
+        actor5.getMovies().add(movie2);
+        actor5.getMovies().add(movie3);
+
+        filmCompany2.getMovies().add(movie1);
+        filmCompany1.getMovies().add(movie2);
+        filmCompany3.getMovies().add(movie3);
+
+        genre1.getMovies().add(movie1);
+        genre1.getMovies().add(movie2);
+
+        genre2.getMovies().add(movie1);
+        genre2.getMovies().add(movie2);
+        genre2.getMovies().add(movie3);
+
+        genre3.getMovies().add(movie2);
+        genre3.getMovies().add(movie3);
+
+        genre4.getMovies().add(movie1);
+        genre4.getMovies().add(movie3);
+
+        movie1.getGenres().add(genre1);
+        movie1.getGenres().add(genre2);
+        movie1.getGenres().add(genre4);
+
+        movie2.getGenres().add(genre1);
+        movie2.getGenres().add(genre2);
+        movie2.getGenres().add(genre3);
+
+        movie3.getGenres().add(genre2);
+        movie3.getGenres().add(genre3);
+        movie3.getGenres().add(genre4);
 
         em.persist(actor1);
         em.persist(actor2);
@@ -118,6 +187,8 @@ public class DatabasePreparer {
         em.persist(movie1);
         em.persist(movie2);
         em.persist(movie3);
+        em.persist(movie4);
+        em.persist(movie5);
 
         em.persist(genre1);
         em.persist(genre2);
@@ -154,42 +225,10 @@ public class DatabasePreparer {
         em.persist(subscribe2);
         em.persist(subscribe3);
 
-        movie1.getActors().add(actor1);
-        movie1.getActors().add(actor2);
-        movie1.getActors().add(actor3);
-
-        movie2.getActors().add(actor2);
-        movie2.getActors().add(actor3);
-        movie2.getActors().add(actor4);
-        movie2.getActors().add(actor5);
-
-        movie3.getActors().add(actor1);
-        movie3.getActors().add(actor2);
-        movie3.getActors().add(actor3);
-        movie3.getActors().add(actor4);
-        movie3.getActors().add(actor5);
-
-        filmCompany2.getMovies().add(movie1);
-        filmCompany1.getMovies().add(movie2);
-        filmCompany3.getMovies().add(movie3);
-
-        genre1.getMovies().add(movie1);
-        genre1.getMovies().add(movie2);
-
-        genre2.getMovies().add(movie1);
-        genre2.getMovies().add(movie2);
-        genre2.getMovies().add(movie3);
-
-        genre3.getMovies().add(movie2);
-        genre3.getMovies().add(movie3);
-
-        genre4.getMovies().add(movie1);
-        genre4.getMovies().add(movie3);
-
         em.getTransaction().commit();
 
         actors.addAll(List.of(actor1,actor2,actor3,actor4,actor5));
-        movies.addAll(List.of(movie1,movie2,movie3));
+        movies.addAll(List.of(movie1,movie2,movie3,movie4,movie5));
         users.addAll(List.of(user1,user2,user3,user4,user5));
         filmCompanies.addAll(List.of(filmCompany1,filmCompany2,filmCompany3));
         subscribes.addAll(List.of(subscribe1,subscribe2,subscribe3));

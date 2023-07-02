@@ -52,7 +52,7 @@ public class ReviewService {
         return reviewRepository.findByContentGreaterThanAndUpdated(amountOfCharacters);
     }
 
-    public List<Review> findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(int minutes, int month, int year) {
-        return reviewRepository.findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(minutes, month, year);
+    public List<Review> findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(int month, int minutes, int year) {
+        return reviewRepository.findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(month, minutes, year);
     }
 }

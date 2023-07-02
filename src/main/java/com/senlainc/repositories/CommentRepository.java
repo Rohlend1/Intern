@@ -65,10 +65,11 @@ public class CommentRepository {
     }
 
     @Transactional(readOnly = true)
-    public Integer findIdMostPopularComment(){
-        return entityManager.createQuery("SELECT c.id FROM Comment c GROUP BY c.id ORDER BY COUNT(c) DESC", Integer.class)
+    public Integer findIdMostPopularComment() {
+        return entityManager.createQuery("SELECT c.replyTo.id FROM Comment c WHERE c.replyTo IS NOT NULL GROUP BY c.replyTo.id ORDER BY COUNT(c) DESC",Integer.class)
                 .setFirstResult(0)
                 .setMaxResults(1)
                 .getSingleResult();
     }
+
 }

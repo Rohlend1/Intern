@@ -52,7 +52,7 @@ public class ReviewRepository {
     @Transactional(readOnly = true)
     public List<Review> findAllPagination(int page, int reviewsPerPage){
         return entityManager.createQuery("SELECT r FROM Review r", Review.class)
-                .setFirstResult(page)
+                .setFirstResult((page*reviewsPerPage)-reviewsPerPage)
                 .setMaxResults(reviewsPerPage)
                 .getResultList();
     }
@@ -67,7 +67,7 @@ public class ReviewRepository {
     }
 
     @Transactional(readOnly = true)
-    public List<Review> findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(int minutes, int month, int year){
+    public List<Review> findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(int month, int minutes, int year){
         return entityManager.createQuery("SELECT r FROM Review r " +
                         "WHERE MONTH(r.createdAt) = :month " +
                         "AND EXTRACT(MINUTE FROM (r.updatedAt - r.createdAt)) < :minutes " +

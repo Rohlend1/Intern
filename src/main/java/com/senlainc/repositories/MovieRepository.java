@@ -51,8 +51,8 @@ public class MovieRepository {
 
     @Transactional(readOnly = true)
     public List<Movie> findByFilmCompanyEqualsAndBoxOfficeGreaterThan(FilmCompany filmCompany, double millions){
-        return entityManager.createQuery("SELECT m FROM Movie m WHERE film_company = :filmCompanyId AND box_office > :boxOffice", Movie.class)
-                .setParameter("filmCompanyId",filmCompany.getId())
+        return entityManager.createQuery("SELECT m FROM Movie m WHERE filmCompany = :filmCompany AND box_office > :boxOffice", Movie.class)
+                .setParameter("filmCompany",filmCompany)
                 .setParameter("boxOffice",millions*1_000_000).getResultList();
     }
 
@@ -66,7 +66,8 @@ public class MovieRepository {
     @Transactional(readOnly = true)
     public List<Movie> findAllPagination(int page, int moviesPerPage){
         return entityManager.createQuery("SELECT m FROM Movie m", Movie.class)
-                .setFirstResult(page)
-                .setMaxResults(moviesPerPage).getResultList();
+                .setFirstResult((page*moviesPerPage)-moviesPerPage)
+                .setMaxResults(moviesPerPage)
+                .getResultList();
     }
 }
