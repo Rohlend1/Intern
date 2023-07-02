@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
@@ -32,47 +33,59 @@ public class TestMovieService {
     @Test
     public void testFindAllPagination(){
         List<Movie> expectedMovies = new ArrayList<>();
+        List<Movie> actualMovies = movieService.findAllPagination(1,2);
+
         expectedMovies.add(movieService.findById(DatabasePreparer.movies.get(0).getId()));
         expectedMovies.add(movieService.findById(DatabasePreparer.movies.get(2).getId()));
-        List<Movie> actualMovies = movieService.findAllPagination(1,2);
-        actualMovies.sort((m1,m2)->m1.getId()-m2.getId());
-        expectedMovies.sort((m1,m2)->m1.getId()-m2.getId());
+
+        actualMovies.sort(Comparator.comparingInt(Movie::getId));
+        expectedMovies.sort(Comparator.comparingInt(Movie::getId));
+
         assertEquals(expectedMovies, actualMovies);
     }
 
     @Test
     public void testFindByActorsLessThan(){
         List<Movie> expectedMovies = new ArrayList<>();
+        List<Movie> actualMovies = movieService.findByActorsLessThan(5);
+
         expectedMovies.add(movieService.findById(DatabasePreparer.movies.get(0).getId()));
         expectedMovies.add(movieService.findById(DatabasePreparer.movies.get(1).getId()));
         expectedMovies.add(movieService.findById(DatabasePreparer.movies.get(3).getId()));
         expectedMovies.add(movieService.findById(DatabasePreparer.movies.get(4).getId()));
-        List<Movie> actualMovies = movieService.findByActorsLessThan(5);
-        actualMovies.sort((m1,m2)->m1.getId()-m2.getId());
-        expectedMovies.sort((m1,m2)->m1.getId()-m2.getId());
+
+        actualMovies.sort(Comparator.comparingInt(Movie::getId));
+        expectedMovies.sort(Comparator.comparingInt(Movie::getId));
+
         assertEquals(expectedMovies, actualMovies);
     }
 
     @Test
     public void testFindByDateOfReleaseBetween(){
         List<Movie> expectedMovies = new ArrayList<>();
+        List<Movie> actualMovies = movieService.findByDateOfReleaseBetween(1970,2010);
+
         expectedMovies.add(movieService.findById(DatabasePreparer.movies.get(0).getId()));
         expectedMovies.add(movieService.findById(DatabasePreparer.movies.get(1).getId()));
-        List<Movie> actualMovies = movieService.findByDateOfReleaseBetween(1970,2010);
-        actualMovies.sort((m1,m2)->m1.getId()-m2.getId());
-        expectedMovies.sort((m1,m2)->m1.getId()-m2.getId());
+
+        actualMovies.sort(Comparator.comparingInt(Movie::getId));
+        expectedMovies.sort(Comparator.comparingInt(Movie::getId));
+
         assertEquals(expectedMovies,actualMovies);
     }
 
     @Test
     public void testFindByFilmCompanyEqualsAndBoxOfficeGreaterThan(){
         FilmCompanyService filmCompanyService = context.getBean(FilmCompanyService.class);
-        List<Movie> expectedMovies = new ArrayList<>();
-        expectedMovies.add(movieService.findById(DatabasePreparer.movies.get(2).getId()));
         List<Movie> actualMovies = movieService.
                 findByFilmCompanyEqualsAndBoxOfficeGreaterThan(filmCompanyService.findById(DatabasePreparer.filmCompanies.get(2).getId()),50);
-        actualMovies.sort((m1,m2)->m1.getId()-m2.getId());
-        expectedMovies.sort((m1,m2)->m1.getId()-m2.getId());
+        List<Movie> expectedMovies = new ArrayList<>();
+
+        expectedMovies.add(movieService.findById(DatabasePreparer.movies.get(2).getId()));
+
+        actualMovies.sort(Comparator.comparingInt(Movie::getId));
+        expectedMovies.sort(Comparator.comparingInt(Movie::getId));
+
         assertEquals(expectedMovies,actualMovies);
     }
 }

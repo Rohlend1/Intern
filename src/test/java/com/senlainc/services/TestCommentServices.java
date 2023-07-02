@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
@@ -37,22 +38,27 @@ public class TestCommentServices {
     @Test
     public void testFindByParentCommentEqualsAndReviewEquals(){
         List<Comment> expectedComments = new ArrayList<>();
+        List<Comment> actualComments = commentService.findByParentCommentEqualsAndReviewEquals(DatabasePreparer.comments.get(0),DatabasePreparer.reviews.get(0));
+
         expectedComments.add(commentService.findById(DatabasePreparer.replies.get(0).getId()));
         expectedComments.add(commentService.findById(DatabasePreparer.replies.get(2).getId()));
         expectedComments.add(commentService.findById(DatabasePreparer.replies.get(3).getId()));
-        List<Comment> actualComments = commentService.findByParentCommentEqualsAndReviewEquals(DatabasePreparer.comments.get(0),DatabasePreparer.reviews.get(0));
-        actualComments.sort((c1,c2)->c1.getId()-c2.getId());
+
+        actualComments.sort(Comparator.comparingInt(Comment::getId));
+
         assertEquals(expectedComments,actualComments);
     }
 
     @Test
     public void testFindByParentCommentSortedASC(){
         List<Comment> expectedComments = new ArrayList<>();
+
         expectedComments.add(commentService.findById(DatabasePreparer.replies.get(0).getId()));
         expectedComments.add(commentService.findById(DatabasePreparer.replies.get(2).getId()));
         expectedComments.add(commentService.findById(DatabasePreparer.replies.get(3).getId()));
-        List<Comment> actualComments = commentService.findByParentCommentEqualsAndReviewEquals(DatabasePreparer.comments.get(0),DatabasePreparer.reviews.get(0));
-        expectedComments.sort((c1,c2)->c1.getCreatedAt().compareTo(c2.getCreatedAt()));
+
+        expectedComments.sort(Comparator.comparing(Comment::getCreatedAt));
+
         assertEquals(expectedComments,commentService.findByParentCommentSortedASC(DatabasePreparer.comments.get(0)));
     }
 

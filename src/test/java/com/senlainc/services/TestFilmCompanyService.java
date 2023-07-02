@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
@@ -40,7 +41,8 @@ public class TestFilmCompanyService {
         expectedFilmCompanies.add(filmCompanyService.findById(DatabasePreparer.filmCompanies.get(0).getId()));
         expectedFilmCompanies.add(filmCompanyService.findById(DatabasePreparer.filmCompanies.get(1).getId()));
         expectedFilmCompanies.add(filmCompanyService.findById(DatabasePreparer.filmCompanies.get(2).getId()));
-        expectedFilmCompanies.sort((fc1,fc2)->fc1.getName().compareTo(fc2.getName()));
+
+        expectedFilmCompanies.sort(Comparator.comparing(FilmCompany::getName));
 
         assertEquals(expectedFilmCompanies,filmCompanyService.findAllSortByName());
     }

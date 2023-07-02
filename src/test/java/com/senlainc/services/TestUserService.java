@@ -40,11 +40,15 @@ public class TestUserService {
     @Test
     public void testFindByUsernameConsistsOfTextAndHasAtLeastOneReview(){
         List<User> actualUsers = userService.findByUsernameConsistsOfTextAndHasAtLeastOneReview();
-        assertEquals(2,actualUsers.size());
         List<User> expectedUsers = new ArrayList<>();
+
+        assertEquals(2,actualUsers.size());
+
         expectedUsers.add(userService.findByUsername("Ark"));
         expectedUsers.add(userService.findByUsername("Frog"));
+
         actualUsers.sort(Comparator.comparingInt(User::getId));
+
         assertEquals(expectedUsers,actualUsers);
     }
 

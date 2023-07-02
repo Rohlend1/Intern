@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
@@ -32,10 +33,13 @@ public class TestGenreService {
     @Test
     public void testFindGenreLike(){
         List<Genre> expectedGenres = new ArrayList<>();
-        expectedGenres.add(genreService.findById(DatabasePreparer.genres.get(0).getId()));
         List<Genre> actualGenres = genreService.findGenreLike('A');
-        actualGenres.sort((g1,g2)->g1.getId()-g2.getId());
-        expectedGenres.sort((g1,g2)->g1.getId()-g2.getId());
+
+        expectedGenres.add(genreService.findById(DatabasePreparer.genres.get(0).getId()));
+
+        actualGenres.sort(Comparator.comparingInt(Genre::getId));
+        expectedGenres.sort(Comparator.comparingInt(Genre::getId));
+
         assertEquals(expectedGenres, actualGenres);
     }
 
@@ -54,8 +58,8 @@ public class TestGenreService {
         expectedGenres.add(genreService.findById(DatabasePreparer.genres.get(2).getId()));
         expectedGenres.add(genreService.findById(DatabasePreparer.genres.get(3).getId()));
 
-        actualGenres.sort((g1,g2)->g1.getId()-g2.getId());
-        expectedGenres.sort((g1,g2)->g1.getId()-g2.getId());
+        actualGenres.sort(Comparator.comparingInt(Genre::getId));
+        expectedGenres.sort(Comparator.comparingInt(Genre::getId));
 
         assertEquals(expectedGenres, actualGenres);
     }
@@ -63,10 +67,13 @@ public class TestGenreService {
     @Test
     public void testFindByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(){
         List<Genre> expectedGenres = new ArrayList<>();
-        expectedGenres.add(genreService.findById(DatabasePreparer.genres.get(1).getId()));
         List<Genre> actualGenres = genreService.findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(2,100);
-        actualGenres.sort((g1,g2)->g1.getId()-g2.getId());
-        expectedGenres.sort((g1,g2)->g1.getId()-g2.getId());
+
+        expectedGenres.add(genreService.findById(DatabasePreparer.genres.get(1).getId()));
+
+        actualGenres.sort(Comparator.comparingInt(Genre::getId));
+        expectedGenres.sort(Comparator.comparingInt(Genre::getId));
+
         assertEquals(expectedGenres, actualGenres);
     }
 }
