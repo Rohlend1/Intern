@@ -13,13 +13,11 @@ import java.util.List;
 @Transactional
 public class ActorRepository{
 
-    private final EntityManagerFactory entityManagerFactory;
 
     private final EntityManager entityManager;
 
     @Autowired
     public ActorRepository(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
         entityManager = entityManagerFactory.createEntityManager();
     }
 

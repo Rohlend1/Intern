@@ -1,8 +1,13 @@
 package com.senlainc;
 
 import com.senlainc.config.SpringConfig;
+import com.senlainc.models.Actor;
 import com.senlainc.services.*;
+import com.senlainc.util.Gender;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 
 public class Application {
@@ -11,15 +16,10 @@ public class Application {
 
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
 
-        CommentService commentService = context.getBean(CommentService.class);
-        ReviewService reviewService = context.getBean(ReviewService.class);
-        UserService userService = context.getBean(UserService.class);
+        ActorService actorService = context.getBean(ActorService.class);
 
-        System.out.println(userService.findTotalUsersWithNoEditedReviews());
+        Actor actor = new Actor("a","n", Gender.MALE,"c", LocalDate.now(),20,new ArrayList<>());
 
-        System.out.println(userService.findByUsernameMatchingToRegexp("[A]+"));
-
-        System.out.println(userService.findByUsernameConsistsOfTextAndHasAtLeastOneReview());
-
+        actorService.save(actor);
     }
 }
