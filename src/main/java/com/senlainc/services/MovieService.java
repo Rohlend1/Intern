@@ -27,7 +27,12 @@ public class MovieService {
     }
 
     public void save(Movie movie){
-        movieRepository.save(movie);
+        if(movie.getId() != null){
+            update(movie.getId(),movie);
+        }
+        else {
+            movieRepository.save(movie);
+        }
     }
 
     public void delete(Movie movie){
@@ -35,9 +40,8 @@ public class MovieService {
     }
 
     public void update(int id, Movie movie){
-        movieRepository.delete(movieRepository.findById(id));
         movie.setId(id);
-        movieRepository.save(movie);
+        movieRepository.update(movie);
     }
 
     public List<Movie> findByDateOfReleaseBetween(int year1, int year2){

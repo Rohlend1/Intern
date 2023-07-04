@@ -39,6 +39,10 @@ public class FilmCompanyRepository {
         entityManager.remove(filmCompany);
     }
 
+    public void update(FilmCompany filmCompany){
+        entityManager.merge(filmCompany);
+    }
+
     @Transactional(readOnly = true)
     public FilmCompany findByName(String name){
         return entityManager.createQuery("SELECT fc FROM FilmCompany fc WHERE name = :name", FilmCompany.class)

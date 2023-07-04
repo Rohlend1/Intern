@@ -36,6 +36,10 @@ public class GenreRepository {
         entityManager.remove(genre);
     }
 
+    public void update(Genre genre){
+        entityManager.merge(genre);
+    }
+
     @Transactional(readOnly = true)
     public List<Genre> findGenreLike(String ch){
         return entityManager.createNamedQuery("findGenreLike", Genre.class).setParameter("character", ch).getResultList();

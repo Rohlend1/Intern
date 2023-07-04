@@ -33,4 +33,8 @@ public class SubscribeRepository {
     public void delete(Subscribe subscribe){
         entityManager.remove(subscribe);
     }
+
+    public void update(Subscribe subscribe){
+        entityManager.merge(subscribe);
+    }
 }

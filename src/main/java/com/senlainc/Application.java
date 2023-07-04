@@ -18,8 +18,8 @@ public class Application {
 
         ActorService actorService = context.getBean(ActorService.class);
 
-        Actor actor = new Actor("a","n", Gender.MALE,"c", LocalDate.now(),20,new ArrayList<>());
+        Actor actor = new Actor("sws","n", Gender.MALE,"c", LocalDate.now(),20,new ArrayList<>());
 
-        actorService.save(actor);
+        actorService.update(1159, actor);
     }
 }

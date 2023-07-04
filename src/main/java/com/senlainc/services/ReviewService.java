@@ -26,18 +26,22 @@ public class ReviewService {
         return reviewRepository.findById(id);
     }
 
-    public void save(Review review) {
-        reviewRepository.save(review);
+    public void save(Review review){
+        if(review.getId() != null){
+            update(review.getId(),review);
+        }
+        else {
+            reviewRepository.save(review);
+        }
     }
 
-    public void delete(Review review) {
+    public void delete(Review review){
         reviewRepository.delete(review);
     }
 
-    public void update(int id, Review review) {
-        reviewRepository.delete(reviewRepository.findById(id));
+    public void update(int id, Review review){
         review.setId(id);
-        reviewRepository.save(review);
+        reviewRepository.update(review);
     }
 
     public List<Review> findByUser(User user) {

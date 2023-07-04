@@ -26,7 +26,12 @@ public class ActorService {
     }
 
     public void save(Actor actor){
-        actorRepository.save(actor);
+        if(actor.getId() != null){
+            update(actor.getId(),actor);
+        }
+        else {
+            actorRepository.save(actor);
+        }
     }
 
     public void delete(Actor actor){
@@ -34,8 +39,7 @@ public class ActorService {
     }
 
     public void update(int id, Actor actor){
-        actorRepository.delete(actorRepository.findById(id));
         actor.setId(id);
-        actorRepository.save(actor);
+        actorRepository.update(actor);
     }
 }

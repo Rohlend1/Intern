@@ -28,7 +28,12 @@ public class CommentService {
     }
 
     public void save(Comment comment){
-        commentRepository.save(comment);
+        if(comment.getId() != null){
+            update(comment.getId(),comment);
+        }
+        else {
+            commentRepository.save(comment);
+        }
     }
 
     public void delete(Comment comment){
@@ -36,9 +41,8 @@ public class CommentService {
     }
 
     public void update(int id, Comment comment){
-        commentRepository.delete(commentRepository.findById(id));
         comment.setId(id);
-        commentRepository.save(comment);
+        commentRepository.update(comment);
     }
 
     public List<Comment> findByParentCommentEqualsAndReviewEquals(Comment parentComment, Review review){

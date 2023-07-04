@@ -26,7 +26,12 @@ public class GenreService {
     }
 
     public void save(Genre genre){
-        genreRepository.save(genre);
+        if(genre.getId() != null){
+            update(genre.getId(),genre);
+        }
+        else {
+            genreRepository.save(genre);
+        }
     }
 
     public void delete(Genre genre){
@@ -34,9 +39,8 @@ public class GenreService {
     }
 
     public void update(int id, Genre genre){
-        genreRepository.delete(genreRepository.findById(id));
         genre.setId(id);
-        genreRepository.save(genre);
+        genreRepository.update(genre);
     }
 
     public List<Genre> findGenreLike(char ch){

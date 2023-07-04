@@ -7,6 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
@@ -34,6 +38,10 @@ public class ReviewRepository {
         entityManager.remove(review);
     }
 
+    public void update(Review review){
+        entityManager.merge(review);
+    }
+
     @Transactional(readOnly = true)
     public List<Review> findByUser(User user){
         return entityManager.createQuery("SELECT r FROM Review r WHERE owner = :owner_id", Review.class)
@@ -42,11 +50,19 @@ public class ReviewRepository {
     }
 
     @Transactional(readOnly = true)
-    public List<Review> findAllPagination(int page, int reviewsPerPage){
-        return entityManager.createQuery("SELECT r FROM Review r", Review.class)
-                .setFirstResult((page*reviewsPerPage)-reviewsPerPage)
-                .setMaxResults(reviewsPerPage)
-                .getResultList();
+    public List<Review> findAllPagination(int page, int moviesPerPage){
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Review> query = cb.createQuery(Review.class);
+        Root<Review> root = query.from(Review.class);
+
+        query.select(root);
+
+        TypedQuery<Review> typedQuery = entityManager.createQuery(query);
+
+        typedQuery.setFirstResult((page*moviesPerPage)-moviesPerPage);
+        typedQuery.setMaxResults(moviesPerPage);
+
+        return typedQuery.getResultList();
     }
 
     @Transactional(readOnly = true)

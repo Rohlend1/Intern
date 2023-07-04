@@ -26,7 +26,12 @@ public class FilmCompanyService {
     }
 
     public void save(FilmCompany filmCompany){
-        filmCompanyRepository.save(filmCompany);
+        if(filmCompany.getId() != null){
+            update(filmCompany.getId(),filmCompany);
+        }
+        else {
+            filmCompanyRepository.save(filmCompany);
+        }
     }
 
     public void delete(FilmCompany filmCompany){
@@ -34,9 +39,8 @@ public class FilmCompanyService {
     }
 
     public void update(int id, FilmCompany filmCompany){
-        filmCompanyRepository.delete(filmCompanyRepository.findById(id));
         filmCompany.setId(id);
-        filmCompanyRepository.save(filmCompany);
+        filmCompanyRepository.update(filmCompany);
     }
 
     public FilmCompany findByName(String name){

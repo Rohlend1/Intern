@@ -33,6 +33,10 @@ public class UserRepository {
         entityManager.remove(user);
     }
 
+    public void update(User user){
+        entityManager.merge(user);
+    }
+
     @Transactional(readOnly = true)
     public Long findTotalUsersWithNoEditedReviews(){
         return entityManager.createQuery("SELECT COUNT(DISTINCT r.owner) FROM Review r " +

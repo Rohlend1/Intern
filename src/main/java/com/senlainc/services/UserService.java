@@ -26,7 +26,12 @@ public class UserService {
     }
 
     public void save(User user){
-        userRepository.save(user);
+        if(user.getId() != null){
+            update(user.getId(),user);
+        }
+        else {
+            userRepository.save(user);
+        }
     }
 
     public void delete(User user){
@@ -34,9 +39,8 @@ public class UserService {
     }
 
     public void update(int id, User user){
-        userRepository.delete(userRepository.findById(id));
         user.setId(id);
-        userRepository.save(user);
+        userRepository.update(user);
     }
 
     public Long findTotalUsersWithNoEditedReviews(){

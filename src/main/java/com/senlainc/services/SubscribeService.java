@@ -26,17 +26,21 @@ public class SubscribeService {
         return subscribeRepository.findById(id);
     }
 
-    public void save(Subscribe review){
-        subscribeRepository.save(review);
+    public void save(Subscribe subscribe){
+        if(subscribe.getId() != null){
+            update(subscribe.getId(), subscribe);
+        }
+        else {
+            subscribeRepository.save(subscribe);
+        }
     }
 
-    public void delete(Subscribe review){
-        subscribeRepository.delete(review);
+    public void delete(Subscribe subscribe){
+        subscribeRepository.delete(subscribe);
     }
 
     public void update(SubscribeId id, Subscribe subscribe){
-        subscribeRepository.delete(subscribeRepository.findById(id));
         subscribe.setId(id);
-        subscribeRepository.save(subscribe);
+        subscribeRepository.update(subscribe);
     }
 }

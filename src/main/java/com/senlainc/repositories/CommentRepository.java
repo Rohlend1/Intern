@@ -35,6 +35,10 @@ public class CommentRepository {
         entityManager.remove(comment);
     }
 
+    public void update(Comment comment){
+        entityManager.merge(comment);
+    }
+
     @Transactional(readOnly = true)
     public List<Comment> findByParentCommentAndReviewEquals(Comment parentComment, Review review){
         return entityManager.createQuery("SELECT c FROM Comment c WHERE replyTo = :parentComment AND review = :review", Comment.class)

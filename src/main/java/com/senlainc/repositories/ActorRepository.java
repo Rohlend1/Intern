@@ -29,6 +29,10 @@ public class ActorRepository{
         return entityManager.find(Actor.class, id);
     }
 
+    public void update(Actor actor){
+        entityManager.merge(actor);
+    }
+
     public void delete(Actor actor){
         entityManager.remove(actor);
     }

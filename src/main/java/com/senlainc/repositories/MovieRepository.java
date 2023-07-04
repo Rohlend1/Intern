@@ -38,6 +38,10 @@ public class MovieRepository {
         entityManager.remove(movie);
     }
 
+    public void update(Movie movie){
+        entityManager.merge(movie);
+    }
+
     @Transactional(readOnly = true)
     public List<Movie> findByDateOfReleaseBetween(int year1, int year2){
         return entityManager.createQuery("SELECT m FROM Movie m where YEAR(date_of_release) BETWEEN :year1 AND :year2", Movie.class)
