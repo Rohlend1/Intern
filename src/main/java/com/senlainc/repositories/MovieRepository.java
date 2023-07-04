@@ -2,27 +2,23 @@ package com.senlainc.repositories;
 
 import com.senlainc.models.FilmCompany;
 import com.senlainc.models.Movie;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
 @Transactional
 public class MovieRepository {
 
-    private final EntityManagerFactory entityManagerFactory;
-
-    private final EntityManager entityManager;
-
-    @Autowired
-    public MovieRepository(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
-        entityManager = entityManagerFactory.createEntityManager();
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Transactional(readOnly = true)
     public List<Movie> findAll() {
@@ -35,7 +31,7 @@ public class MovieRepository {
 
     @Transactional(readOnly = true)
     public Movie findById(int id){
-        return entityManager.find(Movie.class,id);
+        return entityManager.find(Movie.class, id);
     }
 
     public void delete(Movie movie){
@@ -45,15 +41,15 @@ public class MovieRepository {
     @Transactional(readOnly = true)
     public List<Movie> findByDateOfReleaseBetween(int year1, int year2){
         return entityManager.createQuery("SELECT m FROM Movie m where YEAR(date_of_release) BETWEEN :year1 AND :year2", Movie.class)
-                .setParameter("year1",year1)
-                .setParameter("year2",year2).getResultList();
+                .setParameter("year1", year1)
+                .setParameter("year2", year2).getResultList();
     }
 
     @Transactional(readOnly = true)
     public List<Movie> findByFilmCompanyEqualsAndBoxOfficeGreaterThan(FilmCompany filmCompany, double millions){
         return entityManager.createQuery("SELECT m FROM Movie m WHERE filmCompany = :filmCompany AND box_office > :boxOffice", Movie.class)
-                .setParameter("filmCompany",filmCompany)
-                .setParameter("boxOffice",millions*1_000_000).getResultList();
+                .setParameter("filmCompany", filmCompany)
+                .setParameter("boxOffice", millions).getResultList();
     }
 
     @Transactional(readOnly = true)
@@ -65,9 +61,17 @@ public class MovieRepository {
 
     @Transactional(readOnly = true)
     public List<Movie> findAllPagination(int page, int moviesPerPage){
-        return entityManager.createQuery("SELECT m FROM Movie m", Movie.class)
-                .setFirstResult((page*moviesPerPage)-moviesPerPage)
-                .setMaxResults(moviesPerPage)
-                .getResultList();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Movie> query = cb.createQuery(Movie.class);
+        Root<Movie> root = query.from(Movie.class);
+
+        query.select(root);
+
+        TypedQuery<Movie> typedQuery = entityManager.createQuery(query);
+
+        typedQuery.setFirstResult((page*moviesPerPage)-moviesPerPage);
+        typedQuery.setMaxResults(moviesPerPage);
+
+        return typedQuery.getResultList();
     }
 }

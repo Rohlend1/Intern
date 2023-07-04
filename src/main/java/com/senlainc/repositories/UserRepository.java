@@ -1,27 +1,19 @@
 package com.senlainc.repositories;
 
 import com.senlainc.models.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 @Transactional
 public class UserRepository {
 
-    private final EntityManagerFactory entityManagerFactory;
-
-    private final EntityManager entityManager;
-
-    @Autowired
-    public UserRepository(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
-        entityManager = entityManagerFactory.createEntityManager();
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Transactional(readOnly = true)
     public List<User> findAll() {
@@ -34,7 +26,7 @@ public class UserRepository {
 
     @Transactional(readOnly = true)
     public User findById(int id){
-        return entityManager.find(User.class,id);
+        return entityManager.find(User.class, id);
     }
 
     public void delete(User user){
@@ -50,20 +42,20 @@ public class UserRepository {
     @Transactional(readOnly = true)
     public List<User> findByUsernameMatchingToRegexp(String regex){
         return entityManager.createNativeQuery("SELECT * FROM users u WHERE u.username ~ :regex", User.class)
-                .setParameter("regex",regex)
+                .setParameter("regex", regex)
                 .getResultList();
     }
 
     @Transactional(readOnly = true)
     public List<User> findByUsernameConsistsOfTextAndHasAtLeastOneReview(){
         return entityManager.createNativeQuery("SELECT * From users WHERE users.username ~ '^[a-zA-Z\\s]*$' " +
-                "AND users.user_id IN (SELECT DISTINCT owner FROM Review)",User.class).getResultList();
+                "AND users.user_id IN (SELECT DISTINCT owner FROM Review)", User.class).getResultList();
     }
 
     @Transactional(readOnly = true)
     public User findByUsername(String username){
         return entityManager.createQuery("SELECT u From User u WHERE u.username = :username",User.class)
-                .setParameter("username",username)
+                .setParameter("username", username)
                 .getSingleResult();
     }
 }

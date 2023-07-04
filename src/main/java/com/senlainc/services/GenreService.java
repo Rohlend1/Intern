@@ -40,7 +40,7 @@ public class GenreService {
     }
 
     public List<Genre> findGenreLike(char ch){
-        return genreRepository.findGenreLike(ch);
+        return genreRepository.findGenreLike(ch+"%");
     }
 
     public Genre findMostPopularGenre(){

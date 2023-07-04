@@ -2,6 +2,7 @@ package com.senlainc.models;
 
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class FilmCompany {
     private String name;
 
     @OneToMany(mappedBy = "filmCompany",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH, CascadeType.REMOVE})
+    @EqualsAndHashCode.Exclude
     private List<Movie> movies;
 
     @Column(name = "date_of_foundation")

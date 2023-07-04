@@ -45,7 +45,7 @@ public class MovieService {
     }
 
     public List<Movie> findByFilmCompanyEqualsAndBoxOfficeGreaterThan(FilmCompany filmCompany, double millions){
-        return movieRepository.findByFilmCompanyEqualsAndBoxOfficeGreaterThan(filmCompany, millions);
+        return movieRepository.findByFilmCompanyEqualsAndBoxOfficeGreaterThan(filmCompany, millions*1_000_000);
     }
 
     public List<Movie> findByActorsLessThan(long amount){
@@ -53,6 +53,6 @@ public class MovieService {
     }
 
     public List<Movie> findAllPagination(int page, int moviesPerPage){
-        return movieRepository.findAllPagination(page,moviesPerPage);
+        return movieRepository.findAllPagination(page, moviesPerPage);
     }
 }

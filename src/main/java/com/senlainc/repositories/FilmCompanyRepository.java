@@ -2,12 +2,11 @@ package com.senlainc.repositories;
 
 import com.senlainc.models.FilmCompany;
 import com.senlainc.models.Movie;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -19,15 +18,8 @@ import java.util.List;
 @Transactional
 public class FilmCompanyRepository {
 
-    private final EntityManagerFactory entityManagerFactory;
-
-    private final EntityManager entityManager;
-
-    @Autowired
-    public FilmCompanyRepository(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
-        entityManager = entityManagerFactory.createEntityManager();
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Transactional(readOnly = true)
     public List<FilmCompany> findAll() {
@@ -40,7 +32,7 @@ public class FilmCompanyRepository {
 
     @Transactional(readOnly = true)
     public FilmCompany findById(int id){
-        return entityManager.find(FilmCompany.class,id);
+        return entityManager.find(FilmCompany.class, id);
     }
 
     public void delete(FilmCompany filmCompany){
@@ -50,14 +42,14 @@ public class FilmCompanyRepository {
     @Transactional(readOnly = true)
     public FilmCompany findByName(String name){
         return entityManager.createQuery("SELECT fc FROM FilmCompany fc WHERE name = :name", FilmCompany.class)
-                .setParameter("name",name)
+                .setParameter("name", name)
                 .getSingleResult();
     }
 
     @Transactional(readOnly = true)
     public List<FilmCompany> findByDateOfFoundationLessThan(int year){
         return entityManager.createQuery("SELECT fc FROM FilmCompany fc WHERE YEAR(date_of_foundation) < :year", FilmCompany.class)
-                .setParameter("year",year)
+                .setParameter("year", year)
                 .getResultList();
     }
 
@@ -69,8 +61,8 @@ public class FilmCompanyRepository {
     @Transactional(readOnly = true)
     public List<FilmCompany> findByNameWithTwoWordsAndDateOfFoundationBetween(int year1, int year2){
         return entityManager.createQuery("SELECT fc FROM FilmCompany fc WHERE fc.name LIKE '% %' AND YEAR(date_of_foundation) BETWEEN :year1 AND :year2", FilmCompany.class)
-                .setParameter("year1",year1)
-                .setParameter("year2",year2)
+                .setParameter("year1", year1)
+                .setParameter("year2", year2)
                 .getResultList();
     }
 

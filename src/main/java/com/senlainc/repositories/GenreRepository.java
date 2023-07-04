@@ -2,12 +2,11 @@ package com.senlainc.repositories;
 
 import com.senlainc.models.Genre;
 import com.senlainc.models.Movie;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.List;
@@ -16,15 +15,8 @@ import java.util.List;
 @Transactional
 public class GenreRepository {
 
-    private final EntityManagerFactory entityManagerFactory;
-
-    private final EntityManager entityManager;
-
-    @Autowired
-    public GenreRepository(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
-        entityManager = entityManagerFactory.createEntityManager();
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Transactional(readOnly = true)
     public List<Genre> findAll() {
@@ -37,7 +29,7 @@ public class GenreRepository {
 
     @Transactional(readOnly = true)
     public Genre findById(int id){
-        return entityManager.find(Genre.class,id);
+        return entityManager.find(Genre.class, id);
     }
 
     public void delete(Genre genre){
@@ -45,8 +37,8 @@ public class GenreRepository {
     }
 
     @Transactional(readOnly = true)
-    public List<Genre> findGenreLike(char ch){
-        return entityManager.createNamedQuery("findGenreLike", Genre.class).setParameter("character",ch+"%").getResultList();
+    public List<Genre> findGenreLike(String ch){
+        return entityManager.createNamedQuery("findGenreLike", Genre.class).setParameter("character", ch).getResultList();
     }
 
     @Transactional(readOnly = true)
@@ -57,8 +49,8 @@ public class GenreRepository {
                         "WHERE duration > :duration " +
                         "GROUP BY genre.genre_id, genre.name "+
                         "HAVING COUNT(genre.genre_id) > :amount", Genre.class)
-                .setParameter("duration",duration)
-                .setParameter("amount",amount)
+                .setParameter("duration", duration)
+                .setParameter("amount", amount)
                 .getResultList();
     }
 

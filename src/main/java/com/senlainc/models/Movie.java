@@ -1,6 +1,7 @@
 package com.senlainc.models;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -24,6 +25,7 @@ public class Movie {
 
     @ManyToMany(mappedBy = "movies")
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Actor> actors;
 
     @Column(name = "date_of_release")
@@ -43,6 +45,7 @@ public class Movie {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "movie_genre", joinColumns = @JoinColumn(name = "movie_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Genre> genres;
 
     public Movie(String title, List<Actor> actors, LocalDate dateOfRelease, FilmCompany filmCompany, int duration, int boxOffice, List<Genre> genres) {

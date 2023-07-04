@@ -1,6 +1,7 @@
 package com.senlainc.models;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class User {
     private String username;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
     private List<Review> reviews;
 
     public User(String username, List<Review> reviews) {

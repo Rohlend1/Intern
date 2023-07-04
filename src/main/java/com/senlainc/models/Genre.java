@@ -1,6 +1,7 @@
 package com.senlainc.models;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class Genre {
     private String name;
 
     @ManyToMany(mappedBy = "genres")
+    @EqualsAndHashCode.Exclude
     private List<Movie> movies;
 
     public Genre(String name, List<Movie> movies) {

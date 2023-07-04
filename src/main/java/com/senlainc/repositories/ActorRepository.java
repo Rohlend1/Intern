@@ -1,25 +1,19 @@
 package com.senlainc.repositories;
 
 import com.senlainc.models.Actor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 @Transactional
 public class ActorRepository{
 
-
-    private final EntityManager entityManager;
-
-    @Autowired
-    public ActorRepository(EntityManagerFactory entityManagerFactory) {
-        entityManager = entityManagerFactory.createEntityManager();
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Transactional(readOnly = true)
     public List<Actor> findAll() {
@@ -32,7 +26,7 @@ public class ActorRepository{
 
     @Transactional(readOnly = true)
     public Actor findById(int id){
-        return entityManager.find(Actor.class,id);
+        return entityManager.find(Actor.class, id);
     }
 
     public void delete(Actor actor){
