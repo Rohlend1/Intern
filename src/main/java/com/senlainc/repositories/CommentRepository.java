@@ -3,69 +3,24 @@ package com.senlainc.repositories;
 import com.senlainc.models.Comment;
 import com.senlainc.models.Review;
 import com.senlainc.models.User;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Repository
-@Transactional
-public class CommentRepository {
+public interface CommentRepository {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    List<Comment> findAll();
 
-    @Transactional(readOnly = true)
-    public List<Comment> findAll() {
-        return entityManager.createQuery("SELECT m FROM Comment m", Comment.class).getResultList();
-    }
+    void saveOrUpdate(Comment comment);
 
-    public void save(Comment comment) {
-        entityManager.persist(comment);
-    }
+    Comment findById(int id);
 
-    @Transactional(readOnly = true)
-    public Comment findById(int id){
-        return entityManager.find(Comment.class, id);
-    }
+    void delete(Comment comment);
 
-    public void delete(Comment comment){
-        entityManager.remove(comment);
-    }
+    List<Comment> findByParentCommentAndReviewEquals(Comment parentComment, Review review);
 
-    public void update(Comment comment){
-        entityManager.merge(comment);
-    }
+    Long findTotalUniqueReviewsCommentedBy(User user);
 
-    @Transactional(readOnly = true)
-    public List<Comment> findByParentCommentAndReviewEquals(Comment parentComment, Review review){
-        return entityManager.createQuery("SELECT c FROM Comment c WHERE replyTo = :parentComment AND review = :review", Comment.class)
-                .setParameter("parentComment", parentComment)
-                .setParameter("review", review)
-                .getResultList();
-    }
+    List<Comment> findByParentCommentSortedASC(Comment parentComment);
 
-    @Transactional(readOnly = true)
-    public Long findTotalUniqueReviewsCommentedBy(User user){
-        return entityManager.createQuery("SELECT COUNT(DISTINCT c.review) FROM Comment c WHERE owner = :user", Long.class)
-                .setParameter("user", user)
-                .getSingleResult();
-    }
-
-    @Transactional(readOnly = true)
-    public List<Comment> findByParentCommentSortedASC(Comment parentComment){
-        return entityManager.createQuery("SELECT c FROM Comment c WHERE replyTo = :parentComment ORDER BY c.createdAt ASC", Comment.class)
-                .setParameter("parentComment", parentComment)
-                .getResultList();
-    }
-
-    @Transactional(readOnly = true)
-    public Integer findIdMostPopularComment() {
-        return entityManager.createQuery("SELECT c.replyTo.id FROM Comment c WHERE c.replyTo IS NOT NULL GROUP BY c.replyTo.id ORDER BY COUNT(c) DESC", Integer.class)
-                .setFirstResult(0)
-                .setMaxResults(1)
-                .getSingleResult();
-    }
+    Integer findIdMostPopularComment();
 }

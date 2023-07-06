@@ -1,40 +1,17 @@
 package com.senlainc.repositories;
 
 import com.senlainc.models.Subscribe;
-import com.senlainc.models.SubscribeId;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Repository
-@Transactional
-public class SubscribeRepository {
+public interface SubscribeRepository {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    List<Subscribe> findAll();
 
-    @Transactional(readOnly = true)
-    public List<Subscribe> findAll() {
-        return entityManager.createQuery("SELECT m Subscribe Movie m", Subscribe.class).getResultList();
-    }
+    void saveOrUpdate(Subscribe subscribe);
 
-    public void save(Subscribe subscribe) {
-        entityManager.persist(subscribe);
-    }
+    Subscribe findById(Integer id);
 
-    @Transactional(readOnly = true)
-    public Subscribe findById(SubscribeId id){
-        return entityManager.find(Subscribe.class, id);
-    }
+    void delete(Subscribe subscribe);
 
-    public void delete(Subscribe subscribe){
-        entityManager.remove(subscribe);
-    }
-
-    public void update(Subscribe subscribe){
-        entityManager.merge(subscribe);
-    }
 }

@@ -1,57 +1,22 @@
 package com.senlainc.services;
 
 import com.senlainc.models.Genre;
-import com.senlainc.repositories.GenreRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class GenreService {
+public interface GenreService {
 
-    private final GenreRepository genreRepository;
+    List<Genre> findAll();
 
-    @Autowired
-    public GenreService(GenreRepository genreRepository) {
-        this.genreRepository = genreRepository;
-    }
+    Genre findById(int id);
 
-    public List<Genre> findAll(){
-        return genreRepository.findAll();
-    }
+    void saveOrUpdate(Genre genre);
 
-    public Genre findById(int id){
-        return genreRepository.findById(id);
-    }
+    void delete(Genre genre);
 
-    public void save(Genre genre){
-        if(genre.getId() != null){
-            update(genre.getId(),genre);
-        }
-        else {
-            genreRepository.save(genre);
-        }
-    }
+    List<Genre> findGenreLike(char ch);
 
-    public void delete(Genre genre){
-        genreRepository.delete(genre);
-    }
+    Genre findMostPopularGenre();
 
-    public void update(int id, Genre genre){
-        genre.setId(id);
-        genreRepository.update(genre);
-    }
-
-    public List<Genre> findGenreLike(char ch){
-        return genreRepository.findGenreLike(ch+"%");
-    }
-
-    public Genre findMostPopularGenre(){
-        return genreRepository.findMostPopularGenre();
-    }
-
-    public List<Genre> findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(int amount, int duration){
-        return genreRepository.findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(amount,duration);
-    }
+    List<Genre> findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(int amount, int duration);
 }

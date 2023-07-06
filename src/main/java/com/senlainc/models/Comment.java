@@ -4,11 +4,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "Comment")
@@ -35,15 +34,20 @@ public class Comment {
     @ToString.Exclude
     private User owner;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reply_to",referencedColumnName = "comment_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @EqualsAndHashCode.Exclude
     private Comment replyTo;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @OneToMany(mappedBy = "replyTo", orphanRemoval = true, cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<Comment> replies;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "review",referencedColumnName = "review_id")
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Review review;
 
     @PrePersist

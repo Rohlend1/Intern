@@ -1,36 +1,29 @@
 package com.senlainc.services;
 
-import com.senlainc.util.DatabasePreparer;
 import com.senlainc.config.SpringConfig;
 import com.senlainc.models.User;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestUserService {
 
-    private static final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = SpringConfig.class)
+@Transactional
+public class TestUserServiceImpl {
 
-    private final UserService userService = context.getBean(UserService.class);
-
-    @BeforeAll
-    public static void prepareDatabase(){
-        DatabasePreparer.clearDatabase(context);
-        DatabasePreparer.prepareDatabase(context);
-    }
-
-    @AfterAll
-    public static void clearDatabase(){
-        DatabasePreparer.clearDatabase(context);
-    }
+    @Autowired
+    private UserService userService;
 
     @Test
     public void testFindTotalUsersWith(){
@@ -54,6 +47,6 @@ public class TestUserService {
 
     @Test
     public void testFindByUsernameMatchingToRegexp(){
-        assertEquals(userService.findByUsername("Frog"),userService.findByUsernameMatchingToRegexp("[F]+").get(0));
+        assertEquals(userService.findByUsername("Frog"), userService.findByUsernameMatchingToRegexp("[F]+").get(0));
     }
 }

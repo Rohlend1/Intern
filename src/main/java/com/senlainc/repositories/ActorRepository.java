@@ -1,39 +1,16 @@
 package com.senlainc.repositories;
 
 import com.senlainc.models.Actor;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Repository
-@Transactional
-public class ActorRepository{
+public interface ActorRepository {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    List<Actor> findAll();
 
-    @Transactional(readOnly = true)
-    public List<Actor> findAll() {
-        return entityManager.createQuery("SELECT m FROM Actor m", Actor.class).getResultList();
-    }
+    void saveOrUpdate(Actor actor);
 
-    public void save(Actor actor) {
-        entityManager.persist(actor);
-    }
+    Actor findById(int id);
 
-    @Transactional(readOnly = true)
-    public Actor findById(int id){
-        return entityManager.find(Actor.class, id);
-    }
-
-    public void update(Actor actor){
-        entityManager.merge(actor);
-    }
-
-    public void delete(Actor actor){
-        entityManager.remove(actor);
-    }
+    void delete(Actor actor);
 }

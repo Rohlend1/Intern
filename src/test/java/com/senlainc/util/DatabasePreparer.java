@@ -41,13 +41,13 @@ public class DatabasePreparer {
         User user4 = new User("Axe", new ArrayList<>());
         User user5 = new User("Punisher!", new ArrayList<>());
 
-        Subscribe subscribe1 = new Subscribe();
-        Subscribe subscribe2 = new Subscribe();
-        Subscribe subscribe3 = new Subscribe();
-
-        SubscribeId subscribeId1 = new SubscribeId();
-        SubscribeId subscribeId2 = new SubscribeId();
-        SubscribeId subscribeId3 = new SubscribeId();
+//        Subscribe subscribe1 = new Subscribe();
+//        Subscribe subscribe2 = new Subscribe();
+//        Subscribe subscribe3 = new Subscribe();
+//
+//        SubscribeId subscribeId1 = new SubscribeId();
+//        SubscribeId subscribeId2 = new SubscribeId();
+//        SubscribeId subscribeId3 = new SubscribeId();
 
         Review review1 = new Review("Super",LocalDateTime.of(2018, Month.JANUARY,1,1,15),null,user1);
         Review review2 = new Review("It was so boring",LocalDateTime.of(2017, Month.JUNE,4,21,11),LocalDateTime.now(),user1);
@@ -208,22 +208,22 @@ public class DatabasePreparer {
         em.persist(filmCompany2);
         em.persist(filmCompany3);
 
-        subscribeId1.setSubscribedTo(user1.getId());
-        subscribeId1.setSubscriber(user2.getId());
-
-        subscribeId2.setSubscribedTo(user1.getId());
-        subscribeId2.setSubscriber(user3.getId());
-
-        subscribeId3.setSubscribedTo(user2.getId());
-        subscribeId3.setSubscriber(user3.getId());
-
-        subscribe1.setId(subscribeId1);
-        subscribe2.setId(subscribeId2);
-        subscribe3.setId(subscribeId3);
-
-        em.persist(subscribe1);
-        em.persist(subscribe2);
-        em.persist(subscribe3);
+//        subscribeId1.setSubscribedTo(user1.getId());
+//        subscribeId1.setSubscriber(user2.getId());
+//
+//        subscribeId2.setSubscribedTo(user1.getId());
+//        subscribeId2.setSubscriber(user3.getId());
+//
+//        subscribeId3.setSubscribedTo(user2.getId());
+//        subscribeId3.setSubscriber(user3.getId());
+//
+//        subscribe1.setId(subscribeId1);
+//        subscribe2.setId(subscribeId2);
+//        subscribe3.setId(subscribeId3);
+//
+//        em.persist(subscribe1);
+//        em.persist(subscribe2);
+//        em.persist(subscribe3);
 
         em.getTransaction().commit();
 
@@ -231,7 +231,7 @@ public class DatabasePreparer {
         movies.addAll(List.of(movie1,movie2,movie3,movie4,movie5));
         users.addAll(List.of(user1,user2,user3,user4,user5));
         filmCompanies.addAll(List.of(filmCompany1,filmCompany2,filmCompany3));
-        subscribes.addAll(List.of(subscribe1,subscribe2,subscribe3));
+//        subscribes.addAll(List.of(subscribe1,subscribe2,subscribe3));
         comments.addAll(List.of(comment1,comment2,comment3,comment4,comment5,comment6));
         replies.addAll(List.of(reply1,reply2,reply3,reply4,reply5,reply6,reply7,reply8));
         reviews.addAll(List.of(review1,review2,review3,review4));

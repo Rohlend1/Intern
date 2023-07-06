@@ -3,61 +3,24 @@ package com.senlainc.services;
 import com.senlainc.models.Comment;
 import com.senlainc.models.Review;
 import com.senlainc.models.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.senlainc.repositories.CommentRepository;
 
 import java.util.List;
 
-@Service
-public class CommentService {
+public interface CommentService {
 
-    private final CommentRepository commentRepository;
+    List<Comment> findAll();
 
-    @Autowired
-    public CommentService(CommentRepository commentRepository) {
-        this.commentRepository = commentRepository;
-    }
+    Comment findById(int id);
 
-    public List<Comment> findAll(){
-        return commentRepository.findAll();
-    }
+    void saveOrUpdate(Comment comment);
 
-    public Comment findById(int id){
-        return commentRepository.findById(id);
-    }
+    void delete(Comment comment);
 
-    public void save(Comment comment){
-        if(comment.getId() != null){
-            update(comment.getId(),comment);
-        }
-        else {
-            commentRepository.save(comment);
-        }
-    }
+    List<Comment> findByParentCommentEqualsAndReviewEquals(Comment parentComment, Review review);
 
-    public void delete(Comment comment){
-        commentRepository.delete(comment);
-    }
+    Long findTotalUniqueReviewsCommentedBy(User user);
 
-    public void update(int id, Comment comment){
-        comment.setId(id);
-        commentRepository.update(comment);
-    }
+    List<Comment> findByParentCommentSortedASC(Comment parentComment);
 
-    public List<Comment> findByParentCommentEqualsAndReviewEquals(Comment parentComment, Review review){
-        return commentRepository.findByParentCommentAndReviewEquals(parentComment,review);
-    }
-
-    public Long findTotalUniqueReviewsCommentedBy(User user){
-        return commentRepository.findTotalUniqueReviewsCommentedBy(user);
-    }
-
-    public List<Comment> findByParentCommentSortedASC(Comment parentComment){
-        return commentRepository.findByParentCommentSortedASC(parentComment);
-    }
-
-    public Integer findIdMostPopularComment(){
-        return commentRepository.findIdMostPopularComment();
-    }
+    Integer findIdMostPopularComment();
 }

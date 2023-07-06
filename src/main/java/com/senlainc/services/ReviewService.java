@@ -2,61 +2,24 @@ package com.senlainc.services;
 
 import com.senlainc.models.Review;
 import com.senlainc.models.User;
-import com.senlainc.repositories.ReviewRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class ReviewService {
+public interface ReviewService {
 
-    private final ReviewRepository reviewRepository;
+    List<Review> findAll();
 
-    @Autowired
-    public ReviewService(ReviewRepository reviewRepository) {
-        this.reviewRepository = reviewRepository;
-    }
+    Review findById(int id);
 
-    public List<Review> findAll() {
-        return reviewRepository.findAll();
-    }
+    void saveOrUpdate(Review review);
 
-    public Review findById(int id) {
-        return reviewRepository.findById(id);
-    }
+    void delete(Review review);
 
-    public void save(Review review){
-        if(review.getId() != null){
-            update(review.getId(),review);
-        }
-        else {
-            reviewRepository.save(review);
-        }
-    }
+    List<Review> findByUser(User user);
 
-    public void delete(Review review){
-        reviewRepository.delete(review);
-    }
+    List<Review> findAllPagination(int page, int reviewsPerPage);
 
-    public void update(int id, Review review){
-        review.setId(id);
-        reviewRepository.update(review);
-    }
+    List<Review> findByContentGreaterThanAndUpdated(int amountOfCharacters);
 
-    public List<Review> findByUser(User user) {
-        return reviewRepository.findByUser(user);
-    }
-
-    public List<Review> findAllPagination(int page, int reviewsPerPage) {
-        return reviewRepository.findAllPagination(page, reviewsPerPage);
-    }
-
-    public List<Review> findByContentGreaterThanAndUpdated(int amountOfCharacters) {
-        return reviewRepository.findByContentGreaterThanAndUpdated(amountOfCharacters);
-    }
-
-    public List<Review> findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(int month, int minutes, int year) {
-        return reviewRepository.findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(month, minutes, year);
-    }
+    List<Review> findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(int month, int minutes, int year);
 }

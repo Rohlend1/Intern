@@ -2,61 +2,24 @@ package com.senlainc.services;
 
 import com.senlainc.models.FilmCompany;
 import com.senlainc.models.Movie;
-import com.senlainc.repositories.MovieRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class MovieService {
+public interface MovieService {
 
-    private final MovieRepository movieRepository;
+    List<Movie> findAll();
 
-    @Autowired
-    public MovieService(MovieRepository movieRepository) {
-        this.movieRepository = movieRepository;
-    }
+    Movie findById(int id);
 
-    public List<Movie> findAll(){
-        return movieRepository.findAll();
-    }
+    void saveOrUpdate(Movie movie);
 
-    public Movie findById(int id){
-        return movieRepository.findById(id);
-    }
+    void delete(Movie movie);
 
-    public void save(Movie movie){
-        if(movie.getId() != null){
-            update(movie.getId(),movie);
-        }
-        else {
-            movieRepository.save(movie);
-        }
-    }
+    List<Movie> findByDateOfReleaseBetween(int year1, int year2);
 
-    public void delete(Movie movie){
-        movieRepository.delete(movie);
-    }
+    List<Movie> findByFilmCompanyEqualsAndBoxOfficeGreaterThan(FilmCompany filmCompany, double millions);
 
-    public void update(int id, Movie movie){
-        movie.setId(id);
-        movieRepository.update(movie);
-    }
+    List<Movie> findByActorsLessThan(long amount);
 
-    public List<Movie> findByDateOfReleaseBetween(int year1, int year2){
-        return movieRepository.findByDateOfReleaseBetween(year1, year2);
-    }
-
-    public List<Movie> findByFilmCompanyEqualsAndBoxOfficeGreaterThan(FilmCompany filmCompany, double millions){
-        return movieRepository.findByFilmCompanyEqualsAndBoxOfficeGreaterThan(filmCompany, millions*1_000_000);
-    }
-
-    public List<Movie> findByActorsLessThan(long amount){
-        return movieRepository.findByActorsLessThan(amount);
-    }
-
-    public List<Movie> findAllPagination(int page, int moviesPerPage){
-        return movieRepository.findAllPagination(page, moviesPerPage);
-    }
+    List<Movie> findAllPagination(int page, int moviesPerPage);
 }

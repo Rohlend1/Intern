@@ -1,65 +1,24 @@
 package com.senlainc.repositories;
 
 import com.senlainc.models.User;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Repository
-@Transactional
-public class UserRepository {
+public interface UserRepository {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    List<User> findAll();
 
-    @Transactional(readOnly = true)
-    public List<User> findAll() {
-        return entityManager.createQuery("SELECT m User Movie m", User.class).getResultList();
-    }
+    void saveOrUpdate(User user);
 
-    public void save(User user) {
-        entityManager.persist(user);
-    }
+    User findById(int id);
 
-    @Transactional(readOnly = true)
-    public User findById(int id){
-        return entityManager.find(User.class, id);
-    }
+    void delete(User user);
 
-    public void delete(User user){
-        entityManager.remove(user);
-    }
+    Long findTotalUsersWithNoEditedReviews();
 
-    public void update(User user){
-        entityManager.merge(user);
-    }
+    List<User> findByUsernameMatchingToRegexp(String regex);
 
-    @Transactional(readOnly = true)
-    public Long findTotalUsersWithNoEditedReviews(){
-        return entityManager.createQuery("SELECT COUNT(DISTINCT r.owner) FROM Review r " +
-                "WHERE r.updatedAt = r.createdAt OR r.updatedAt IS NULL", Long.class).getSingleResult();
-    }
+    List<User> findByUsernameConsistsOfTextAndHasAtLeastOneReview();
 
-    @Transactional(readOnly = true)
-    public List<User> findByUsernameMatchingToRegexp(String regex){
-        return entityManager.createNativeQuery("SELECT * FROM users u WHERE u.username ~ :regex", User.class)
-                .setParameter("regex", regex)
-                .getResultList();
-    }
-
-    @Transactional(readOnly = true)
-    public List<User> findByUsernameConsistsOfTextAndHasAtLeastOneReview(){
-        return entityManager.createNativeQuery("SELECT * From users WHERE users.username ~ '^[a-zA-Z\\s]*$' " +
-                "AND users.user_id IN (SELECT DISTINCT owner FROM Review)", User.class).getResultList();
-    }
-
-    @Transactional(readOnly = true)
-    public User findByUsername(String username){
-        return entityManager.createQuery("SELECT u From User u WHERE u.username = :username",User.class)
-                .setParameter("username", username)
-                .getSingleResult();
-    }
+    User findByUsername(String username);
 }

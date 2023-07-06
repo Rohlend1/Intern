@@ -1,11 +1,13 @@
 package com.senlainc.models;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "Review")
@@ -31,6 +33,10 @@ public class Review {
     @JoinColumn(name = "owner",referencedColumnName = "user_id")
     @ToString.Exclude
     private User owner;
+
+    @OneToMany(mappedBy = "review", cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, orphanRemoval = true)
+    @EqualsAndHashCode.Exclude
+    private List<Comment> comments;
 
     @PrePersist
     public void prePersist() {

@@ -35,7 +35,7 @@ public class Actor {
     private LocalDate birthDate;
 
     @Column(name = "age")
-    private int age;
+    private Integer age;
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "actor_movie", joinColumns = @JoinColumn(name = "actor_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"))

@@ -1,46 +1,15 @@
 package com.senlainc.services;
 
 import com.senlainc.models.Subscribe;
-import com.senlainc.models.SubscribeId;
-import com.senlainc.repositories.SubscribeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class SubscribeService {
+public interface SubscribeService {
+    List<Subscribe> findAll();
 
-    private final SubscribeRepository subscribeRepository;
+    Subscribe findById(Integer id);
 
-    @Autowired
-    public SubscribeService(SubscribeRepository subscribeRepository) {
-        this.subscribeRepository = subscribeRepository;
-    }
+    void saveOrUpdate(Subscribe subscribe);
 
-    public List<Subscribe> findAll(){
-        return subscribeRepository.findAll();
-    }
-
-    public Subscribe findById(SubscribeId id){
-        return subscribeRepository.findById(id);
-    }
-
-    public void save(Subscribe subscribe){
-        if(subscribe.getId() != null){
-            update(subscribe.getId(), subscribe);
-        }
-        else {
-            subscribeRepository.save(subscribe);
-        }
-    }
-
-    public void delete(Subscribe subscribe){
-        subscribeRepository.delete(subscribe);
-    }
-
-    public void update(SubscribeId id, Subscribe subscribe){
-        subscribe.setId(id);
-        subscribeRepository.update(subscribe);
-    }
+    void delete(Subscribe subscribe);
 }

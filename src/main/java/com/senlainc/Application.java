@@ -2,7 +2,7 @@ package com.senlainc;
 
 import com.senlainc.config.SpringConfig;
 import com.senlainc.models.Actor;
-import com.senlainc.services.*;
+import com.senlainc.services.ActorService;
 import com.senlainc.util.Gender;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -20,6 +20,6 @@ public class Application {
 
         Actor actor = new Actor("sws","n", Gender.MALE,"c", LocalDate.now(),20,new ArrayList<>());
 
-        actorService.update(1159, actor);
+        actorService.saveOrUpdate(actor);
     }
 }

@@ -1,61 +1,22 @@
 package com.senlainc.services;
 
 import com.senlainc.models.User;
-import com.senlainc.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class UserService {
+public interface UserService {
+    List<User> findAll();
 
-    private final UserRepository userRepository;
+    User findById(int id);
 
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    void saveOrUpdate(User user);
 
-    public List<User> findAll(){
-        return userRepository.findAll();
-    }
+    void delete(User user);
 
-    public User findById(int id){
-        return userRepository.findById(id);
-    }
+    Long findTotalUsersWithNoEditedReviews();
 
-    public void save(User user){
-        if(user.getId() != null){
-            update(user.getId(),user);
-        }
-        else {
-            userRepository.save(user);
-        }
-    }
+    List<User> findByUsernameMatchingToRegexp(String regex);
 
-    public void delete(User user){
-        userRepository.delete(user);
-    }
-
-    public void update(int id, User user){
-        user.setId(id);
-        userRepository.update(user);
-    }
-
-    public Long findTotalUsersWithNoEditedReviews(){
-        return userRepository.findTotalUsersWithNoEditedReviews();
-    }
-
-    public List<User> findByUsernameMatchingToRegexp(String regex){
-        return userRepository.findByUsernameMatchingToRegexp(regex);
-    }
-
-    public List<User> findByUsernameConsistsOfTextAndHasAtLeastOneReview(){
-        return userRepository.findByUsernameConsistsOfTextAndHasAtLeastOneReview();
-    }
-
-    public User findByUsername(String username){
-        return userRepository.findByUsername(username);
-    }
+    List<User> findByUsernameConsistsOfTextAndHasAtLeastOneReview();
+    User findByUsername(String username);
 }
