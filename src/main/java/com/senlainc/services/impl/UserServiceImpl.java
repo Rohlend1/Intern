@@ -1,0 +1,52 @@
+package com.senlainc.services.impl;
+
+import com.senlainc.models.User;
+import com.senlainc.repositories.UserRepository;
+import com.senlainc.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    private final UserRepository userRepository;
+
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public List<User> findAll(){
+        return userRepository.findAll();
+    }
+
+    public User findById(int id){
+        return userRepository.findById(id);
+    }
+
+    public void saveOrUpdate(User user){
+        userRepository.saveOrUpdate(user);
+    }
+
+    public void delete(User user){
+        userRepository.delete(user);
+    }
+
+    public Long findTotalUsersWithNoEditedReviews(){
+        return userRepository.findTotalUsersWithNoEditedReviews();
+    }
+
+    public List<User> findByUsernameMatchingToRegexp(String regex){
+        return userRepository.findByUsernameMatchingToRegexp(regex);
+    }
+
+    public List<User> findByUsernameConsistsOfTextAndHasAtLeastOneReview(){
+        return userRepository.findByUsernameConsistsOfTextAndHasAtLeastOneReview();
+    }
+
+    public User findByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
+}

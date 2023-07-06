@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = SpringConfig.class)
 @Transactional
-public class TestUserServiceImpl {
+public class TestUserService {
 
     @Autowired
     private UserService userService;

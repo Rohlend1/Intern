@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = SpringConfig.class)
 @Transactional
-public class TestReviewServiceImpl {
+public class TestReviewService {
 
     @Autowired
     private ReviewService reviewService;
