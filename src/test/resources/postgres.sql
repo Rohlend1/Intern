@@ -11,7 +11,7 @@ VALUES ('Paul', 'Walker', 0, 'USA', CURRENT_DATE, 40),
 INSERT INTO users (username) VALUES ('Ark'), ('Smile'), ('Frog'), ('Axe'), ('Punisher!');
 
 -- Insert subscribes
-INSERT INTO subscribe (subscriber, subscribed_to) VALUES (1, 2), (3, 4), (1, 5);
+INSERT INTO subscribe (subscriber, subscribedto) VALUES (1, 2), (3, 4), (1, 5);
 
 -- Insert reviews
 INSERT INTO review (content, created_at, updated_at, owner) VALUES
@@ -21,21 +21,21 @@ INSERT INTO review (content, created_at, updated_at, owner) VALUES
     ('Yeah, it was amazing', '2016-08-16 13:09:00', CURRENT_TIMESTAMP, 5);
 
 -- Insert comments
-INSERT INTO comment (description, created_at, updated_at, reply_to, owner, review) VALUES
-('Wow', '2023-01-01 01:15:00', NULL, NULL, 1, 1),
-('Awesome', '2021-12-27 14:38:00', CURRENT_TIMESTAMP, NULL, 1, 1),
-('So bad', '2020-11-17 18:59:00', CURRENT_TIMESTAMP, NULL, 4, 1),
-('Disgusting', '2020-09-21 01:15:00', CURRENT_TIMESTAMP, NULL, 2, 2),
-('Great', '2021-10-19 23:47:00', CURRENT_TIMESTAMP, NULL, 4, 3),
-('Terrible', '2022-07-10 17:23:00', CURRENT_TIMESTAMP, NULL, 3, 4),
+INSERT INTO comment (description, created_at, updated_at, owner , review, reply_to) VALUES
+('Wow', '2023-01-01 01:15:00', NULL, 1, 1, NULL),
+('Awesome', '2021-12-27 14:38:00', CURRENT_TIMESTAMP, 1, 1, NULL),
+('So bad', '2020-11-17 18:59:00', CURRENT_TIMESTAMP, 4, 1, NULL),
+('Disgusting', '2020-09-21 01:15:00', CURRENT_TIMESTAMP, 2, 2,NULL),
+('Great', '2021-10-19 23:47:00', CURRENT_TIMESTAMP, 4, 3, NULL),
+('Terrible', '2022-07-10 17:23:00', CURRENT_TIMESTAMP, 3, 4, NULL),
 ('Agree', '2023-04-28 12:20:00', NULL, 3, 1, 1),
 ('I''m not advise this', '2023-04-28 08:25:00', '2023-04-30 12:20:00', 1, 2, 2),
 ('Of course -_-', '2023-03-16 11:40:00', '2023-05-10 02:58:00', 4, 1, 1),
 ('Yeah, u re right', '2022-04-28 12:20:00', '2023-01-28 12:20:00', 5, 1, 1),
-('I give it an 8 out of 10', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2, 3, 3),
-('Сomplete stupidity', '2023-04-28 12:20:00', NULL, 2, 4, 4),
-('It''s a masterpiece', '2023-06-12 14:14:00', NULL, 3, 5, 5),
-('The truth', CURRENT_TIMESTAMP, NULL, 3, 6, 6);
+('I give it an 8 out of 10', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2, 1, 3),
+('Сomplete stupidity', '2023-04-28 12:20:00', NULL, 2, 2, 4),
+('It''s a masterpiece', '2023-06-12 14:14:00', NULL, 3, 3, 5),
+('The truth', CURRENT_TIMESTAMP, NULL, 3, 4, 6);
 
 
 -- Insert film companies
@@ -55,20 +55,19 @@ INSERT INTO movie (title, date_of_release, film_company, duration, box_office) V
 -- Insert genres
 INSERT INTO genre (name) VALUES ('Action'), ('Romance'), ('Drama'), ('Horror');
 
--- Insert actor-movie relationships
---INSERT INTO actor_movie (actor_id, movie_id) VALUES
---    (1, 1), (2, 1), (3, 1),
---    (2, 2), (3, 2), (4, 2), (5, 2),
---    (1, 3), (2, 3), (3, 3), (4, 3), (5, 3),
---    (1, 4),
---    (1, 5);
---
----- Insert genre-movie relationships
---INSERT INTO movie_genre (genre_id, movie_id) VALUES
---    (1, 1), (1, 2),
---    (2, 1), (2, 2), (2, 3),
---    (3, 2), (3, 3),
---    (4, 1), (4, 3);
+INSERT INTO actor_movie (actor_id, movie_id) VALUES
+   (1, 1), (2, 1), (3, 1),
+   (2, 2), (3, 2), (4, 2), (5, 2),
+   (1, 3), (2, 3), (3, 3), (4, 3), (5, 3),
+   (1, 4),
+   (1, 5);
+
+-- Insert genre-movie relationships
+INSERT INTO movie_genre (genre_id, movie_id) VALUES
+   (1, 1), (1, 2),
+   (2, 1), (2, 2), (2, 3),
+   (3, 2), (3, 3),
+   (4, 1), (4, 3);
 
 
 

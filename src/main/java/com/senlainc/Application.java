@@ -1,13 +1,8 @@
 package com.senlainc;
 
 import com.senlainc.config.SpringConfig;
-import com.senlainc.models.Actor;
-import com.senlainc.services.ActorService;
-import com.senlainc.util.Gender;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 
 public class Application {
@@ -16,10 +11,5 @@ public class Application {
 
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
 
-        ActorService actorService = context.getBean(ActorService.class);
-
-        Actor actor = new Actor("sws","n", Gender.MALE,"c", LocalDate.now(),20,new ArrayList<>());
-
-        actorService.saveOrUpdate(actor);
     }
 }
