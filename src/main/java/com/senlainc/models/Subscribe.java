@@ -21,7 +21,7 @@ public class Subscribe {
     private User subscriber;
 
     @ManyToOne
-    @JoinColumn(name = "subscribedTo", referencedColumnName = "user_id")
+    @JoinColumn(name = "subscribed_to", referencedColumnName = "user_id")
     private User subscribedTo;
 
 }

@@ -4,7 +4,8 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import com.senlainc.config.TestConfig;
-import com.senlainc.models.Genre;
+import com.senlainc.models.Actor;
+import com.senlainc.util.Gender;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,10 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfig.class)
@@ -31,44 +32,38 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         DbUnitTestExecutionListener.class})
 @DatabaseSetup("classpath:dataset.xml")
 @DbUnitConfiguration(databaseConnection = "dataSource")
-public class TestGenreService {
+public class TestActorService {
 
     @Autowired
-    private GenreService genreService;
+    private ActorService actorService;
 
     @Test
-    public void testFindGenreLike(){
-        List<Genre> expectedGenres = new ArrayList<>();
-        List<Genre> actualGenres = genreService.findGenreLike('A');
+    public void testFindByCountryEqualsAndLastNameEndsWithAndLessThan(){
+        List<Actor> expectedActors = new ArrayList<>();
 
-        expectedGenres.add(genreService.findById(1));
+        expectedActors.add(actorService.findById(4));
+        expectedActors.add(actorService.findById(5));
 
-        actualGenres.sort(Comparator.comparingInt(Genre::getId));
-        expectedGenres.sort(Comparator.comparingInt(Genre::getId));
-
-        assertEquals(expectedGenres, actualGenres);
+        assertEquals(expectedActors, actorService.findByCountryEqualsAndLastNameEndsWithAndLessThan("Canada","s",50));
     }
 
     @Test
-    public void testFindMostPopularGenre(){
-        assertEquals(genreService.findById(2), genreService.findMostPopularGenre());
+    public void testFindByGenderAndFromCountry(){
+        List<Actor> expectedActors = new ArrayList<>();
+
+        expectedActors.add(actorService.findById(1));
+        expectedActors.add(actorService.findById(2));
+
+        assertEquals(expectedActors, actorService.findByGenderAndFromCountry(Gender.MALE, "USA"));
     }
 
     @Test
-    public void testFindAll(){
-        assertEquals(4,genreService.findAll().size());
-    }
+    public void testFindByMoviesMoreThanAndBornInTwentiethCentury(){
+        List<Actor> expectedActors = new ArrayList<>();
 
-    @Test
-    public void testFindByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(){
-        List<Genre> expectedGenres = new ArrayList<>();
-        List<Genre> actualGenres = genreService.findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(2,100);
+        expectedActors.add(actorService.findById(1));
+        expectedActors.add(actorService.findById(2));
 
-        expectedGenres.add(genreService.findById(2));
-
-        actualGenres.sort(Comparator.comparingInt(Genre::getId));
-        expectedGenres.sort(Comparator.comparingInt(Genre::getId));
-
-        assertEquals(expectedGenres, actualGenres);
+        assertEquals(expectedActors, actorService.findByMoviesMoreThanAndBornInTwentiethCentury(2));
     }
 }

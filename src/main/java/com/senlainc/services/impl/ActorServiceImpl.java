@@ -3,6 +3,7 @@ package com.senlainc.services.impl;
 import com.senlainc.models.Actor;
 import com.senlainc.repositories.ActorRepository;
 import com.senlainc.services.ActorService;
+import com.senlainc.util.Gender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +33,17 @@ public class ActorServiceImpl implements ActorService {
 
     public void delete(Actor actor){
         actorRepository.delete(actor);
+    }
+
+    public List<Actor> findByCountryEqualsAndLastNameEndsWithAndLessThan(String country, String endsWith, int years){
+        return actorRepository.findByCountryEqualsAndLastNameEndsWithAndLessThan(country, "%"+endsWith, years);
+    }
+
+    public List<Actor> findByGenderAndFromCountry(Gender gender, String country) {
+        return actorRepository.findByGenderAndFromCountry(gender, country);
+    }
+
+    public List<Actor> findByMoviesMoreThanAndBornInTwentiethCentury(long amount) {
+        return actorRepository.findByMoviesMoreThanAndBornInTwentiethCentury(amount);
     }
 }

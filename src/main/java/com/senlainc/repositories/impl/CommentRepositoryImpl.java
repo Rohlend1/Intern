@@ -25,10 +25,10 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     public void saveOrUpdate(Comment comment){
         if(comment.getId() != null){
-            entityManager.persist(comment);
+            entityManager.merge(comment);
         }
         else {
-            entityManager.merge(comment);
+            entityManager.persist(comment);
         }
     }
 

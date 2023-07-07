@@ -26,10 +26,10 @@ public class GenreRepositoryImpl implements GenreRepository {
 
     public void saveOrUpdate(Genre genre){
         if(genre.getId() != null){
-            entityManager.persist(genre);
+            entityManager.merge(genre);
         }
         else {
-            entityManager.merge(genre);
+            entityManager.persist(genre);
         }
     }
 

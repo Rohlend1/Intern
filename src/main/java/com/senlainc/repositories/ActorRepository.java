@@ -1,6 +1,7 @@
 package com.senlainc.repositories;
 
 import com.senlainc.models.Actor;
+import com.senlainc.util.Gender;
 
 import java.util.List;
 
@@ -13,4 +14,10 @@ public interface ActorRepository {
     Actor findById(int id);
 
     void delete(Actor actor);
+
+    List<Actor> findByCountryEqualsAndLastNameEndsWithAndLessThan(String country, String endsWith, int years);
+
+    List<Actor> findByGenderAndFromCountry(Gender gender, String country);
+
+    List<Actor> findByMoviesMoreThanAndBornInTwentiethCentury(long amount);
 }

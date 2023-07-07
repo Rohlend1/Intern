@@ -1,9 +1,9 @@
 <dataset>
-    <actor actor_id="1" first_name="Paul" last_name="Walker" gender="0" country="USA" birth_date="1980-09-12" age="40"/>
-    <actor actor_id="2" first_name="Jim" last_name="Carry" gender="0" country="USA" birth_date="1980-09-12" age="58"/>
-    <actor actor_id="3" first_name="Megan" last_name="Fox" gender="1" country="China" birth_date="1980-09-12" age="33"/>
-    <actor actor_id="4" first_name="Steven" last_name="Rogers" gender="0" country="Canada" birth_date="1980-09-12" age="35"/>
-    <actor actor_id="5" first_name="Keanu" last_name="Reeves" gender="0" country="Russia" birth_date="1980-09-12" age="48"/>
+    <actor actor_id="1" first_name="Paul" last_name="Walker" gender="0" country="USA" birth_date="1999-09-12" age="40"/>
+    <actor actor_id="2" first_name="Jim" last_name="Carry" gender="0" country="USA" birth_date="1965-09-12" age="58"/>
+    <actor actor_id="3" first_name="Megan" last_name="Fox" gender="1" country="China" birth_date="2001-09-12" age="33"/>
+    <actor actor_id="4" first_name="Steven" last_name="Rogers" gender="0" country="Canada" birth_date="1990-09-12" age="35"/>
+    <actor actor_id="5" first_name="Keanu" last_name="Reeves" gender="0" country="Canada" birth_date="1980-09-12" age="48"/>
 
     <users user_id="1" username="Ark"/>
     <users user_id="2" username="Smile"/>
@@ -11,9 +11,9 @@
     <users user_id="4" username="Axe"/>
     <users user_id="5" username="Punisher!"/>
 
-<!--    <subscribe subscriber="1" subscribed_to="2"/>-->
-<!--    <subscribe subscriber="3" subscribed_to="4"/>-->
-<!--    <subscribe subscriber="1" subscribed_to="5"/>-->
+    <subscribe subscriber="1" subscribed_to="2"/>
+    <subscribe subscriber="3" subscribed_to="4"/>
+    <subscribe subscriber="1" subscribed_to="5"/>
 
     <review review_id="1" content="Super" created_at="2018-01-01 01:15:00" owner="1"/>
     <review review_id="2" content="It was so boring" created_at="2017-06-04 21:11:00" updated_at="2023-07-01 22:38:00" owner="1"/>

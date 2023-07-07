@@ -28,10 +28,10 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 
     public void saveOrUpdate(Review review){
         if(review.getId() != null){
-            entityManager.persist(review);
+            entityManager.merge(review);
         }
         else {
-            entityManager.merge(review);
+            entityManager.persist(review);
         }
     }
 

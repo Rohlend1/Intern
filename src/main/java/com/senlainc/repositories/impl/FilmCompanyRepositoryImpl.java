@@ -29,10 +29,10 @@ public class FilmCompanyRepositoryImpl implements FilmCompanyRepository {
 
     public void saveOrUpdate(FilmCompany filmCompany){
         if(filmCompany.getId() != null){
-            entityManager.persist(filmCompany);
+            entityManager.merge(filmCompany);
         }
         else {
-            entityManager.merge(filmCompany);
+            entityManager.persist(filmCompany);
         }
     }
 

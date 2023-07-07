@@ -23,10 +23,10 @@ public class SubscribeRepositoryImpl implements SubscribeRepository {
 
     public void saveOrUpdate(Subscribe subscribe){
         if(subscribe.getId() != null){
-            entityManager.persist(subscribe);
+            entityManager.merge(subscribe);
         }
         else {
-            entityManager.merge(subscribe);
+            entityManager.persist(subscribe);
         }
     }
 

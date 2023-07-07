@@ -23,10 +23,10 @@ public class UserRepositoryImpl implements UserRepository {
 
     public void saveOrUpdate(User user){
         if(user.getId() != null){
-            entityManager.persist(user);
+            entityManager.merge(user);
         }
         else {
-            entityManager.merge(user);
+            entityManager.persist(user);
         }
     }
 

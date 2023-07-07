@@ -23,15 +23,15 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     @Transactional(readOnly = true)
     public List<Movie> findAll() {
-        return entityManager.createQuery("SELECT m FROM Movie m").getResultList();
+        return entityManager.createQuery("SELECT m FROM Movie m", Movie.class).getResultList();
     }
 
     public void saveOrUpdate(Movie movie){
         if(movie.getId() != null){
-            entityManager.persist(movie);
+            entityManager.merge(movie);
         }
         else {
-            entityManager.merge(movie);
+            entityManager.persist(movie);
         }
     }
 

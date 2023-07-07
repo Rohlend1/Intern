@@ -2,6 +2,7 @@ package com.senlainc.repositories.impl;
 
 import com.senlainc.models.Actor;
 import com.senlainc.repositories.ActorRepository;
+import com.senlainc.util.Gender;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,10 +24,10 @@ public class ActorRepositoryImpl implements ActorRepository {
 
     public void saveOrUpdate(Actor actor){
         if(actor.getId() != null){
-            entityManager.persist(actor);
+            entityManager.merge(actor);
         }
         else {
-            entityManager.merge(actor);
+            entityManager.persist(actor);
         }
     }
 
@@ -37,5 +38,33 @@ public class ActorRepositoryImpl implements ActorRepository {
 
     public void delete(Actor actor){
         entityManager.remove(actor);
+    }
+
+    public List<Actor> findByGenderAndFromCountry(Gender gender, String country){
+        return entityManager.createQuery("SELECT a FROM Actor a WHERE a.gender = :gender AND a.country = : country", Actor.class)
+                .setParameter("gender", gender)
+                .setParameter("country", country)
+                .getResultList();
+    }
+
+    public List<Actor> findByMoviesMoreThanAndBornInTwentiethCentury(long amount){
+        return entityManager.createQuery("SELECT a FROM Actor a " +
+                        "JOIN a.movies " +
+                        "WHERE YEAR(a.birthDate) BETWEEN 1901 AND 2000" +
+                        "GROUP BY a " +
+                        "HAVING COUNT(a) > :amount", Actor.class)
+                .setParameter("amount", amount)
+                .getResultList();
+    }
+
+    public List<Actor> findByCountryEqualsAndLastNameEndsWithAndLessThan(String country, String endsWith, int years){
+        return entityManager.createQuery("SELECT a FROM Actor a " +
+                "WHERE a.country = :country " +
+                "AND a.lastName LIKE :endsWith " +
+                "AND a.age < :years", Actor.class)
+                .setParameter("country", country)
+                .setParameter("endsWith", endsWith)
+                .setParameter("years", years)
+                .getResultList();
     }
 }
