@@ -11,7 +11,17 @@ import javax.persistence.*;
 @Table(name="subscribe")
 public class Subscribe {
 
-    @EmbeddedId
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "subscribe_id")
-    private SubscribeId id;
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "subscriber", referencedColumnName = "user_id")
+    private User subscriber;
+
+    @ManyToOne
+    @JoinColumn(name = "subscribed_to", referencedColumnName = "user_id")
+    private User subscribedTo;
+
 }

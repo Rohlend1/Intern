@@ -1,35 +1,26 @@
 package com.senlainc.repositories;
 
-import com.senlainc.errors.ModelNotFoundException;
 import com.senlainc.models.Comment;
-import org.springframework.stereotype.Repository;
+import com.senlainc.models.Review;
+import com.senlainc.models.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Repository
-public class CommentRepository {
+public interface CommentRepository {
 
-    private final List<Comment> comments = new ArrayList<>();
+    List<Comment> findAll();
 
-    public List<Comment> findAll() {
-        return comments;
-    }
+    void saveOrUpdate(Comment comment);
 
-    public void save(Comment comment) {
-        comments.add(comment);
-    }
+    Comment findById(int id);
 
-    public Comment findOne(Comment comment){
-        return comments.stream().filter(a->a.equals(comment)).findAny().orElseThrow(ModelNotFoundException::new);
-    }
+    void delete(Comment comment);
 
-    public Comment findById(int id){
-        return comments.stream().filter(a->a.getId()==id).findAny().orElseThrow(ModelNotFoundException::new);
-    }
+    List<Comment> findByParentCommentAndReviewEquals(Comment parentComment, Review review);
 
-    public void delete(Comment comment){
-        comments.remove(comment);
-    }
+    Long findTotalUniqueReviewsCommentedBy(User user);
 
+    List<Comment> findByParentCommentSortedASC(Comment parentComment);
+
+    Integer findIdMostPopularComment();
 }

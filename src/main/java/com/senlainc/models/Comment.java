@@ -1,14 +1,13 @@
 package com.senlainc.models;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "Comment")
@@ -25,25 +24,43 @@ public class Comment {
     private String description;
 
     @Column(name = "created_at")
-    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
-    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     @ManyToOne(optional = false, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "owner",referencedColumnName = "user_id")
+    @ToString.Exclude
     private User owner;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reply_to",referencedColumnName = "comment_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @EqualsAndHashCode.Exclude
     private Comment replyTo;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @OneToMany(mappedBy = "replyTo", orphanRemoval = true, cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<Comment> replies;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "review",referencedColumnName = "review_id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Review review;
+
+    @PrePersist
+    public void prePersist() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 
     public Comment(String description, LocalDateTime createdAt, LocalDateTime updatedAt, User owner, Review review, Comment replyTo) {
         this.description = description;

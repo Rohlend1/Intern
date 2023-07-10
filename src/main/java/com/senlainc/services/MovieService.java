@@ -1,41 +1,25 @@
 package com.senlainc.services;
 
+import com.senlainc.models.FilmCompany;
 import com.senlainc.models.Movie;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.senlainc.repositories.MovieRepository;
 
 import java.util.List;
 
-@Service
-public class MovieService {
+public interface MovieService {
 
-    private final MovieRepository movieRepository;
+    List<Movie> findAll();
 
-    @Autowired
-    public MovieService(MovieRepository movieRepository) {
-        this.movieRepository = movieRepository;
-    }
+    Movie findById(int id);
 
-    public List<Movie> findAll(){
-        return movieRepository.findAll();
-    }
+    void saveOrUpdate(Movie movie);
 
-    public Movie findById(int id){
-        return movieRepository.findById(id);
-    }
+    void delete(Movie movie);
 
-    public void save(Movie movie){
-        movieRepository.save(movie);
-    }
+    List<Movie> findByDateOfReleaseBetween(int year1, int year2);
 
-    public void delete(Movie movie){
-        movieRepository.delete(movie);
-    }
+    List<Movie> findByFilmCompanyEqualsAndBoxOfficeGreaterThan(FilmCompany filmCompany, double millions);
 
-    public void update(int id, Movie movie){
-        movieRepository.delete(movieRepository.findById(id));
-        movie.setId(id);
-        movieRepository.save(movie);
-    }
+    List<Movie> findByActorsLessThan(long amount);
+
+    List<Movie> findAllPagination(int page, int moviesPerPage);
 }

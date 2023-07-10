@@ -1,34 +1,25 @@
 package com.senlainc.repositories;
 
-import com.senlainc.errors.ModelNotFoundException;
 import com.senlainc.models.Review;
-import org.springframework.stereotype.Repository;
+import com.senlainc.models.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Repository
-public class ReviewRepository {
+public interface ReviewRepository {
 
-    private final List<Review> reviews = new ArrayList<>();
+    List<Review> findAll();
 
-    public List<Review> findAll() {
-        return reviews;
-    }
+    void saveOrUpdate(Review review);
 
-    public void save(Review review) {
-        reviews.add(review);
-    }
+    Review findById(int id);
 
-    public Review findOne(Review review){
-        return reviews.stream().filter(a->a.equals(review)).findAny().orElseThrow(ModelNotFoundException::new);
-    }
+    void delete(Review review);
 
-    public Review findById(int id){
-        return reviews.stream().filter(a->a.getId()==id).findAny().orElseThrow(ModelNotFoundException::new);
-    }
+    List<Review> findByUser(User user);
 
-    public void delete(Review review){
-        reviews.remove(review);
-    }
+    List<Review> findAllPagination(int page, int moviesPerPage);
+
+    List<Review> findByContentGreaterThanAndUpdated(int amountOfCharacters);
+
+    List<Review> findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(int month, int minutes, int year);
 }

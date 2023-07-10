@@ -1,34 +1,21 @@
 package com.senlainc.repositories;
 
-import com.senlainc.errors.ModelNotFoundException;
 import com.senlainc.models.Genre;
-import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Repository
-public class GenreRepository {
+public interface GenreRepository {
 
-    private final List<Genre> genres = new ArrayList<>();
+    List<Genre> findAll();
 
-    public List<Genre> findAll() {
-        return genres;
-    }
+    void saveOrUpdate(Genre genre);
 
-    public void save(Genre genre) {
-        genres.add(genre);
-    }
+    Genre findById(int id);
 
-    public Genre findOne(Genre genre){
-        return genres.stream().filter(a->a.equals(genre)).findAny().orElseThrow(ModelNotFoundException::new);
-    }
+    void delete(Genre genre);
 
-    public Genre findById(int id){
-        return genres.stream().filter(a->a.getId()==id).findAny().orElseThrow(ModelNotFoundException::new);
-    }
+    List<Genre> findGenreLike(String ch);
+    List<Genre> findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(long amount, int duration);
 
-    public void delete(Genre genre){
-        genres.remove(genre);
-    }
+    Genre findMostPopularGenre();
 }

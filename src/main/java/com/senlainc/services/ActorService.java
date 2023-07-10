@@ -1,41 +1,23 @@
 package com.senlainc.services;
 
 import com.senlainc.models.Actor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.senlainc.repositories.ActorRepository;
+import com.senlainc.util.Gender;
 
 import java.util.List;
 
-@Service
-public class ActorService {
+public interface ActorService {
 
-    @Autowired
-    private final ActorRepository actorRepository;
+    List<Actor> findAll();
 
-    public ActorService(ActorRepository actorRepository) {
-        this.actorRepository = actorRepository;
-    }
+    Actor findById(int id);
 
-    public List<Actor> findAll(){
-        return actorRepository.findAll();
-    }
+    void saveOrUpdate(Actor actor);
 
-    public Actor findById(int id){
-        return actorRepository.findById(id);
-    }
+    void delete(Actor actor);
 
-    public void save(Actor actor){
-        actorRepository.save(actor);
-    }
+    List<Actor> findByCountryEqualsAndLastNameEndsWithAndLessThan(String country, String endsWith, int years);
 
-    public void delete(Actor actor){
-        actorRepository.delete(actor);
-    }
+    List<Actor> findByGenderAndFromCountry(Gender gender, String country);
 
-    public void update(int id, Actor actor){
-        actorRepository.delete(actorRepository.findById(id));
-        actor.setId(id);
-        actorRepository.save(actor);
-    }
+    List<Actor> findByMoviesMoreThanAndBornInTwentiethCentury(long amount);
 }

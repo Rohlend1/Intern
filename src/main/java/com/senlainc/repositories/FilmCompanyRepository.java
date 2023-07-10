@@ -1,34 +1,26 @@
 package com.senlainc.repositories;
 
-import com.senlainc.errors.ModelNotFoundException;
 import com.senlainc.models.FilmCompany;
-import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Repository
-public class FilmCompanyRepository {
+public interface FilmCompanyRepository {
 
-    private final List<FilmCompany> FilmCompanies = new ArrayList<>();
+    List<FilmCompany> findAll();
 
-    public List<FilmCompany> findAll() {
-        return FilmCompanies;
-    }
+    void saveOrUpdate(FilmCompany filmCompany);
 
-    public void save(FilmCompany filmCompany) {
-        FilmCompanies.add(filmCompany);
-    }
+    FilmCompany findById(int id);
 
-    public FilmCompany findOne(FilmCompany filmCompany){
-        return FilmCompanies.stream().filter(a->a.equals(filmCompany)).findAny().orElseThrow(ModelNotFoundException::new);
-    }
+    void delete(FilmCompany filmCompany);
 
-    public FilmCompany findById(int id){
-        return FilmCompanies.stream().filter(a->a.getId()==id).findAny().orElseThrow(ModelNotFoundException::new);
-    }
+    FilmCompany findByName(String name);
 
-    public void delete(FilmCompany filmCompany){
-        FilmCompanies.remove(filmCompany);
-    }
+    List<FilmCompany> findByDateOfFoundationLessThan(int year);
+
+    List<FilmCompany> findAllSortByName();
+
+    List<FilmCompany> findByNameWithTwoWordsAndDateOfFoundationBetween(int year1, int year2);
+
+    FilmCompany findLeastPopularFilmCompany();
 }

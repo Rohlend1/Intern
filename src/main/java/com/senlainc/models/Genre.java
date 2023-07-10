@@ -1,6 +1,7 @@
 package com.senlainc.models;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.List;
 @Table(name = "Genre")
 @Data
 @NoArgsConstructor
+@NamedQuery(name = "findGenreLike", query = "SELECT g FROM Genre g WHERE g.name LIKE :character")
 public class Genre {
 
     @Id
@@ -21,6 +23,7 @@ public class Genre {
     private String name;
 
     @ManyToMany(mappedBy = "genres")
+    @EqualsAndHashCode.Exclude
     private List<Movie> movies;
 
     public Genre(String name, List<Movie> movies) {

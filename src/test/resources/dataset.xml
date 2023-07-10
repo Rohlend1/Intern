@@ -1,0 +1,78 @@
+<dataset>
+    <actor actor_id="1" first_name="Paul" last_name="Walker" gender="0" country="USA" birth_date="1999-09-12" age="40"/>
+    <actor actor_id="2" first_name="Jim" last_name="Carry" gender="0" country="USA" birth_date="1965-09-12" age="58"/>
+    <actor actor_id="3" first_name="Megan" last_name="Fox" gender="1" country="China" birth_date="2001-09-12" age="33"/>
+    <actor actor_id="4" first_name="Steven" last_name="Rogers" gender="0" country="Canada" birth_date="1990-09-12" age="35"/>
+    <actor actor_id="5" first_name="Keanu" last_name="Reeves" gender="0" country="Canada" birth_date="1980-09-12" age="48"/>
+
+    <users user_id="1" username="Ark"/>
+    <users user_id="2" username="Smile"/>
+    <users user_id="3" username="Frog"/>
+    <users user_id="4" username="Axe"/>
+    <users user_id="5" username="Punisher!"/>
+
+    <subscribe subscriber="1" subscribed_to="2"/>
+    <subscribe subscriber="3" subscribed_to="4"/>
+    <subscribe subscriber="1" subscribed_to="5"/>
+
+    <review review_id="1" content="Super" created_at="2018-01-01 01:15:00" owner="1"/>
+    <review review_id="2" content="It was so boring" created_at="2017-06-04 21:11:00" updated_at="2023-07-01 22:38:00" owner="1"/>
+    <review review_id="3" content="Worst movie I've ever seen" created_at="2019-02-24 18:47:00" owner="3"/>
+    <review review_id="4" content="Yeah, it was amazing" created_at="2016-08-16 13:09:00" updated_at="2023-07-01 17:17:00" owner="5"/>
+
+    <comment comment_id="1" description="Wow" created_at="2023-01-01 01:15:00" owner="1" review="1"/>
+    <comment comment_id="2" description="Awesome" created_at="2021-12-27 14:38:00" updated_at="2023-12-27 14:38:00" owner="1" review="1"/>
+    <comment comment_id="3" description="So bad" created_at="2020-11-17 18:59:00" updated_at="2023-08-27 12:51:00" owner="4" review="1"/>
+    <comment comment_id="4" description="Disgusting" created_at="2020-09-21 01:15:00" updated_at="2022-01-27 11:38:00" owner="2" review="2"/>
+    <comment comment_id="5" description="Great" created_at="2021-10-19 23:47:00" updated_at="2021-12-27 14:59:00" owner="4" review="3"/>
+    <comment comment_id="6" description="Terrible" created_at="2022-07-10 17:23:00" updated_at="2021-12-27 05:38:00" owner="3" review="4"/>
+    <comment comment_id="7" description="Agree" created_at="2023-04-28 12:20:00" reply_to="1" owner="3" review="1"/>
+    <comment comment_id="8" description="I'm not advise this" created_at="2023-04-28 08:25:00" updated_at="2023-04-30 12:20:00" reply_to="2" owner="1" review="2"/>
+    <comment comment_id="9" description="Of course -_-" created_at="2023-03-16 11:40:00" updated_at="2023-05-10 02:58:00" reply_to="1" owner="4" review="1"/>
+    <comment comment_id="10" description="Yeah, u re right" created_at="2022-04-28 12:20:00" updated_at="2023-01-28 12:20:00" reply_to="1" owner="5" review="1"/>
+    <comment comment_id="11" description="I give it an 8 out of 10" created_at="2021-12-11 12:38:00" updated_at="2022-12-27 14:38:00" reply_to="3" owner="2" review="1"/>
+    <comment comment_id="12" description="Сomplete stupidity" created_at="2023-04-28 12:20:00" reply_to="4" owner="2" review="2"/>
+    <comment comment_id="13" description="It's a masterpiece" created_at="2023-06-12 14:14:00" reply_to="5" owner="3" review="3"/>
+    <comment comment_id="14" description="The truth" created_at="2019-12-27 14:38:00" reply_to="6" owner="3" review="4"/>
+
+    <film_company company_id="1" name="WB" date_of_foundation="1960-04-15"/>
+    <film_company company_id="2" name="21 Century" date_of_foundation="1899-12-25"/>
+    <film_company company_id="3" name="Blumhouse" date_of_foundation="1999-01-30"/>
+
+    <movie movie_id="1" title="Fast and furious" date_of_release="1980-12-20" film_company="1" duration="120" box_office="2000000"/>
+    <movie movie_id="2" title="The mask" date_of_release="2007-10-12" film_company="2" duration="105" box_office="35000000"/>
+    <movie movie_id="3" title="Captain America" date_of_release="2013-07-08" film_company="3" duration="110" box_office="400000000"/>
+    <movie movie_id="4" title="MOCK1" date_of_release="2023-07-07" film_company="1" duration="110" box_office="400000000"/>
+    <movie movie_id="5" title="MOCK2" date_of_release="2023-07-07" film_company="2" duration="110" box_office="400000000"/>
+
+    <genre genre_id="1" name="Action"/>
+    <genre genre_id="2" name="Romance"/>
+    <genre genre_id="3" name="Drama"/>
+    <genre genre_id="4" name="Horror"/>
+
+    <actor_movie actor_id="1" movie_id="1"/>
+    <actor_movie actor_id="1" movie_id="3"/>
+    <actor_movie actor_id="1" movie_id="4"/>
+    <actor_movie actor_id="1" movie_id="5"/>
+    <actor_movie actor_id="2" movie_id="1"/>
+    <actor_movie actor_id="2" movie_id="2"/>
+    <actor_movie actor_id="2" movie_id="3"/>
+    <actor_movie actor_id="3" movie_id="1"/>
+    <actor_movie actor_id="3" movie_id="2"/>
+    <actor_movie actor_id="3" movie_id="3"/>
+    <actor_movie actor_id="4" movie_id="2"/>
+    <actor_movie actor_id="4" movie_id="3"/>
+    <actor_movie actor_id="5" movie_id="2"/>
+    <actor_movie actor_id="5" movie_id="3"/>
+
+    <movie_genre genre_id="1" movie_id="1"/>
+    <movie_genre genre_id="1" movie_id="2"/>
+    <movie_genre genre_id="2" movie_id="1"/>
+    <movie_genre genre_id="2" movie_id="2"/>
+    <movie_genre genre_id="2" movie_id="3"/>
+    <movie_genre genre_id="3" movie_id="2"/>
+    <movie_genre genre_id="3" movie_id="3"/>
+    <movie_genre genre_id="4" movie_id="1"/>
+    <movie_genre genre_id="4" movie_id="3"/>
+
+</dataset>

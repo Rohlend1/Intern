@@ -35,10 +35,11 @@ public class Actor {
     private LocalDate birthDate;
 
     @Column(name = "age")
-    private int age;
+    private Integer age;
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "actor_movie", joinColumns = @JoinColumn(name = "actor_id"), inverseJoinColumns = @JoinColumn(name = "movie_id"))
+    @EqualsAndHashCode.Exclude
     private List<Movie> movies;
 
     public Actor(String firstName, String lastName, Gender gender, String country, LocalDate birthDate, int age, List<Movie> movies) {

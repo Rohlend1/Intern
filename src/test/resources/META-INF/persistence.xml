@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+                                 http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+    <persistence-unit name="MovieProject_test">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>com.senlainc.models.Movie</class>
+        <class>com.senlainc.models.Actor</class>
+        <class>com.senlainc.models.FilmCompany</class>
+        <class>com.senlainc.models.Comment</class>
+        <class>com.senlainc.models.Review</class>
+        <class>com.senlainc.models.User</class>
+        <class>com.senlainc.models.Genre</class>
+        <class>com.senlainc.models.Subscribe</class>
+
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/test_movie_db"/>
+            <property name="javax.persistence.jdbc.user" value="postgres"/>
+            <property name="javax.persistence.jdbc.password" value="postgres"/>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL10Dialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+        </properties>
+    </persistence-unit>
+</persistence>

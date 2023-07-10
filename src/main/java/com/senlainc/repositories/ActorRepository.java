@@ -1,33 +1,23 @@
 package com.senlainc.repositories;
 
-import com.senlainc.errors.ModelNotFoundException;
 import com.senlainc.models.Actor;
-import org.springframework.stereotype.Repository;
+import com.senlainc.util.Gender;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Repository
-public class ActorRepository {
-    private final List<Actor> actors = new ArrayList<>();
+public interface ActorRepository {
 
-    public List<Actor> findAll() {
-        return actors;
-    }
+    List<Actor> findAll();
 
-    public void save(Actor actor) {
-        actors.add(actor);
-    }
+    void saveOrUpdate(Actor actor);
 
-    public Actor findOne(Actor actor){
-        return actors.stream().filter(a->a.equals(actor)).findAny().orElseThrow(ModelNotFoundException::new);
-    }
+    Actor findById(int id);
 
-    public Actor findById(int id){
-        return actors.stream().filter(a->a.getId()==id).findAny().orElseThrow(ModelNotFoundException::new);
-    }
+    void delete(Actor actor);
 
-    public void delete(Actor actor){
-        actors.remove(actor);
-    }
+    List<Actor> findByCountryEqualsAndLastNameEndsWithAndLessThan(String country, String endsWith, int years);
+
+    List<Actor> findByGenderAndFromCountry(Gender gender, String country);
+
+    List<Actor> findByMoviesMoreThanAndBornInTwentiethCentury(long amount);
 }

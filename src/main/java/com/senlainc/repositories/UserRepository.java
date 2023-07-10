@@ -1,34 +1,24 @@
 package com.senlainc.repositories;
 
-import com.senlainc.errors.ModelNotFoundException;
 import com.senlainc.models.User;
-import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Repository
-public class UserRepository {
+public interface UserRepository {
 
-    private final List<User> users = new ArrayList<>();
+    List<User> findAll();
 
-    public List<User> findAll() {
-        return users;
-    }
+    void saveOrUpdate(User user);
 
-    public void save(User user) {
-        users.add(user);
-    }
+    User findById(int id);
 
-    public User findOne(User user){
-        return users.stream().filter(a->a.equals(user)).findAny().orElseThrow(ModelNotFoundException::new);
-    }
+    void delete(User user);
 
-    public User findById(int id){
-        return users.stream().filter(a->a.getId()==id).findAny().orElseThrow(ModelNotFoundException::new);
-    }
+    Long findTotalUsersWithNoEditedReviews();
 
-    public void delete(User user){
-        users.remove(user);
-    }
+    List<User> findByUsernameMatchingToRegexp(String regex);
+
+    List<User> findByUsernameConsistsOfTextAndHasAtLeastOneReview();
+
+    User findByUsername(String username);
 }

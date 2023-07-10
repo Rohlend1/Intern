@@ -1,35 +1,17 @@
 package com.senlainc.repositories;
 
-import com.senlainc.errors.ModelNotFoundException;
 import com.senlainc.models.Subscribe;
-import com.senlainc.models.SubscribeId;
-import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Repository
-public class SubscribeRepository {
+public interface SubscribeRepository {
 
-    private final List<Subscribe> subscribes = new ArrayList<>();
+    List<Subscribe> findAll();
 
-    public List<Subscribe> findAll() {
-        return subscribes;
-    }
+    void saveOrUpdate(Subscribe subscribe);
 
-    public void save(Subscribe subscribe) {
-        subscribes.add(subscribe);
-    }
+    Subscribe findById(Integer id);
 
-    public Subscribe findOne(Subscribe subscribe){
-        return subscribes.stream().filter(a->a.equals(subscribe)).findAny().orElseThrow(ModelNotFoundException::new);
-    }
+    void delete(Subscribe subscribe);
 
-    public Subscribe findById(SubscribeId id){
-        return subscribes.stream().filter(a->a.getId().equals(id)).findAny().orElseThrow(ModelNotFoundException::new);
-    }
-
-    public void delete(Subscribe subscribe){
-        subscribes.remove(subscribe);
-    }
 }

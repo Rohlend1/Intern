@@ -1,41 +1,26 @@
 package com.senlainc.services;
 
 import com.senlainc.models.FilmCompany;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.senlainc.repositories.FilmCompanyRepository;
 
 import java.util.List;
 
-@Service
-public class FilmCompanyService {
+public interface FilmCompanyService {
 
-    private final FilmCompanyRepository filmCompanyRepository;
+    List<FilmCompany> findAll();
 
-    @Autowired
-    public FilmCompanyService(FilmCompanyRepository filmCompanyRepository) {
-        this.filmCompanyRepository = filmCompanyRepository;
-    }
+    FilmCompany findById(int id);
 
-    public List<FilmCompany> findAll(){
-        return filmCompanyRepository.findAll();
-    }
+    void saveOrUpdate(FilmCompany filmCompany);
 
-    public FilmCompany findById(int id){
-        return filmCompanyRepository.findById(id);
-    }
+    void delete(FilmCompany filmCompany);
 
-    public void save(FilmCompany filmCompany){
-        filmCompanyRepository.save(filmCompany);
-    }
+    FilmCompany findByName(String name);
 
-    public void delete(FilmCompany filmCompany){
-        filmCompanyRepository.delete(filmCompany);
-    }
+    List<FilmCompany> findByDateOfFoundationLessThan(int year);
 
-    public void update(int id, FilmCompany filmCompany){
-        filmCompanyRepository.delete(filmCompanyRepository.findById(id));
-        filmCompany.setId(id);
-        filmCompanyRepository.save(filmCompany);
-    }
+    List<FilmCompany> findAllSortByName();
+
+    List<FilmCompany> findByNameWithTwoWordsAndDateOfFoundationBetween(int year1, int year2);
+
+    FilmCompany findLeastPopularFilmCompany();
 }

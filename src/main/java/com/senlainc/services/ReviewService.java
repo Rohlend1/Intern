@@ -1,41 +1,25 @@
 package com.senlainc.services;
 
 import com.senlainc.models.Review;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.senlainc.repositories.ReviewRepository;
+import com.senlainc.models.User;
 
 import java.util.List;
 
-@Service
-public class ReviewService {
+public interface ReviewService {
 
-    private final ReviewRepository reviewRepository;
+    List<Review> findAll();
 
-    @Autowired
-    public ReviewService(ReviewRepository reviewRepository) {
-        this.reviewRepository = reviewRepository;
-    }
+    Review findById(int id);
 
-    public List<Review> findAll(){
-        return reviewRepository.findAll();
-    }
+    void saveOrUpdate(Review review);
 
-    public Review findById(int id){
-        return reviewRepository.findById(id);
-    }
+    void delete(Review review);
 
-    public void save(Review review){
-        reviewRepository.save(review);
-    }
+    List<Review> findByUser(User user);
 
-    public void delete(Review review){
-        reviewRepository.delete(review);
-    }
+    List<Review> findAllPagination(int page, int reviewsPerPage);
 
-    public void update(int id, Review review){
-        reviewRepository.delete(reviewRepository.findById(id));
-        review.setId(id);
-        reviewRepository.save(review);
-    }
+    List<Review> findByContentGreaterThanAndUpdated(int amountOfCharacters);
+
+    List<Review> findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(int month, int minutes, int year);
 }
