@@ -57,7 +57,7 @@ public class ActorRepositoryImpl implements ActorRepository {
                 .getResultList();
     }
 
-    public List<Actor> findByCountryEqualsAndLastNameEndsWithAndLessThan(String country, String endsWith, int years){
+    public List<Actor> findByCountryEqualsAndLastNameEndsWithAndAgeLessThan(String country, String endsWith, int years){
         return entityManager.createQuery("SELECT a FROM Actor a " +
                 "WHERE a.country = :country " +
                 "AND a.lastName LIKE :endsWith " +

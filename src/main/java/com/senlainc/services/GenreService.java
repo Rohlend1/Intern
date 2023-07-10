@@ -18,5 +18,5 @@ public interface GenreService {
 
     Genre findMostPopularGenre();
 
-    List<Genre> findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(int amount, int duration);
+    List<Genre> findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(long amount, int duration);
 }

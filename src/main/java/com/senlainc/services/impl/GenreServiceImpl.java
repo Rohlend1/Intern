@@ -42,7 +42,7 @@ public class GenreServiceImpl implements GenreService {
         return genreRepository.findMostPopularGenre();
     }
 
-    public List<Genre> findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(int amount, int duration){
+    public List<Genre> findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(long amount, int duration){
         return genreRepository.findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(amount,duration);
     }
 }

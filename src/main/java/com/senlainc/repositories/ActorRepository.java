@@ -15,7 +15,7 @@ public interface ActorRepository {
 
     void delete(Actor actor);
 
-    List<Actor> findByCountryEqualsAndLastNameEndsWithAndLessThan(String country, String endsWith, int years);
+    List<Actor> findByCountryEqualsAndLastNameEndsWithAndAgeLessThan(String country, String endsWith, int years);
 
     List<Actor> findByGenderAndFromCountry(Gender gender, String country);
 

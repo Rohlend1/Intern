@@ -35,8 +35,8 @@ public class ActorServiceImpl implements ActorService {
         actorRepository.delete(actor);
     }
 
-    public List<Actor> findByCountryEqualsAndLastNameEndsWithAndLessThan(String country, String endsWith, int years){
-        return actorRepository.findByCountryEqualsAndLastNameEndsWithAndLessThan(country, "%"+endsWith, years);
+    public List<Actor> findByCountryEqualsAndLastNameEndsWithAndAgeLessThan(String country, String endsWith, int years){
+        return actorRepository.findByCountryEqualsAndLastNameEndsWithAndAgeLessThan(country, "%"+endsWith, years);
     }
 
     public List<Actor> findByGenderAndFromCountry(Gender gender, String country) {
