@@ -65,6 +65,6 @@ public class ActorController {
 
     @GetMapping("/country_ends_with")
     public List<ActorDTO> getActorByCountryEqualsAndLastNameEndsWithAndAgeLessThan(@RequestBody CountryAndLastNameAndAgeSearchDTO dto){
-        return converter.convertListToActorDTO(actorService.findByCountryEqualsAndLastNameEndsWithAndAgeLessThan(dto.getCountry(), dto.getEndsWith(), dto.getYears()));
+        return converter.convertListToActorDTO(actorService.findByCountryEqualsAndLastNameEndsWithAndAgeLessThan(dto.getCountry(), dto.getEndsWith(), dto.getAge()));
     }
 }

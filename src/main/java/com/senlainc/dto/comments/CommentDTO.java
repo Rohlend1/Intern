@@ -1,11 +1,13 @@
 package com.senlainc.dto.comments;
 
-import com.senlainc.models.Comment;
-import com.senlainc.models.Review;
-import com.senlainc.models.User;
+import com.senlainc.dto.reviews.ReviewDTO;
+import com.senlainc.dto.users.UserDTO;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,18 +15,22 @@ import java.util.List;
 @Getter
 public class CommentDTO {
 
+    @NotBlank(message = "Description shouldn't be blank")
+    @Size(max = 400, message = "Description shouldn't be more than 400 characters")
     private String description;
 
+    @NotNull(message = "Creation time can't be null")
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
 
-    private User owner;
+    @NotNull(message = "Owner can't be null")
+    private UserDTO owner;
 
-    private Comment replyTo;
+    private CommentDTO replyTo;
 
-    private List<Comment> replies;
+    private List<CommentDTO> replies;
 
-    private Review review;
+    private ReviewDTO review;
 
 }
