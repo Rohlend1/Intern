@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
@@ -21,5 +22,6 @@ public class FilmCompanyDTO {
     private List<MovieDTO> movies;
 
     @NotNull(message = "Foundation date can't be null")
+    @PastOrPresent(message = "Foundation date can't indicate a future time")
     private LocalDate dateOfFoundation;
 }

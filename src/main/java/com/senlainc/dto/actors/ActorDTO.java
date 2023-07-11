@@ -28,6 +28,7 @@ public class ActorDTO {
     private String country;
 
     @NotNull(message = "Birth date shouldn't be empty")
+    @PastOrPresent(message = "Birth date can't indicate a future time")
     private LocalDate birthDate;
 
     @Min(value = 0, message = "Age shouldn't be less than 0")

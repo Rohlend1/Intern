@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,6 +21,7 @@ public class CommentDTO {
     private String description;
 
     @NotNull(message = "Creation time can't be null")
+    @PastOrPresent(message = "Creation time can't indicate a future time")
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
