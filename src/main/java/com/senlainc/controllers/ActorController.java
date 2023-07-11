@@ -18,15 +18,18 @@ public class ActorController {
 
     @Autowired
     private ActorService actorService;
+    
+    @Autowired
+    private Converter converter;
 
     @GetMapping
     public List<ActorDTO> getActors(){
-        return Converter.convertListToActorDTO(actorService.findAll());
+        return converter.convertListToActorDTO(actorService.findAll());
     }
 
     @GetMapping("/{id}")
     public ActorDTO getActor(@PathVariable("id") int id){
-        return Converter.convertToActorDTO(actorService.findById(id));
+        return converter.convertToActorDTO(actorService.findById(id));
     }
 
     @DeleteMapping("/{id}")
@@ -42,26 +45,26 @@ public class ActorController {
 
     @PatchMapping
     public void updateActor(ActorDTO actorDTO){
-        actorService.saveOrUpdate(Converter.convertToActor(actorDTO));
+        actorService.saveOrUpdate(converter.convertToActor(actorDTO));
     }
 
     @PostMapping
     public void createActor(ActorDTO actorDTO){
-        actorService.saveOrUpdate(Converter.convertToActor(actorDTO));
+        actorService.saveOrUpdate(converter.convertToActor(actorDTO));
     }
 
     @GetMapping("/gender_country")
     public List<ActorDTO> getActorByGenderAndFromCountry(@RequestBody GenderAndCountrySearchDTO dto){
-        return Converter.convertListToActorDTO(actorService.findByGenderAndFromCountry(dto.getGender(), dto.getCountry()));
+        return converter.convertListToActorDTO(actorService.findByGenderAndFromCountry(dto.getGender(), dto.getCountry()));
     }
 
     @GetMapping("/movies_born")
     public List<ActorDTO> getActorByMoviesMoreThanAndBornInTwentiethCentury(@RequestParam("amount") Long amount){
-        return Converter.convertListToActorDTO(actorService.findByMoviesMoreThanAndBornInTwentiethCentury(amount));
+        return converter.convertListToActorDTO(actorService.findByMoviesMoreThanAndBornInTwentiethCentury(amount));
     }
 
     @GetMapping("/country_ends_with")
     public List<ActorDTO> getActorByCountryEqualsAndLastNameEndsWithAndAgeLessThan(@RequestBody CountryAndLastNameAndAgeSearchDTO dto){
-        return Converter.convertListToActorDTO(actorService.findByCountryEqualsAndLastNameEndsWithAndAgeLessThan(dto.getCountry(), dto.getEndsWith(), dto.getYears()));
+        return converter.convertListToActorDTO(actorService.findByCountryEqualsAndLastNameEndsWithAndAgeLessThan(dto.getCountry(), dto.getEndsWith(), dto.getYears()));
     }
 }

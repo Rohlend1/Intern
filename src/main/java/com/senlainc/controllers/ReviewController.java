@@ -20,15 +20,18 @@ public class ReviewController {
 
     @Autowired
     private ReviewService reviewService;
+    
+    @Autowired
+    private Converter converter;
 
     @GetMapping
     public List<ReviewDTO> getReviews(){
-        return Converter.convertListToReviewDTO(reviewService.findAll());
+        return converter.convertListToReviewDTO(reviewService.findAll());
     }
 
     @GetMapping("/{id}")
     public ReviewDTO getReview(@PathVariable("id") int id){
-        return Converter.convertToReviewDTO(reviewService.findById(id));
+        return converter.convertToReviewDTO(reviewService.findById(id));
     }
 
     @DeleteMapping("/{id}")
@@ -44,32 +47,32 @@ public class ReviewController {
 
     @PatchMapping
     public void updateReview(ReviewDTO reviewDTO){
-        reviewService.saveOrUpdate(Converter.convertToReview(reviewDTO));
+        reviewService.saveOrUpdate(converter.convertToReview(reviewDTO));
     }
 
     @PostMapping
     public void createReview(ReviewDTO reviewDTO){
-        reviewService.saveOrUpdate(Converter.convertToReview(reviewDTO));
+        reviewService.saveOrUpdate(converter.convertToReview(reviewDTO));
     }
 
     @GetMapping("/month_minutes_year")
     public List<ReviewDTO> getReviewByMonthEqualsMinuteDiffLessThanYearOfCreationEquals(@RequestBody MonthAndMinutesAndYearSearch dto){
-        return Converter.convertListToReviewDTO(reviewService.findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(dto.getMonth(), dto.getMinutes(), dto.getYear()));
+        return converter.convertListToReviewDTO(reviewService.findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(dto.getMonth(), dto.getMinutes(), dto.getYear()));
     }
 
     @GetMapping("/find_by_user")
     public List<ReviewDTO> getReviewsByUser(@RequestBody UserDTO dto){
-        User user = Converter.convertToUser(dto);
-        return Converter.convertListToReviewDTO(reviewService.findByUser(user));
+        User user = converter.convertToUser(dto);
+        return converter.convertListToReviewDTO(reviewService.findByUser(user));
     }
 
     @GetMapping("/amount_of_characters")
     public List<ReviewDTO> getReviewByContentGreaterThanAndUpdated(@RequestParam("amount_of_characters") Integer amountOfCharacters){
-        return Converter.convertListToReviewDTO(reviewService.findByContentGreaterThanAndUpdated(amountOfCharacters));
+        return converter.convertListToReviewDTO(reviewService.findByContentGreaterThanAndUpdated(amountOfCharacters));
     }
 
     @GetMapping("/pagination")
     public List<ReviewDTO> getReviewsPagination(@RequestBody PaginationSearch dto){
-        return Converter.convertListToReviewDTO(reviewService.findAllPagination(dto.getPage(), dto.getItemsPerPage()));
+        return converter.convertListToReviewDTO(reviewService.findAllPagination(dto.getPage(), dto.getItemsPerPage()));
     }
 }

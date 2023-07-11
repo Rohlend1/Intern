@@ -18,14 +18,17 @@ public class FilmCompanyController {
     @Autowired
     private FilmCompanyService filmCompanyService;
 
+    @Autowired
+    private Converter converter;
+
     @GetMapping
     public List<FilmCompanyDTO> getFilmCompanies(){
-        return Converter.convertListToFilmCompanyDTO(filmCompanyService.findAll());
+        return converter.convertListToFilmCompanyDTO(filmCompanyService.findAll());
     }
 
     @GetMapping("/{id}")
     public FilmCompanyDTO getFilmCompany(@PathVariable("id") int id){
-        return Converter.convertToFilmCompanyDTO(filmCompanyService.findById(id));
+        return converter.convertToFilmCompanyDTO(filmCompanyService.findById(id));
     }
 
     @DeleteMapping("/{id}")
@@ -41,36 +44,36 @@ public class FilmCompanyController {
 
     @PatchMapping
     public void updateFilmCompany(FilmCompanyDTO filmCompanyDTO){
-        filmCompanyService.saveOrUpdate(Converter.convertToFilmCompany(filmCompanyDTO));
+        filmCompanyService.saveOrUpdate(converter.convertToFilmCompany(filmCompanyDTO));
     }
 
     @PostMapping
     public void createFilmCompany(FilmCompanyDTO filmCompanyDTO){
-        filmCompanyService.saveOrUpdate(Converter.convertToFilmCompany(filmCompanyDTO));
+        filmCompanyService.saveOrUpdate(converter.convertToFilmCompany(filmCompanyDTO));
     }
 
     @GetMapping("/date_foundation")
     public List<FilmCompanyDTO> getFilmCompanyByDateOfFoundationLessThan(@RequestParam("years") Integer years){
-        return Converter.convertListToFilmCompanyDTO(filmCompanyService.findByDateOfFoundationLessThan(years));
+        return converter.convertListToFilmCompanyDTO(filmCompanyService.findByDateOfFoundationLessThan(years));
     }
 
     @GetMapping("/name_sorted")
     public List<FilmCompanyDTO> getFilmCompaniesSortByName(){
-        return Converter.convertListToFilmCompanyDTO(filmCompanyService.findAllSortByName());
+        return converter.convertListToFilmCompanyDTO(filmCompanyService.findAllSortByName());
     }
 
     @GetMapping("/least_popular")
     public FilmCompanyDTO getLeastPopularFilmCompany(){
-        return Converter.convertToFilmCompanyDTO(filmCompanyService.findLeastPopularFilmCompany());
+        return converter.convertToFilmCompanyDTO(filmCompanyService.findLeastPopularFilmCompany());
     }
 
     @GetMapping("/name")
     public FilmCompanyDTO getFilmCompanyByName(@RequestParam("name") String name){
-        return Converter.convertToFilmCompanyDTO(filmCompanyService.findByName(name));
+        return converter.convertToFilmCompanyDTO(filmCompanyService.findByName(name));
     }
 
     @GetMapping("/date_between")
     public List<FilmCompanyDTO> getFilmCompanyByNameWithTwoWordsAndDateOfFoundationBetween(@RequestBody DateBetweenSearchDTO dto){
-        return Converter.convertListToFilmCompanyDTO(filmCompanyService.findByNameWithTwoWordsAndDateOfFoundationBetween(dto.getYear1(), dto.getYear2()));
+        return converter.convertListToFilmCompanyDTO(filmCompanyService.findByNameWithTwoWordsAndDateOfFoundationBetween(dto.getYear1(), dto.getYear2()));
     }
 }

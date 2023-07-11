@@ -21,14 +21,17 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
+    @Autowired
+    private Converter converter;
+
     @GetMapping
     public List<MovieDTO> getMovies(){
-        return Converter.convertListToMovieDTO(movieService.findAll());
+        return converter.convertListToMovieDTO(movieService.findAll());
     }
 
     @GetMapping("/{id}")
     public MovieDTO getMovie(@PathVariable("id") int id){
-        return Converter.convertToMovieDTO(movieService.findById(id));
+        return converter.convertToMovieDTO(movieService.findById(id));
     }
 
     @DeleteMapping("/{id}")
@@ -44,32 +47,32 @@ public class MovieController {
 
     @PatchMapping
     public void updateMovie(MovieDTO movieDTO){
-        movieService.saveOrUpdate(Converter.convertToMovie(movieDTO));
+        movieService.saveOrUpdate(converter.convertToMovie(movieDTO));
     }
 
     @PostMapping
     public void createMovie(MovieDTO movieDTO){
-        movieService.saveOrUpdate(Converter.convertToMovie(movieDTO));
+        movieService.saveOrUpdate(converter.convertToMovie(movieDTO));
     }
 
     @GetMapping("/date_between")
     public List<MovieDTO> getMovieByDateOfReleaseBetween(@RequestBody DateBetweenSearchDTO dto){
-        return Converter.convertListToMovieDTO(movieService.findByDateOfReleaseBetween(dto.getYear1(), dto.getYear2()));
+        return converter.convertListToMovieDTO(movieService.findByDateOfReleaseBetween(dto.getYear1(), dto.getYear2()));
     }
 
     @GetMapping("/actors")
     public List<MovieDTO> getMoviesByActorsLessThan(@RequestParam("amount") Long amount){
-        return Converter.convertListToMovieDTO(movieService.findByActorsLessThan(amount));
+        return converter.convertListToMovieDTO(movieService.findByActorsLessThan(amount));
     }
 
     @GetMapping("/film_company_box_office")
     public List<MovieDTO> getMoviesByFilmCompanyEqualsAndBoxOfficeGreaterThan(@RequestBody FilmCompanyAndBoxOfficeSearch dto){
-        FilmCompany filmCompany = Converter.convertToFilmCompany(dto.getFilmCompanyDTO());
-        return Converter.convertListToMovieDTO(movieService.findByFilmCompanyEqualsAndBoxOfficeGreaterThan(filmCompany, dto.getMillions()));
+        FilmCompany filmCompany = converter.convertToFilmCompany(dto.getFilmCompanyDTO());
+        return converter.convertListToMovieDTO(movieService.findByFilmCompanyEqualsAndBoxOfficeGreaterThan(filmCompany, dto.getMillions()));
     }
 
     @GetMapping("/pagination")
     public List<MovieDTO> getMoviesPagination(@RequestBody PaginationSearch dto){
-        return Converter.convertListToMovieDTO(movieService.findAllPagination(dto.getPage(), dto.getItemsPerPage()));
+        return converter.convertListToMovieDTO(movieService.findAllPagination(dto.getPage(), dto.getItemsPerPage()));
     }
 }

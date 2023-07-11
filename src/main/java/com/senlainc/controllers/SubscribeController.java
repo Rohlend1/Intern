@@ -16,15 +16,18 @@ public class SubscribeController {
 
     @Autowired
     private SubscribeService subscribeService;
+    
+    @Autowired
+    private Converter converter;
 
     @GetMapping
     public List<SubscribeDTO> getSubscribes(){
-        return Converter.convertListToSubscribeDTO(subscribeService.findAll());
+        return converter.convertListToSubscribeDTO(subscribeService.findAll());
     }
 
     @GetMapping("/{id}")
     public SubscribeDTO getSubscribe(@PathVariable("id") int id){
-        return Converter.convertToSubscribeDTO(subscribeService.findById(id));
+        return converter.convertToSubscribeDTO(subscribeService.findById(id));
     }
 
     @DeleteMapping("/{id}")
@@ -40,11 +43,11 @@ public class SubscribeController {
 
     @PatchMapping
     public void updateSubscribe(SubscribeDTO subscribeDTO){
-        subscribeService.saveOrUpdate(Converter.convertToSubscribe(subscribeDTO));
+        subscribeService.saveOrUpdate(converter.convertToSubscribe(subscribeDTO));
     }
 
     @PostMapping
     public void createSubscribe(SubscribeDTO subscribeDTO){
-        subscribeService.saveOrUpdate(Converter.convertToSubscribe(subscribeDTO));
+        subscribeService.saveOrUpdate(converter.convertToSubscribe(subscribeDTO));
     }
 }

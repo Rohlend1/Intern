@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.persistence.EntityManagerFactory;
 
 @Configuration
-@ComponentScan(basePackages = {"com.senlainc.services","com.senlainc.repositories"})
+@ComponentScan(basePackages = {"com.senlainc.services","com.senlainc.repositories","com.senlainc.util"})
 @EnableTransactionManagement
 public class SpringConfig {
 

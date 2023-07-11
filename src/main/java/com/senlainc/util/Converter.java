@@ -9,136 +9,168 @@ import com.senlainc.dto.reviews.ReviewDTO;
 import com.senlainc.dto.subscribes.SubscribeDTO;
 import com.senlainc.dto.users.UserDTO;
 import com.senlainc.models.*;
+import com.senlainc.util.mappers.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class Converter {
 
-    public static ActorDTO convertToActorDTO(Actor actor){
-        return null;
+    private final ActorMapper actorMapper;
+
+    private final CommentMapper commentMapper;
+
+    private final GenreMapper genreMapper;
+
+    private final FilmCompanyMapper filmCompanyMapper;
+
+    private final MovieMapper movieMapper;
+
+    private final ReviewMapper reviewMapper;
+
+    private final UserMapper userMapper;
+
+    private final SubscribeMapper subscribeMapper;
+
+    @Autowired
+    public Converter(ActorMapper actorMapper, CommentMapper commentMapper, GenreMapper genreMapper, FilmCompanyMapper filmCompanyMapper, MovieMapper movieMapper, ReviewMapper reviewMapper, UserMapper userMapper, SubscribeMapper subscribeMapper) {
+        this.actorMapper = actorMapper;
+        this.commentMapper = commentMapper;
+        this.genreMapper = genreMapper;
+        this.filmCompanyMapper = filmCompanyMapper;
+        this.movieMapper = movieMapper;
+        this.reviewMapper = reviewMapper;
+        this.userMapper = userMapper;
+        this.subscribeMapper = subscribeMapper;
     }
 
-    public static Actor convertToActor(ActorDTO actorDTO){
-        return null;
+    public ActorDTO convertToActorDTO(Actor actor){
+        return actorMapper.toDTO(actor);
     }
 
-    public static List<ActorDTO> convertListToActorDTO(List<Actor> actors){
-        return actors.stream().map(Converter::convertToActorDTO).toList();
+    public Actor convertToActor(ActorDTO actorDTO){
+        return actorMapper.toEntity(actorDTO);
     }
 
-    public static List<Actor> convertListToActor(List<ActorDTO> actorsDTOs){
-        return actorsDTOs.stream().map(Converter::convertToActor).toList();
+    public List<ActorDTO> convertListToActorDTO(List<Actor> actors){
+        return actorMapper.toDTOList(actors);
     }
 
-    public static CommentDTO convertToCommentDTO(Comment comment){
-        return null;
+    public List<Actor> convertListToActor(List<ActorDTO> actorsDTOs){
+        return actorMapper.toEntityList(actorsDTOs);
     }
 
-    public static Comment convertToComment(CommentDTO commentDTO){
-        return null;
+    public CommentDTO convertToCommentDTO(Comment comment){
+        return commentMapper.toDTO(comment);
     }
 
-    public static List<CommentDTO> convertListToCommentDTO(List<Comment> comments){
-        return comments.stream().map(Converter::convertToCommentDTO).toList();
+    public Comment convertToComment(CommentDTO commentDTO){
+        return commentMapper.toEntity(commentDTO);
     }
 
-    public static List<Comment> convertListToComment(List<CommentDTO> commentDTOs){
-        return commentDTOs.stream().map(Converter::convertToComment).toList();
+    public List<CommentDTO> convertListToCommentDTO(List<Comment> comments){
+        return commentMapper.toDTOList(comments);
     }
 
-    public static FilmCompanyDTO convertToFilmCompanyDTO(FilmCompany filmCompany){
-        return null;
+    public List<Comment> convertListToComment(List<CommentDTO> commentDTOs){
+        return commentMapper.toEntityList(commentDTOs);
     }
 
-    public static FilmCompany convertToFilmCompany(FilmCompanyDTO filmCompanyDTO){
-        return null;
+    public FilmCompanyDTO convertToFilmCompanyDTO(FilmCompany filmCompany){
+        return filmCompanyMapper.toDTO(filmCompany);
     }
 
-    public static List<FilmCompanyDTO> convertListToFilmCompanyDTO(List<FilmCompany> filmCompanies){
-        return filmCompanies.stream().map(Converter::convertToFilmCompanyDTO).toList();
+    public FilmCompany convertToFilmCompany(FilmCompanyDTO filmCompanyDTO){
+        return filmCompanyMapper.toEntity(filmCompanyDTO);
     }
 
-    public static List<FilmCompany> convertListToFilmCompany(List<FilmCompanyDTO> filmCompanyDTOs){
-        return filmCompanyDTOs.stream().map(Converter::convertToFilmCompany).toList();
+    public List<FilmCompanyDTO> convertListToFilmCompanyDTO(List<FilmCompany> filmCompanies){
+        return filmCompanyMapper.toDTOList(filmCompanies);
     }
 
-    public static ReviewDTO convertToReviewDTO(Review review){
-        return null;
+    public List<FilmCompany> convertListToFilmCompany(List<FilmCompanyDTO> filmCompanyDTOs){
+        return filmCompanyMapper.toEntityList(filmCompanyDTOs);
     }
 
-    public static Review convertToReview(ReviewDTO reviewDTO){
-        return null;
+    public ReviewDTO convertToReviewDTO(Review review){
+        return reviewMapper.toDTO(review);
     }
 
-    public static List<ReviewDTO> convertListToReviewDTO(List<Review> reviews){
-        return reviews.stream().map(Converter::convertToReviewDTO).toList();
+    public Review convertToReview(ReviewDTO reviewDTO){
+        return reviewMapper.toEntity(reviewDTO);
     }
 
-    public static List<Review> convertListToReview(List<ReviewDTO> reviewDTOs){
-        return reviewDTOs.stream().map(Converter::convertToReview).toList();
+    public List<ReviewDTO> convertListToReviewDTO(List<Review> reviews){
+        return reviewMapper.toDTOList(reviews);
     }
 
-    public static GenreDTO convertToGenreDTO(Genre genre){
-        return null;
+    public List<Review> convertListToReview(List<ReviewDTO> reviewDTOs){
+        return reviewMapper.toEntityList(reviewDTOs);
     }
 
-    public static Genre convertToGenre(GenreDTO genreDTO){
-        return null;
+    public GenreDTO convertToGenreDTO(Genre genre){
+        return genreMapper.toDTO(genre);
     }
 
-    public static List<GenreDTO> convertListToGenreDTO(List<Genre> genres){
-        return genres.stream().map(Converter::convertToGenreDTO).toList();
+    public Genre convertToGenre(GenreDTO genreDTO){
+        return genreMapper.toEntity(genreDTO);
     }
 
-    public static List<Genre> convertListToGenre(List<GenreDTO> genreDTOs){
-        return genreDTOs.stream().map(Converter::convertToGenre).toList();
+    public List<GenreDTO> convertListToGenreDTO(List<Genre> genres){
+        return genreMapper.toDTOList(genres);
     }
 
-    public static MovieDTO convertToMovieDTO(Movie movie){
-        return null;
+    public List<Genre> convertListToGenre(List<GenreDTO> genreDTOs){
+        return genreMapper.toEntityList(genreDTOs);
     }
 
-    public static Movie convertToMovie(MovieDTO movieDTO){
-        return null;
+    public MovieDTO convertToMovieDTO(Movie movie){
+        return movieMapper.toDTO(movie);
     }
 
-    public static List<MovieDTO> convertListToMovieDTO(List<Movie> movies){
-        return movies.stream().map(Converter::convertToMovieDTO).toList();
+    public Movie convertToMovie(MovieDTO movieDTO){
+        return movieMapper.toEntity(movieDTO);
     }
 
-    public static List<Movie> convertListToMovie(List<MovieDTO> movieDTOs){
-        return movieDTOs.stream().map(Converter::convertToMovie).toList();
+    public List<MovieDTO> convertListToMovieDTO(List<Movie> movies){
+        return movieMapper.toDTOList(movies);
     }
 
-    public static SubscribeDTO convertToSubscribeDTO(Subscribe subscribe){
-        return null;
+    public List<Movie> convertListToMovie(List<MovieDTO> movieDTOs){
+        return movieMapper.toEntityList(movieDTOs);
     }
 
-    public static Subscribe convertToSubscribe(SubscribeDTO subscribeDTOs){
-        return null;
+    public SubscribeDTO convertToSubscribeDTO(Subscribe subscribe){
+        return subscribeMapper.toDTO(subscribe);
     }
 
-    public static List<SubscribeDTO> convertListToSubscribeDTO(List<Subscribe> subscribes){
-        return subscribes.stream().map(Converter::convertToSubscribeDTO).toList();
+    public Subscribe convertToSubscribe(SubscribeDTO subscribeDTOs){
+        return subscribeMapper.toEntity(subscribeDTOs);
     }
 
-    public static List<Subscribe> convertListToSubscribe(List<SubscribeDTO> subscribeDTOs){
-        return subscribeDTOs.stream().map(Converter::convertToSubscribe).toList();
+    public List<SubscribeDTO> convertListToSubscribeDTO(List<Subscribe> subscribes){
+        return subscribeMapper.toDTOList(subscribes);
     }
 
-    public static UserDTO convertToUserDTO(User user){
-        return null;
+    public List<Subscribe> convertListToSubscribe(List<SubscribeDTO> subscribeDTOs){
+        return subscribeMapper.toEntityList(subscribeDTOs);
     }
 
-    public static User convertToUser(UserDTO userDTO){
-        return null;
+    public UserDTO convertToUserDTO(User user){
+        return userMapper.toDTO(user);
     }
 
-    public static List<UserDTO> convertListToUserDTO(List<User> users){
-        return users.stream().map(Converter::convertToUserDTO).toList();
+    public User convertToUser(UserDTO userDTO){
+        return userMapper.toEntity(userDTO);
     }
 
-    public static List<User> convertListToUser(List<UserDTO> userDTOs){
-        return userDTOs.stream().map(Converter::convertToUser).toList();
+    public List<UserDTO> convertListToUserDTO(List<User> users){
+        return userMapper.toDTOList(users);
+    }
+
+    public List<User> convertListToUser(List<UserDTO> userDTOs){
+        return userMapper.toEntityList(userDTOs);
     }
 }

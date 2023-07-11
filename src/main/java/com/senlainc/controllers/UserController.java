@@ -16,15 +16,18 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private Converter converter;
 
     @GetMapping
     public List<UserDTO> getUsers(){
-        return Converter.convertListToUserDTO(userService.findAll());
+        return converter.convertListToUserDTO(userService.findAll());
     }
 
     @GetMapping("/{id}")
     public UserDTO getUser(@PathVariable("id") int id){
-        return Converter.convertToUserDTO(userService.findById(id));
+        return converter.convertToUserDTO(userService.findById(id));
     }
 
     @DeleteMapping("/{id}")
@@ -40,17 +43,17 @@ public class UserController {
 
     @PatchMapping
     public void updateUser(UserDTO reviewDTO){
-        userService.saveOrUpdate(Converter.convertToUser(reviewDTO));
+        userService.saveOrUpdate(converter.convertToUser(reviewDTO));
     }
 
     @PostMapping
     public void createUser(UserDTO reviewDTO){
-        userService.saveOrUpdate(Converter.convertToUser(reviewDTO));
+        userService.saveOrUpdate(converter.convertToUser(reviewDTO));
     }
 
     @GetMapping("/regexp")
     public List<UserDTO> getUserByUsernameRegexp(@RequestParam("regexp") String regexp){
-        return Converter.convertListToUserDTO(userService.findByUsernameMatchingToRegexp(regexp));
+        return converter.convertListToUserDTO(userService.findByUsernameMatchingToRegexp(regexp));
     }
 
     @GetMapping("/no_edited_reviews")
@@ -60,6 +63,6 @@ public class UserController {
 
     @GetMapping("/consists_of_text_and_review")
     public List<UserDTO> getUserByUsernameConsistsOfTextAndHasAtLeastOneReview(){
-        return Converter.convertListToUserDTO(userService.findByUsernameConsistsOfTextAndHasAtLeastOneReview());
+        return converter.convertListToUserDTO(userService.findByUsernameConsistsOfTextAndHasAtLeastOneReview());
     }
 }

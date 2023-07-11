@@ -18,14 +18,17 @@ public class GenreController {
     @Autowired
     private GenreService genreService;
 
+    @Autowired
+    private Converter converter;
+
     @GetMapping
     public List<GenreDTO> getGenres(){
-        return Converter.convertListToGenreDTO(genreService.findAll());
+        return converter.convertListToGenreDTO(genreService.findAll());
     }
 
     @GetMapping("/{id}")
     public GenreDTO getGenre(@PathVariable("id") int id){
-        return Converter.convertToGenreDTO(genreService.findById(id));
+        return converter.convertToGenreDTO(genreService.findById(id));
     }
 
     @DeleteMapping("/{id}")
@@ -41,26 +44,26 @@ public class GenreController {
 
     @PatchMapping
     public void updateGenre(GenreDTO genreDTO){
-        genreService.saveOrUpdate(Converter.convertToGenre(genreDTO));
+        genreService.saveOrUpdate(converter.convertToGenre(genreDTO));
     }
 
     @PostMapping
     public void createGenre(GenreDTO genreDTO){
-        genreService.saveOrUpdate(Converter.convertToGenre(genreDTO));
+        genreService.saveOrUpdate(converter.convertToGenre(genreDTO));
     }
 
     @GetMapping("/amount_duration")
     public List<GenreDTO> getGenreByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(@RequestBody AmountAndDurationSearchDTO dto){
-        return Converter.convertListToGenreDTO(genreService.findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(dto.getAmount(), dto.getDuration()));
+        return converter.convertListToGenreDTO(genreService.findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(dto.getAmount(), dto.getDuration()));
     }
 
     @GetMapping("/like")
     public List<GenreDTO> getGenreLike(@RequestParam("character") Character ch){
-        return Converter.convertListToGenreDTO(genreService.findGenreLike(ch));
+        return converter.convertListToGenreDTO(genreService.findGenreLike(ch));
     }
 
     @GetMapping("/most_popular")
     public GenreDTO getMostPopularGenre(){
-        return Converter.convertToGenreDTO(genreService.findMostPopularGenre());
+        return converter.convertToGenreDTO(genreService.findMostPopularGenre());
     }
 }
