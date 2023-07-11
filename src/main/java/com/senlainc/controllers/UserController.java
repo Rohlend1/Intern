@@ -42,12 +42,12 @@ public class UserController {
     }
 
     @PatchMapping
-    public void updateUser(UserDTO reviewDTO){
+    public void updateUser(@RequestBody UserDTO reviewDTO){
         userService.saveOrUpdate(converter.convertToUser(reviewDTO));
     }
 
     @PostMapping
-    public void createUser(UserDTO reviewDTO){
+    public void createUser(@RequestBody UserDTO reviewDTO){
         userService.saveOrUpdate(converter.convertToUser(reviewDTO));
     }
 

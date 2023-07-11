@@ -46,12 +46,12 @@ public class MovieController {
     }
 
     @PatchMapping
-    public void updateMovie(MovieDTO movieDTO){
+    public void updateMovie(@RequestBody MovieDTO movieDTO){
         movieService.saveOrUpdate(converter.convertToMovie(movieDTO));
     }
 
     @PostMapping
-    public void createMovie(MovieDTO movieDTO){
+    public void createMovie(@RequestBody MovieDTO movieDTO){
         movieService.saveOrUpdate(converter.convertToMovie(movieDTO));
     }
 

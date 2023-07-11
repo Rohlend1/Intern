@@ -43,12 +43,12 @@ public class CommentController {
     }
 
     @PatchMapping
-    public void updateComment(CommentDTO commentDTO){
+    public void updateComment(@RequestBody CommentDTO commentDTO){
         commentService.saveOrUpdate(converter.convertToComment(commentDTO));
     }
 
     @PostMapping
-    public void createComment(CommentDTO commentDTO){
+    public void createComment(@RequestBody CommentDTO commentDTO){
         commentService.saveOrUpdate(converter.convertToComment(commentDTO));
     }
 

@@ -43,12 +43,12 @@ public class FilmCompanyController {
     }
 
     @PatchMapping
-    public void updateFilmCompany(FilmCompanyDTO filmCompanyDTO){
+    public void updateFilmCompany(@RequestBody FilmCompanyDTO filmCompanyDTO){
         filmCompanyService.saveOrUpdate(converter.convertToFilmCompany(filmCompanyDTO));
     }
 
     @PostMapping
-    public void createFilmCompany(FilmCompanyDTO filmCompanyDTO){
+    public void createFilmCompany(@RequestBody FilmCompanyDTO filmCompanyDTO){
         filmCompanyService.saveOrUpdate(converter.convertToFilmCompany(filmCompanyDTO));
     }
 

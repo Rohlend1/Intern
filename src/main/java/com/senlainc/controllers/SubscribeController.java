@@ -42,12 +42,12 @@ public class SubscribeController {
     }
 
     @PatchMapping
-    public void updateSubscribe(SubscribeDTO subscribeDTO){
+    public void updateSubscribe(@RequestBody SubscribeDTO subscribeDTO){
         subscribeService.saveOrUpdate(converter.convertToSubscribe(subscribeDTO));
     }
 
     @PostMapping
-    public void createSubscribe(SubscribeDTO subscribeDTO){
+    public void createSubscribe(@RequestBody SubscribeDTO subscribeDTO){
         subscribeService.saveOrUpdate(converter.convertToSubscribe(subscribeDTO));
     }
 }

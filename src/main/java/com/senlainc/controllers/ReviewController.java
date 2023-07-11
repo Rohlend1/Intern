@@ -46,12 +46,12 @@ public class ReviewController {
     }
 
     @PatchMapping
-    public void updateReview(ReviewDTO reviewDTO){
+    public void updateReview(@RequestBody ReviewDTO reviewDTO){
         reviewService.saveOrUpdate(converter.convertToReview(reviewDTO));
     }
 
     @PostMapping
-    public void createReview(ReviewDTO reviewDTO){
+    public void createReview(@RequestBody ReviewDTO reviewDTO){
         reviewService.saveOrUpdate(converter.convertToReview(reviewDTO));
     }
 

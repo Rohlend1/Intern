@@ -44,12 +44,12 @@ public class ActorController {
     }
 
     @PatchMapping
-    public void updateActor(ActorDTO actorDTO){
+    public void updateActor(@RequestBody ActorDTO actorDTO){
         actorService.saveOrUpdate(converter.convertToActor(actorDTO));
     }
 
     @PostMapping
-    public void createActor(ActorDTO actorDTO){
+    public void createActor(@RequestBody ActorDTO actorDTO){
         actorService.saveOrUpdate(converter.convertToActor(actorDTO));
     }
 

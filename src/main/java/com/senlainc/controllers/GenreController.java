@@ -43,12 +43,12 @@ public class GenreController {
     }
 
     @PatchMapping
-    public void updateGenre(GenreDTO genreDTO){
+    public void updateGenre(@RequestBody GenreDTO genreDTO){
         genreService.saveOrUpdate(converter.convertToGenre(genreDTO));
     }
 
     @PostMapping
-    public void createGenre(GenreDTO genreDTO){
+    public void createGenre(@RequestBody GenreDTO genreDTO){
         genreService.saveOrUpdate(converter.convertToGenre(genreDTO));
     }
 
