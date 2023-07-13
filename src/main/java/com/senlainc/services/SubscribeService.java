@@ -1,15 +1,18 @@
 package com.senlainc.services;
 
+import com.senlainc.dto.subscribes.SubscribeDTO;
 import com.senlainc.models.Subscribe;
 
 import java.util.List;
 
 public interface SubscribeService {
-    List<Subscribe> findAll();
+    List<SubscribeDTO> findAll();
 
-    Subscribe findById(Integer id);
+    SubscribeDTO findById(Integer id);
 
-    void saveOrUpdate(Subscribe subscribe);
+    void saveOrUpdate(SubscribeDTO subscribe);
 
-    void delete(Subscribe subscribe);
+    void delete(SubscribeDTO subscribe);
+
+    void delete(int id);
 }

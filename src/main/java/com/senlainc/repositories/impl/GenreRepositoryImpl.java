@@ -42,6 +42,10 @@ public class GenreRepositoryImpl implements GenreRepository {
         entityManager.remove(genre);
     }
 
+    public void delete(int id){
+        entityManager.createQuery("DELETE g FROM Genre WHERE g.id = :id").setParameter("id", id);
+    }
+
     @Transactional(readOnly = true)
     public List<Genre> findGenreLike(String ch){
         return entityManager.createNamedQuery("findGenreLike", Genre.class).setParameter("character", ch).getResultList();

@@ -1,10 +1,7 @@
 package com.senlainc.controllers;
 
 import com.senlainc.dto.users.UserDTO;
-import com.senlainc.errors.ModelNotFoundException;
-import com.senlainc.models.User;
 import com.senlainc.services.UserService;
-import com.senlainc.util.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,44 +13,36 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    
-    @Autowired
-    private Converter converter;
+
 
     @GetMapping
     public List<UserDTO> getUsers(){
-        return converter.convertListToUserDTO(userService.findAll());
+        return userService.findAll();
     }
 
     @GetMapping("/{id}")
     public UserDTO getUser(@PathVariable("id") int id){
-        return converter.convertToUserDTO(userService.findById(id));
+        return userService.findById(id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable("id") int id){
-        try{
-            User review = userService.findById(id);
-            userService.delete(review);
-        }
-        catch (ModelNotFoundException e){
-            System.out.println("No genre with this id was found");
-        }
+        userService.delete(id);
     }
 
     @PatchMapping
     public void updateUser(@RequestBody UserDTO reviewDTO){
-        userService.saveOrUpdate(converter.convertToUser(reviewDTO));
+        userService.saveOrUpdate(reviewDTO);
     }
 
     @PostMapping
     public void createUser(@RequestBody UserDTO reviewDTO){
-        userService.saveOrUpdate(converter.convertToUser(reviewDTO));
+        userService.saveOrUpdate(reviewDTO);
     }
 
     @GetMapping("/regexp")
     public List<UserDTO> getUserByUsernameRegexp(@RequestParam("regexp") String regexp){
-        return converter.convertListToUserDTO(userService.findByUsernameMatchingToRegexp(regexp));
+        return userService.findByUsernameMatchingToRegexp(regexp);
     }
 
     @GetMapping("/no_edited_reviews")
@@ -63,6 +52,6 @@ public class UserController {
 
     @GetMapping("/consists_of_text_and_review")
     public List<UserDTO> getUserByUsernameConsistsOfTextAndHasAtLeastOneReview(){
-        return converter.convertListToUserDTO(userService.findByUsernameConsistsOfTextAndHasAtLeastOneReview());
+        return userService.findByUsernameConsistsOfTextAndHasAtLeastOneReview();
     }
 }

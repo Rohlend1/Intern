@@ -39,4 +39,7 @@ public class SubscribeRepositoryImpl implements SubscribeRepository {
         entityManager.remove(subscribe);
     }
 
+    public void delete(int id){
+        entityManager.createQuery("DELETE s FROM Subscribe WHERE s.id = :id").setParameter("id", id);
+    }
 }

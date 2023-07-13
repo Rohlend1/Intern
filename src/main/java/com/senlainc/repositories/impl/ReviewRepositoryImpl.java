@@ -44,6 +44,10 @@ public class ReviewRepositoryImpl implements ReviewRepository {
         entityManager.remove(review);
     }
 
+    public void delete(int id){
+        entityManager.createQuery("DELETE r FROM Review WHERE r.id = :id").setParameter("id", id);
+    }
+
     @Transactional(readOnly = true)
     public List<Review> findByUser(User user){
         return entityManager.createQuery("SELECT r FROM Review r WHERE owner = :owner_id", Review.class)

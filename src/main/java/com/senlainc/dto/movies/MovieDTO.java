@@ -15,6 +15,7 @@ import java.util.List;
 
 @Setter
 @Getter
+
 public class MovieDTO {
 
     @NotBlank(message = "Title can't be empty")

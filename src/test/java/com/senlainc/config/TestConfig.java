@@ -13,7 +13,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan(basePackages = {"com.senlainc.services","com.senlainc.repositories"})
+@ComponentScan(basePackages = {"com.senlainc.services","com.senlainc.repositories", "com.senlainc.util"})
 @EnableTransactionManagement
 public class TestConfig {
     @Bean
@@ -28,8 +28,8 @@ public class TestConfig {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl("jdbc:postgresql://localhost:5432/test_movie_db");
-        dataSource.setUsername("username");
-        dataSource.setPassword("password");
+        dataSource.setUsername("postgres");
+        dataSource.setPassword("postgres");
         return dataSource;
     }
 

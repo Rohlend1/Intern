@@ -44,6 +44,10 @@ public class MovieRepositoryImpl implements MovieRepository {
         entityManager.remove(movie);
     }
 
+    public void delete(int id){
+        entityManager.createQuery("DELETE m FROM Movie WHERE m.id = :id").setParameter("id", id);
+    }
+
     @Transactional(readOnly = true)
     public List<Movie> findByDateOfReleaseBetween(int year1, int year2){
         return entityManager.createQuery("SELECT m FROM Movie m where YEAR(date_of_release) BETWEEN :year1 AND :year2", Movie.class)

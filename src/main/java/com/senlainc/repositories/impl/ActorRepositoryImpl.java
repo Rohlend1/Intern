@@ -40,6 +40,10 @@ public class ActorRepositoryImpl implements ActorRepository {
         entityManager.remove(actor);
     }
 
+    public void delete(int id){
+        entityManager.createQuery("DELETE a FROM Actor WHERE a.id = :id").setParameter("id", id);
+    }
+
     public List<Actor> findByGenderAndFromCountry(Gender gender, String country){
         return entityManager.createQuery("SELECT a FROM Actor a WHERE a.gender = :gender AND a.country = : country", Actor.class)
                 .setParameter("gender", gender)

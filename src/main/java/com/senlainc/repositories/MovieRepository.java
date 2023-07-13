@@ -15,6 +15,8 @@ public interface MovieRepository {
 
     void delete(Movie movie);
 
+    void delete(int id);
+
     List<Movie> findByDateOfReleaseBetween(int year1, int year2);
 
     List<Movie> findByFilmCompanyEqualsAndBoxOfficeGreaterThan(FilmCompany filmCompany, double millions);
