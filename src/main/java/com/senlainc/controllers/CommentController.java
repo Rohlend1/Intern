@@ -4,6 +4,7 @@ import com.senlainc.dto.comments.CommentDTO;
 import com.senlainc.dto.comments.ParentCommentAndReviewSearchDTO;
 import com.senlainc.errors.ModelNotFoundException;
 import com.senlainc.models.Comment;
+import com.senlainc.models.Review;
 import com.senlainc.services.CommentService;
 import com.senlainc.util.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,8 @@ public class CommentController {
     @GetMapping("/parent_review")
     public List<CommentDTO> getCommentByParentCommentAndReviewEquals(@RequestBody ParentCommentAndReviewSearchDTO dto){
         Comment parentComment = converter.convertToComment(dto.getParentComment());
-        return converter.convertListToCommentDTO(commentService.findByParentCommentEqualsAndReviewEquals(parentComment, dto.getReview()));
+        Review review = converter.convertToReview(dto.getReview());
+        return converter.convertListToCommentDTO(commentService.findByParentCommentEqualsAndReviewEquals(parentComment, review));
     }
 
     @GetMapping("/most_popular")
