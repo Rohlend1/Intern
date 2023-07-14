@@ -14,6 +14,8 @@ public interface FilmCompanyRepository {
 
     void delete(FilmCompany filmCompany);
 
+    void delete(int id);
+
     FilmCompany findByName(String name);
 
     List<FilmCompany> findByDateOfFoundationLessThan(int year);

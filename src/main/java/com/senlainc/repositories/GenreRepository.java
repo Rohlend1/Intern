@@ -14,6 +14,8 @@ public interface GenreRepository {
 
     void delete(Genre genre);
 
+    void delete(int id);
+
     List<Genre> findGenreLike(String ch);
     List<Genre> findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(long amount, int duration);
 

@@ -45,6 +45,10 @@ public class FilmCompanyRepositoryImpl implements FilmCompanyRepository {
         entityManager.remove(filmCompany);
     }
 
+    public void delete(int id){
+        entityManager.createQuery("DELETE fc FROM FilmCompany WHERE fc.id = :id").setParameter("id", id);
+    }
+
     @Transactional(readOnly = true)
     public FilmCompany findByName(String name){
         return entityManager.createQuery("SELECT fc FROM FilmCompany fc WHERE name = :name", FilmCompany.class)

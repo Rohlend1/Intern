@@ -1,8 +1,9 @@
 package com.senlainc.services.impl;
 
-import com.senlainc.models.Actor;
+import com.senlainc.dto.actors.ActorDTO;
 import com.senlainc.repositories.ActorRepository;
 import com.senlainc.services.ActorService;
+import com.senlainc.util.Converter;
 import com.senlainc.util.Gender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,35 +16,43 @@ public class ActorServiceImpl implements ActorService {
     private final ActorRepository actorRepository;
 
     @Autowired
-    public ActorServiceImpl(ActorRepository actorRepository) {
+    private final Converter converter;
+
+    @Autowired
+    public ActorServiceImpl(ActorRepository actorRepository, Converter converter) {
         this.actorRepository = actorRepository;
+        this.converter = converter;
     }
 
-    public List<Actor> findAll(){
-        return actorRepository.findAll();
+    public List<ActorDTO> findAll(){
+        return converter.convertListToActorDTO(actorRepository.findAll());
     }
 
-    public Actor findById(int id){
-        return actorRepository.findById(id);
+    public ActorDTO findById(int id){
+        return converter.convertToActorDTO(actorRepository.findById(id));
     }
 
-    public void saveOrUpdate(Actor actor){
-        actorRepository.saveOrUpdate(actor);
+    public void saveOrUpdate(ActorDTO actorDTO){
+        actorRepository.saveOrUpdate(converter.convertToActor(actorDTO));
     }
 
-    public void delete(Actor actor){
-        actorRepository.delete(actor);
+    public void delete(ActorDTO actorDTO){
+        actorRepository.delete(converter.convertToActor(actorDTO));
     }
 
-    public List<Actor> findByCountryEqualsAndLastNameEndsWithAndLessThan(String country, String endsWith, int years){
-        return actorRepository.findByCountryEqualsAndLastNameEndsWithAndLessThan(country, "%"+endsWith, years);
+    public void delete(int id) {
+        actorRepository.delete(id);
     }
 
-    public List<Actor> findByGenderAndFromCountry(Gender gender, String country) {
-        return actorRepository.findByGenderAndFromCountry(gender, country);
+    public List<ActorDTO> findByCountryEqualsAndLastNameEndsWithAndAgeLessThan(String country, String endsWith, int years){
+        return converter.convertListToActorDTO(actorRepository.findByCountryEqualsAndLastNameEndsWithAndAgeLessThan(country, "%"+endsWith, years));
     }
 
-    public List<Actor> findByMoviesMoreThanAndBornInTwentiethCentury(long amount) {
-        return actorRepository.findByMoviesMoreThanAndBornInTwentiethCentury(amount);
+    public List<ActorDTO> findByGenderAndFromCountry(Gender gender, String country) {
+        return converter.convertListToActorDTO(actorRepository.findByGenderAndFromCountry(gender, country));
+    }
+
+    public List<ActorDTO> findByMoviesMoreThanAndBornInTwentiethCentury(long amount) {
+        return converter.convertListToActorDTO(actorRepository.findByMoviesMoreThanAndBornInTwentiethCentury(amount));
     }
 }

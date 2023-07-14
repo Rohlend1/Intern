@@ -41,6 +41,10 @@ public class CommentRepositoryImpl implements CommentRepository {
         entityManager.remove(comment);
     }
 
+    public void delete(int id){
+        entityManager.createQuery("DELETE c FROM Comment WHERE c.id = :id").setParameter("id", id);
+    }
+
     @Transactional(readOnly = true)
     public List<Comment> findByParentCommentAndReviewEquals(Comment parentComment, Review review){
         return entityManager.createQuery("SELECT c FROM Comment c WHERE replyTo = :parentComment AND review = :review", Comment.class)

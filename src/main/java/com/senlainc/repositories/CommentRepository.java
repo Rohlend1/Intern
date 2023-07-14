@@ -16,6 +16,8 @@ public interface CommentRepository {
 
     void delete(Comment comment);
 
+    void delete(int id);
+
     List<Comment> findByParentCommentAndReviewEquals(Comment parentComment, Review review);
 
     Long findTotalUniqueReviewsCommentedBy(User user);

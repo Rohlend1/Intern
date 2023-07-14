@@ -39,6 +39,10 @@ public class UserRepositoryImpl implements UserRepository {
         entityManager.remove(user);
     }
 
+    public void delete(int id){
+        entityManager.createQuery("DELETE u FROM User WHERE u.id = :id").setParameter("id", id);
+    }
+
     @Transactional(readOnly = true)
     public Long findTotalUsersWithNoEditedReviews(){
         return entityManager.createQuery("SELECT COUNT(DISTINCT r.owner) FROM Review r " +

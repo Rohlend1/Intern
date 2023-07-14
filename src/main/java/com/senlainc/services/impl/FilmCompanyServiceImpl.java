@@ -1,8 +1,9 @@
 package com.senlainc.services.impl;
 
-import com.senlainc.models.FilmCompany;
+import com.senlainc.dto.filmcompanies.FilmCompanyDTO;
 import com.senlainc.repositories.FilmCompanyRepository;
 import com.senlainc.services.FilmCompanyService;
+import com.senlainc.util.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,44 +14,51 @@ public class FilmCompanyServiceImpl implements FilmCompanyService {
 
     private final FilmCompanyRepository filmCompanyRepository;
 
+    private final Converter converter;
+
     @Autowired
-    public FilmCompanyServiceImpl(FilmCompanyRepository filmCompanyRepository) {
+    public FilmCompanyServiceImpl(FilmCompanyRepository filmCompanyRepository, Converter converter) {
         this.filmCompanyRepository = filmCompanyRepository;
+        this.converter = converter;
     }
 
-    public List<FilmCompany> findAll(){
-        return filmCompanyRepository.findAll();
+    public List<FilmCompanyDTO> findAll(){
+        return converter.convertListToFilmCompanyDTO(filmCompanyRepository.findAll());
     }
 
-    public FilmCompany findById(int id){
-        return filmCompanyRepository.findById(id);
+    public FilmCompanyDTO findById(int id){
+        return converter.convertToFilmCompanyDTO(filmCompanyRepository.findById(id));
     }
 
-    public void saveOrUpdate(FilmCompany filmCompany){
-        filmCompanyRepository.saveOrUpdate(filmCompany);
+    public void saveOrUpdate(FilmCompanyDTO filmCompanyDTO){
+        filmCompanyRepository.saveOrUpdate(converter.convertToFilmCompany(filmCompanyDTO));
     }
 
-    public void delete(FilmCompany filmCompany){
-        filmCompanyRepository.delete(filmCompany);
+    public void delete(FilmCompanyDTO filmCompanyDTO){
+        filmCompanyRepository.delete(converter.convertToFilmCompany(filmCompanyDTO));
     }
 
-    public FilmCompany findByName(String name){
-        return filmCompanyRepository.findByName(name);
+    public void delete(int id) {
+        filmCompanyRepository.delete(id);
     }
 
-    public List<FilmCompany> findByDateOfFoundationLessThan(int year){
-        return filmCompanyRepository.findByDateOfFoundationLessThan(year);
+    public FilmCompanyDTO findByName(String name){
+        return converter.convertToFilmCompanyDTO(filmCompanyRepository.findByName(name));
     }
 
-    public List<FilmCompany> findAllSortByName() {
-        return filmCompanyRepository.findAllSortByName();
+    public List<FilmCompanyDTO> findByDateOfFoundationLessThan(int year){
+        return converter.convertListToFilmCompanyDTO(filmCompanyRepository.findByDateOfFoundationLessThan(year));
     }
 
-    public List<FilmCompany> findByNameWithTwoWordsAndDateOfFoundationBetween(int year1, int year2){
-        return filmCompanyRepository.findByNameWithTwoWordsAndDateOfFoundationBetween(year1,year2);
+    public List<FilmCompanyDTO> findAllSortByName() {
+        return converter.convertListToFilmCompanyDTO(filmCompanyRepository.findAllSortByName());
     }
 
-    public FilmCompany findLeastPopularFilmCompany(){
-        return filmCompanyRepository.findLeastPopularFilmCompany();
+    public List<FilmCompanyDTO> findByNameWithTwoWordsAndDateOfFoundationBetween(int year1, int year2){
+        return converter.convertListToFilmCompanyDTO(filmCompanyRepository.findByNameWithTwoWordsAndDateOfFoundationBetween(year1,year2));
+    }
+
+    public FilmCompanyDTO findLeastPopularFilmCompany(){
+        return converter.convertToFilmCompanyDTO(filmCompanyRepository.findLeastPopularFilmCompany());
     }
 }

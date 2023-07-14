@@ -14,6 +14,8 @@ public interface UserRepository {
 
     void delete(User user);
 
+    void delete(int id);
+
     Long findTotalUsersWithNoEditedReviews();
 
     List<User> findByUsernameMatchingToRegexp(String regex);

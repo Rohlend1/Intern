@@ -13,7 +13,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan(basePackages = {"com.senlainc.services","com.senlainc.repositories"})
+@ComponentScan(basePackages = {"com.senlainc.services","com.senlainc.repositories", "com.senlainc.util"})
 @EnableTransactionManagement
 public class TestConfig {
     @Bean

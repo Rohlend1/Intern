@@ -1,5 +1,7 @@
 package com.senlainc.services;
 
+import com.senlainc.dto.reviews.ReviewDTO;
+import com.senlainc.dto.users.UserDTO;
 import com.senlainc.models.Review;
 import com.senlainc.models.User;
 
@@ -7,19 +9,21 @@ import java.util.List;
 
 public interface ReviewService {
 
-    List<Review> findAll();
+    List<ReviewDTO> findAll();
 
-    Review findById(int id);
+    ReviewDTO findById(int id);
 
-    void saveOrUpdate(Review review);
+    void saveOrUpdate(ReviewDTO review);
 
-    void delete(Review review);
+    void delete(ReviewDTO review);
 
-    List<Review> findByUser(User user);
+    void delete(int id);
 
-    List<Review> findAllPagination(int page, int reviewsPerPage);
+    List<ReviewDTO> findByUser(UserDTO user);
 
-    List<Review> findByContentGreaterThanAndUpdated(int amountOfCharacters);
+    List<ReviewDTO> findAllPagination(int page, int reviewsPerPage);
 
-    List<Review> findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(int month, int minutes, int year);
+    List<ReviewDTO> findByContentGreaterThanAndUpdated(int amountOfCharacters);
+
+    List<ReviewDTO> findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(int month, int minutes, int year);
 }

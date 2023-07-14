@@ -44,7 +44,7 @@ public class TestActorService {
         expectedActors.add(actorService.findById(4));
         expectedActors.add(actorService.findById(5));
 
-        assertEquals(expectedActors, actorService.findByCountryEqualsAndLastNameEndsWithAndLessThan("Canada","s",50));
+        assertEquals(expectedActors, actorService.findByCountryEqualsAndLastNameEndsWithAndAgeLessThan("Canada","s",50));
     }
 
     @Test

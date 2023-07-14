@@ -15,6 +15,8 @@ public interface ReviewRepository {
 
     void delete(Review review);
 
+    void delete(int id);
+
     List<Review> findByUser(User user);
 
     List<Review> findAllPagination(int page, int moviesPerPage);

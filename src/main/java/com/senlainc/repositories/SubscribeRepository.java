@@ -8,9 +8,11 @@ public interface SubscribeRepository {
 
     List<Subscribe> findAll();
 
+    Subscribe findById(Integer id);
+
     void saveOrUpdate(Subscribe subscribe);
 
-    Subscribe findById(Integer id);
+    void delete(int id);
 
     void delete(Subscribe subscribe);
 

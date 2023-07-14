@@ -1,22 +1,25 @@
 package com.senlainc.services;
 
+import com.senlainc.dto.users.UserDTO;
 import com.senlainc.models.User;
 
 import java.util.List;
 
 public interface UserService {
-    List<User> findAll();
+    List<UserDTO> findAll();
 
-    User findById(int id);
+    UserDTO findById(int id);
 
-    void saveOrUpdate(User user);
+    void saveOrUpdate(UserDTO user);
 
-    void delete(User user);
+    void delete(UserDTO user);
+
+    void delete(int id);
 
     Long findTotalUsersWithNoEditedReviews();
 
-    List<User> findByUsernameMatchingToRegexp(String regex);
+    List<UserDTO> findByUsernameMatchingToRegexp(String regex);
 
-    List<User> findByUsernameConsistsOfTextAndHasAtLeastOneReview();
-    User findByUsername(String username);
+    List<UserDTO> findByUsernameConsistsOfTextAndHasAtLeastOneReview();
+    UserDTO findByUsername(String username);
 }

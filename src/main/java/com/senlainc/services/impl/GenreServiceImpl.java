@@ -1,8 +1,9 @@
 package com.senlainc.services.impl;
 
-import com.senlainc.models.Genre;
+import com.senlainc.dto.genres.GenreDTO;
 import com.senlainc.repositories.GenreRepository;
 import com.senlainc.services.GenreService;
+import com.senlainc.util.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,36 +14,43 @@ public class GenreServiceImpl implements GenreService {
 
     private final GenreRepository genreRepository;
 
+    private final Converter converter;
+
     @Autowired
-    public GenreServiceImpl(GenreRepository genreRepository) {
+    public GenreServiceImpl(GenreRepository genreRepository, Converter converter) {
         this.genreRepository = genreRepository;
+        this.converter = converter;
     }
 
-    public List<Genre> findAll(){
-        return genreRepository.findAll();
+    public List<GenreDTO> findAll(){
+        return converter.convertListToGenreDTO(genreRepository.findAll());
     }
 
-    public Genre findById(int id){
-        return genreRepository.findById(id);
+    public GenreDTO findById(int id){
+        return converter.convertToGenreDTO(genreRepository.findById(id));
     }
 
-    public void saveOrUpdate(Genre genre){
-        genreRepository.saveOrUpdate(genre);
+    public void saveOrUpdate(GenreDTO genreDTO){
+        genreRepository.saveOrUpdate(converter.convertToGenre(genreDTO));
     }
 
-    public void delete(Genre genre){
-        genreRepository.delete(genre);
+    public void delete(GenreDTO genreDTO){
+        genreRepository.delete(converter.convertToGenre(genreDTO));
     }
 
-    public List<Genre> findGenreLike(char ch){
-        return genreRepository.findGenreLike(ch+"%");
+    public void delete(int id) {
+        genreRepository.delete(id);
     }
 
-    public Genre findMostPopularGenre(){
-        return genreRepository.findMostPopularGenre();
+    public List<GenreDTO> findGenreLike(char ch){
+        return converter.convertListToGenreDTO(genreRepository.findGenreLike(ch+"%"));
     }
 
-    public List<Genre> findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(int amount, int duration){
-        return genreRepository.findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(amount,duration);
+    public GenreDTO findMostPopularGenre(){
+        return converter.convertToGenreDTO(genreRepository.findMostPopularGenre());
+    }
+
+    public List<GenreDTO> findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(long amount, int duration){
+        return converter.convertListToGenreDTO(genreRepository.findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(amount,duration));
     }
 }
