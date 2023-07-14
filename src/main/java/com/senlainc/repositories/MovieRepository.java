@@ -23,5 +23,5 @@ public interface MovieRepository {
 
     List<Movie> findByActorsLessThan(long amount);
 
-    List<Movie> findAllPagination(int page, int moviesPerPage);
+    List<Movie> findWithPagination(int page, int moviesPerPage);
 }

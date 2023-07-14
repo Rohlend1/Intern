@@ -41,7 +41,7 @@ public class TestReviewService {
     @Test
     public void testFindAllPagination(){
         List<Review> expectedReviews = new ArrayList<>();
-        List<Review> actualReviews = reviewService.findAllPagination(1,2);
+        List<Review> actualReviews = reviewService.findWithPagination(1,2);
 
         expectedReviews.add(reviewService.findById(1));
         expectedReviews.add(reviewService.findById(2));
@@ -55,7 +55,7 @@ public class TestReviewService {
     @Test
     public void testFindByContentGreaterThanAndUpdated(){
         List<Review> expectedReviews = new ArrayList<>();
-        List<Review> actualReviews = reviewService.findByContentGreaterThanAndUpdated(18);
+        List<Review> actualReviews = reviewService.findByContentSizeAndEdit(18);
 
         expectedReviews.add(reviewService.findById(4));
 
@@ -68,7 +68,7 @@ public class TestReviewService {
     @Test
     public void testFindMonthEqualsMinuteDiffLessThanYearOfCreationEquals(){
         List<Review> expectedReviews = new ArrayList<>();
-        List<Review> actualReviews = reviewService.findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(6,10_000_000,2017);
+        List<Review> actualReviews = reviewService.findByMonthAndDifferentPeriod(6,10_000_000,2017);
 
         expectedReviews.add(reviewService.findById(2));
 

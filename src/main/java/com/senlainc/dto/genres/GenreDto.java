@@ -1,6 +1,6 @@
 package com.senlainc.dto.genres;
 
-import com.senlainc.dto.movies.MovieDTO;
+import com.senlainc.dto.movies.MovieDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,10 +9,10 @@ import java.util.List;
 
 @Setter
 @Getter
-public class GenreDTO {
+public class GenreDto {
 
     @Size(min = 3, max = 50, message = "Genre's name must be between 3 and 50 characters")
     private String name;
 
-    private List<MovieDTO> movies;
+    private List<MovieDto> movies;
 }

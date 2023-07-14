@@ -1,7 +1,6 @@
 package com.senlainc.services.impl;
 
-import com.senlainc.dto.users.UserDTO;
-import com.senlainc.models.User;
+import com.senlainc.dto.users.UserDto;
 import com.senlainc.repositories.UserRepository;
 import com.senlainc.services.UserService;
 import com.senlainc.util.Converter;
@@ -23,19 +22,19 @@ public class UserServiceImpl implements UserService {
         this.converter = converter;
     }
 
-    public List<UserDTO> findAll(){
+    public List<UserDto> findAll(){
         return converter.convertListToUserDTO(userRepository.findAll());
     }
 
-    public UserDTO findById(int id){
+    public UserDto findById(int id){
         return converter.convertToUserDTO(userRepository.findById(id));
     }
 
-    public void saveOrUpdate(UserDTO userDTO){
+    public void saveOrUpdate(UserDto userDTO){
         userRepository.saveOrUpdate(converter.convertToUser(userDTO));
     }
 
-    public void delete(UserDTO userDTO){
+    public void delete(UserDto userDTO){
         userRepository.delete(converter.convertToUser(userDTO));
     }
 
@@ -47,15 +46,15 @@ public class UserServiceImpl implements UserService {
         return userRepository.findTotalUsersWithNoEditedReviews();
     }
 
-    public List<UserDTO> findByUsernameMatchingToRegexp(String regex){
+    public List<UserDto> findByUsernamePattern(String regex){
         return converter.convertListToUserDTO(userRepository.findByUsernameMatchingToRegexp(regex));
     }
 
-    public List<UserDTO> findByUsernameConsistsOfTextAndHasAtLeastOneReview(){
+    public List<UserDto> findByUsernamePatternAndReviews(){
         return converter.convertListToUserDTO(userRepository.findByUsernameConsistsOfTextAndHasAtLeastOneReview());
     }
 
-    public UserDTO findByUsername(String username){
+    public UserDto findByUsername(String username){
         return converter.convertToUserDTO(userRepository.findByUsername(username));
     }
 }

@@ -1,7 +1,7 @@
 package com.senlainc.controllers;
 
-import com.senlainc.dto.comments.CommentDTO;
-import com.senlainc.dto.comments.ParentCommentAndReviewSearchDTO;
+import com.senlainc.dto.comments.CommentDto;
+import com.senlainc.dto.comments.ParentCommentAndReviewSearchDto;
 import com.senlainc.services.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +15,13 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @GetMapping
-    public List<CommentDTO> getComments(){
+    @GetMapping("/all")
+    public List<CommentDto> getComments(){
         return commentService.findAll();
     }
 
     @GetMapping("/{id}")
-    public CommentDTO getComment(@PathVariable("id") int id){
+    public CommentDto getComment(@PathVariable("id") int id){
         return commentService.findById(id);
     }
 
@@ -30,28 +30,23 @@ public class CommentController {
         commentService.delete(id);
     }
 
-    @PatchMapping
-    public void updateComment(@RequestBody CommentDTO commentDTO){
+    @PutMapping
+    public void saveOrUpdateComment(@RequestBody CommentDto commentDTO){
         commentService.saveOrUpdate(commentDTO);
     }
 
-    @PostMapping
-    public void createComment(@RequestBody CommentDTO commentDTO){
-        commentService.saveOrUpdate(commentDTO);
-    }
-
-    @GetMapping("/parent_review")
-    public List<CommentDTO> getCommentByParentCommentAndReviewEquals(@RequestBody ParentCommentAndReviewSearchDTO dto){
+    @GetMapping("/find/parent-comment")
+    public List<CommentDto> getCommentByParentCommentAndReviewEquals(@RequestBody ParentCommentAndReviewSearchDto dto){
         return commentService.findByParentCommentEqualsAndReviewEquals(dto.getParentComment(), dto.getReview());
     }
 
-    @GetMapping("/most_popular")
-    public CommentDTO getMostPopularComment(){
+    @GetMapping("/find/most-popular")
+    public CommentDto getMostPopularComment(){
         return commentService.findById(commentService.findIdMostPopularComment());
     }
 
-    @GetMapping("/parent_sorted")
-    public List<CommentDTO> getCommentByParentCommentSortedASC(@RequestBody CommentDTO dto){
+    @GetMapping("/find/parent-comment/sorted")
+    public List<CommentDto> getCommentByParentCommentSortedASC(@RequestBody CommentDto dto){
         return commentService.findByParentCommentSortedASC(dto);
     }
 }

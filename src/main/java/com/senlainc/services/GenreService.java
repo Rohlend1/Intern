@@ -1,25 +1,24 @@
 package com.senlainc.services;
 
-import com.senlainc.dto.genres.GenreDTO;
-import com.senlainc.models.Genre;
+import com.senlainc.dto.genres.GenreDto;
 
 import java.util.List;
 
 public interface GenreService {
 
-    List<GenreDTO> findAll();
+    List<GenreDto> findAll();
 
-    GenreDTO findById(int id);
+    GenreDto findById(int id);
 
-    void saveOrUpdate(GenreDTO genre);
+    void saveOrUpdate(GenreDto genre);
 
-    void delete(GenreDTO genre);
+    void delete(GenreDto genre);
 
     void delete(int id);
 
-    List<GenreDTO> findGenreLike(char ch);
+    List<GenreDto> findGenreLike(char ch);
 
-    GenreDTO findMostPopularGenre();
+    GenreDto findMostPopularGenre();
 
-    List<GenreDTO> findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(long amount, int duration);
+    List<GenreDto> findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(long amount, int duration);
 }

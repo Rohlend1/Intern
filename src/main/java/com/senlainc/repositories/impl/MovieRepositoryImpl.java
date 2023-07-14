@@ -70,7 +70,7 @@ public class MovieRepositoryImpl implements MovieRepository {
     }
 
     @Transactional(readOnly = true)
-    public List<Movie> findAllPagination(int page, int moviesPerPage){
+    public List<Movie> findWithPagination(int page, int moviesPerPage){
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Movie> query = cb.createQuery(Movie.class);
         Root<Movie> root = query.from(Movie.class);

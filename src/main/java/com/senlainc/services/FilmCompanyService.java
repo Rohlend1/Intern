@@ -1,29 +1,28 @@
 package com.senlainc.services;
 
-import com.senlainc.dto.filmcompanies.FilmCompanyDTO;
-import com.senlainc.models.FilmCompany;
+import com.senlainc.dto.filmcompanies.FilmCompanyDto;
 
 import java.util.List;
 
 public interface FilmCompanyService {
 
-    List<FilmCompanyDTO> findAll();
+    List<FilmCompanyDto> findAll();
 
-    FilmCompanyDTO findById(int id);
+    FilmCompanyDto findById(int id);
 
-    void saveOrUpdate(FilmCompanyDTO filmCompany);
+    void saveOrUpdate(FilmCompanyDto filmCompany);
 
-    void delete(FilmCompanyDTO filmCompany);
+    void delete(FilmCompanyDto filmCompany);
 
     void delete(int id);
 
-    FilmCompanyDTO findByName(String name);
+    FilmCompanyDto findByName(String name);
 
-    List<FilmCompanyDTO> findByDateOfFoundationLessThan(int year);
+    List<FilmCompanyDto> findByDateOfFoundationLessThan(int year);
 
-    List<FilmCompanyDTO> findAllSortByName();
+    List<FilmCompanyDto> findAllSortByName();
 
-    List<FilmCompanyDTO> findByNameWithTwoWordsAndDateOfFoundationBetween(int year1, int year2);
+    List<FilmCompanyDto> findByNameWithTwoWordsAndDateOfFoundationBetween(int year1, int year2);
 
-    FilmCompanyDTO findLeastPopularFilmCompany();
+    FilmCompanyDto findLeastPopularFilmCompany();
 }

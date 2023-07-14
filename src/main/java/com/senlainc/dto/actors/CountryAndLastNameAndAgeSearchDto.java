@@ -7,7 +7,7 @@ import javax.validation.constraints.*;
 
 @Setter
 @Getter
-public class CountryAndLastNameAndAgeSearchDTO {
+public class CountryAndLastNameAndAgeSearchDto {
 
     @Min(value = 0, message = "Age shouldn't be less than 0")
     @Max(value = 110, message = "Age shouldn't be more than 110")

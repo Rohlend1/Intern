@@ -10,7 +10,7 @@ import javax.validation.constraints.PositiveOrZero;
 
 @Setter
 @Getter
-public class MonthAndMinutesAndYearSearch {
+public class MonthAndMinutesAndYearSearchDto {
 
     @NotNull(message = "Year can't be null")
     private Integer year;

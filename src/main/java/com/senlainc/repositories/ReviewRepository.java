@@ -19,7 +19,7 @@ public interface ReviewRepository {
 
     List<Review> findByUser(User user);
 
-    List<Review> findAllPagination(int page, int moviesPerPage);
+    List<Review> findWithPagination(int page, int moviesPerPage);
 
     List<Review> findByContentGreaterThanAndUpdated(int amountOfCharacters);
 

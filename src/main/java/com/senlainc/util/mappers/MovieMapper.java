@@ -1,6 +1,6 @@
 package com.senlainc.util.mappers;
 
-import com.senlainc.dto.movies.MovieDTO;
+import com.senlainc.dto.movies.MovieDto;
 import com.senlainc.models.Movie;
 import org.mapstruct.Mapper;
 
@@ -8,8 +8,8 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface MovieMapper {
-    MovieDTO toDTO(Movie Movie);
-    Movie toEntity(MovieDTO MovieDTO);
-    List<Movie> toEntityList(List<MovieDTO> MovieDTOs);
-    List<MovieDTO> toDTOList(List<Movie> Movie);
+    MovieDto toDTO(Movie Movie);
+    Movie toEntity(MovieDto MovieDTO);
+    List<Movie> toEntityList(List<MovieDto> movieDtos);
+    List<MovieDto> toDTOList(List<Movie> Movie);
 }

@@ -1,29 +1,27 @@
 package com.senlainc.services;
 
-import com.senlainc.dto.filmcompanies.FilmCompanyDTO;
-import com.senlainc.dto.movies.MovieDTO;
-import com.senlainc.models.FilmCompany;
-import com.senlainc.models.Movie;
+import com.senlainc.dto.filmcompanies.FilmCompanyDto;
+import com.senlainc.dto.movies.MovieDto;
 
 import java.util.List;
 
 public interface MovieService {
 
-    List<MovieDTO> findAll();
+    List<MovieDto> findAll();
 
-    MovieDTO findById(int id);
+    MovieDto findById(int id);
 
-    void saveOrUpdate(MovieDTO movie);
+    void saveOrUpdate(MovieDto movie);
 
-    void delete(MovieDTO movie);
+    void delete(MovieDto movie);
 
     void delete(int id);
 
-    List<MovieDTO> findByDateOfReleaseBetween(int year1, int year2);
+    List<MovieDto> findByDateOfReleaseBetween(int year1, int year2);
 
-    List<MovieDTO> findByFilmCompanyEqualsAndBoxOfficeGreaterThan(FilmCompanyDTO filmCompany, double millions);
+    List<MovieDto> findByFilmCompanyEqualsAndBoxOfficeGreaterThan(FilmCompanyDto filmCompany, double millions);
 
-    List<MovieDTO> findByActorsLessThan(long amount);
+    List<MovieDto> findByActorsLessThan(long amount);
 
-    List<MovieDTO> findAllPagination(int page, int moviesPerPage);
+    List<MovieDto> findWithPagination(int page, int moviesPerPage);
 }

@@ -1,8 +1,8 @@
 package com.senlainc.controllers;
 
-import com.senlainc.dto.actors.ActorDTO;
-import com.senlainc.dto.actors.CountryAndLastNameAndAgeSearchDTO;
-import com.senlainc.dto.actors.GenderAndCountrySearchDTO;
+import com.senlainc.dto.actors.ActorDto;
+import com.senlainc.dto.actors.CountryAndLastNameAndAgeSearchDto;
+import com.senlainc.dto.actors.GenderAndCountrySearchDto;
 import com.senlainc.services.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +16,13 @@ public class ActorController {
     @Autowired
     private ActorService actorService;
 
-    @GetMapping
-    public List<ActorDTO> getActors(){
+    @GetMapping("/all")
+    public List<ActorDto> getActors(){
         return actorService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ActorDTO getActor(@PathVariable("id") int id){
+    public ActorDto getActor(@PathVariable("id") int id){
         return actorService.findById(id);
     }
 
@@ -31,28 +31,23 @@ public class ActorController {
        actorService.delete(id);
     }
 
-    @PatchMapping
-    public void updateActor(@RequestBody ActorDTO actorDTO){
+    @PutMapping
+    public void saveOrUpdateActor(@RequestBody ActorDto actorDTO){
         actorService.saveOrUpdate(actorDTO);
     }
 
-    @PostMapping
-    public void createActor(@RequestBody ActorDTO actorDTO){
-        actorService.saveOrUpdate(actorDTO);
-    }
-
-    @GetMapping("/gender_country")
-    public List<ActorDTO> getActorByGenderAndFromCountry(@RequestBody GenderAndCountrySearchDTO dto){
+    @GetMapping("/find/gender/country")
+    public List<ActorDto> getActorByGenderAndFromCountry(@RequestBody GenderAndCountrySearchDto dto){
         return actorService.findByGenderAndFromCountry(dto.getGender(), dto.getCountry());
     }
 
-    @GetMapping("/movies_born")
-    public List<ActorDTO> getActorByMoviesMoreThanAndBornInTwentiethCentury(@RequestParam("amount") Long amount){
+    @GetMapping("/find/twentieth-century/movies")
+    public List<ActorDto> getActorByMoviesMoreThanAndBornInTwentiethCentury(@RequestParam("amount") Long amount){
         return actorService.findByMoviesMoreThanAndBornInTwentiethCentury(amount);
     }
 
-    @GetMapping("/country_ends_with")
-    public List<ActorDTO> getActorByCountryEqualsAndLastNameEndsWithAndAgeLessThan(@RequestBody CountryAndLastNameAndAgeSearchDTO dto){
+    @GetMapping("/find/country/ends-with/age")
+    public List<ActorDto> getActorByCountryEqualsAndLastNameEndsWithAndAgeLessThan(@RequestBody CountryAndLastNameAndAgeSearchDto dto){
         return actorService.findByCountryEqualsAndLastNameEndsWithAndAgeLessThan(dto.getCountry(), dto.getEndsWith(), dto.getAge());
     }
 }

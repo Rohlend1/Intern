@@ -45,7 +45,7 @@ public class TestUserService {
 
     @Test
     public void testFindByUsernameConsistsOfTextAndHasAtLeastOneReview(){
-        List<User> actualUsers = userService.findByUsernameConsistsOfTextAndHasAtLeastOneReview();
+        List<User> actualUsers = userService.findByUsernamePatternAndReviews();
         List<User> expectedUsers = new ArrayList<>();
 
         assertEquals(2,actualUsers.size());
@@ -60,6 +60,6 @@ public class TestUserService {
 
     @Test
     public void testFindByUsernameMatchingToRegexp(){
-        assertEquals(userService.findByUsername("Frog"), userService.findByUsernameMatchingToRegexp("[F]+").get(0));
+        assertEquals(userService.findByUsername("Frog"), userService.findByUsernamePattern("[F]+").get(0));
     }
 }

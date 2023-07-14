@@ -1,6 +1,6 @@
 package com.senlainc.controllers;
 
-import com.senlainc.dto.users.UserDTO;
+import com.senlainc.dto.users.UserDto;
 import com.senlainc.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +15,13 @@ public class UserController {
     private UserService userService;
 
 
-    @GetMapping
-    public List<UserDTO> getUsers(){
+    @GetMapping("/all")
+    public List<UserDto> getUsers(){
         return userService.findAll();
     }
 
     @GetMapping("/{id}")
-    public UserDTO getUser(@PathVariable("id") int id){
+    public UserDto getUser(@PathVariable("id") int id){
         return userService.findById(id);
     }
 
@@ -30,28 +30,23 @@ public class UserController {
         userService.delete(id);
     }
 
-    @PatchMapping
-    public void updateUser(@RequestBody UserDTO reviewDTO){
+    @PutMapping
+    public void saveOrUpdateUser(@RequestBody UserDto reviewDTO){
         userService.saveOrUpdate(reviewDTO);
     }
 
-    @PostMapping
-    public void createUser(@RequestBody UserDTO reviewDTO){
-        userService.saveOrUpdate(reviewDTO);
+    @GetMapping("/find/name/pattern")
+    public List<UserDto> getUserByUsernamePattern(@RequestParam("regexp") String regexp){
+        return userService.findByUsernamePattern(regexp);
     }
 
-    @GetMapping("/regexp")
-    public List<UserDTO> getUserByUsernameRegexp(@RequestParam("regexp") String regexp){
-        return userService.findByUsernameMatchingToRegexp(regexp);
-    }
-
-    @GetMapping("/no_edited_reviews")
-    public Long getUserByTotalUsersWithNoEditedReviews(){
+    @GetMapping("/find/review/not/edit")
+    public Long getUserCountNotEditedReviews(){
         return userService.findTotalUsersWithNoEditedReviews();
     }
 
-    @GetMapping("/consists_of_text_and_review")
-    public List<UserDTO> getUserByUsernameConsistsOfTextAndHasAtLeastOneReview(){
-        return userService.findByUsernameConsistsOfTextAndHasAtLeastOneReview();
+    @GetMapping("/find/name/pattern/review")
+    public List<UserDto> getByUsernamePatternAndReviews(){
+        return userService.findByUsernamePatternAndReviews();
     }
 }

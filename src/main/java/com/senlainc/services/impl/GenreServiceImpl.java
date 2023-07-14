@@ -1,6 +1,6 @@
 package com.senlainc.services.impl;
 
-import com.senlainc.dto.genres.GenreDTO;
+import com.senlainc.dto.genres.GenreDto;
 import com.senlainc.repositories.GenreRepository;
 import com.senlainc.services.GenreService;
 import com.senlainc.util.Converter;
@@ -22,19 +22,19 @@ public class GenreServiceImpl implements GenreService {
         this.converter = converter;
     }
 
-    public List<GenreDTO> findAll(){
+    public List<GenreDto> findAll(){
         return converter.convertListToGenreDTO(genreRepository.findAll());
     }
 
-    public GenreDTO findById(int id){
+    public GenreDto findById(int id){
         return converter.convertToGenreDTO(genreRepository.findById(id));
     }
 
-    public void saveOrUpdate(GenreDTO genreDTO){
+    public void saveOrUpdate(GenreDto genreDTO){
         genreRepository.saveOrUpdate(converter.convertToGenre(genreDTO));
     }
 
-    public void delete(GenreDTO genreDTO){
+    public void delete(GenreDto genreDTO){
         genreRepository.delete(converter.convertToGenre(genreDTO));
     }
 
@@ -42,15 +42,15 @@ public class GenreServiceImpl implements GenreService {
         genreRepository.delete(id);
     }
 
-    public List<GenreDTO> findGenreLike(char ch){
+    public List<GenreDto> findGenreLike(char ch){
         return converter.convertListToGenreDTO(genreRepository.findGenreLike(ch+"%"));
     }
 
-    public GenreDTO findMostPopularGenre(){
+    public GenreDto findMostPopularGenre(){
         return converter.convertToGenreDTO(genreRepository.findMostPopularGenre());
     }
 
-    public List<GenreDTO> findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(long amount, int duration){
+    public List<GenreDto> findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(long amount, int duration){
         return converter.convertListToGenreDTO(genreRepository.findByMoviesAmountGreaterThanAndMoviesDurationGreaterThan(amount,duration));
     }
 }

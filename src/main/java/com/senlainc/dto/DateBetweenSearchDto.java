@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 
 @Setter
 @Getter
-public class DateBetweenSearchDTO {
+public class DateBetweenSearchDto {
 
     @NotNull(message = "Year can't be null")
     private Integer year1;

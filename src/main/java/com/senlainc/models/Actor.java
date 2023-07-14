@@ -26,6 +26,7 @@ public class Actor {
     private String lastName;
 
     @Column(name = "gender")
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @Column(name = "country")

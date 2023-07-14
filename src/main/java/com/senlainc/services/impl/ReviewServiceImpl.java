@@ -1,8 +1,7 @@
 package com.senlainc.services.impl;
 
-import com.senlainc.dto.reviews.ReviewDTO;
-import com.senlainc.dto.users.UserDTO;
-import com.senlainc.models.Review;
+import com.senlainc.dto.reviews.ReviewDto;
+import com.senlainc.dto.users.UserDto;
 import com.senlainc.models.User;
 import com.senlainc.repositories.ReviewRepository;
 import com.senlainc.services.ReviewService;
@@ -25,19 +24,19 @@ public class ReviewServiceImpl implements ReviewService {
         this.converter = converter;
     }
 
-    public List<ReviewDTO> findAll() {
+    public List<ReviewDto> findAll() {
         return converter.convertListToReviewDTO(reviewRepository.findAll());
     }
 
-    public ReviewDTO findById(int id) {
+    public ReviewDto findById(int id) {
         return converter.convertToReviewDTO(reviewRepository.findById(id));
     }
 
-    public void saveOrUpdate(ReviewDTO reviewDTO){
+    public void saveOrUpdate(ReviewDto reviewDTO){
         reviewRepository.saveOrUpdate(converter.convertToReview(reviewDTO));
     }
 
-    public void delete(ReviewDTO reviewDTO){
+    public void delete(ReviewDto reviewDTO){
         reviewRepository.delete(converter.convertToReview(reviewDTO));
     }
 
@@ -45,20 +44,20 @@ public class ReviewServiceImpl implements ReviewService {
         reviewRepository.delete(id);
     }
 
-    public List<ReviewDTO> findByUser(UserDTO userDTO) {
+    public List<ReviewDto> findByUser(UserDto userDTO) {
         User user = converter.convertToUser(userDTO);
         return converter.convertListToReviewDTO(reviewRepository.findByUser(user));
     }
 
-    public List<ReviewDTO> findAllPagination(int page, int reviewsPerPage) {
-        return converter.convertListToReviewDTO(reviewRepository.findAllPagination(page, reviewsPerPage));
+    public List<ReviewDto> findWithPagination(int page, int reviewsPerPage) {
+        return converter.convertListToReviewDTO(reviewRepository.findWithPagination(page, reviewsPerPage));
     }
 
-    public List<ReviewDTO> findByContentGreaterThanAndUpdated(int amountOfCharacters) {
-        return converter.convertListToReviewDTO(reviewRepository.findByContentGreaterThanAndUpdated(amountOfCharacters));
+    public List<ReviewDto> findByContentSizeAndEdit(int charsAmount) {
+        return converter.convertListToReviewDTO(reviewRepository.findByContentGreaterThanAndUpdated(charsAmount));
     }
 
-    public List<ReviewDTO> findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(int month, int minutes, int year) {
+    public List<ReviewDto> findByMonthAndDifferentPeriod(int month, int minutes, int year) {
         return converter.convertListToReviewDTO(reviewRepository.findMonthEqualsMinuteDiffLessThanYearOfCreationEquals(month, minutes, year));
     }
 }

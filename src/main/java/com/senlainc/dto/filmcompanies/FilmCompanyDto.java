@@ -1,6 +1,6 @@
 package com.senlainc.dto.filmcompanies;
 
-import com.senlainc.dto.movies.MovieDTO;
+import com.senlainc.dto.movies.MovieDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,13 +13,13 @@ import java.util.List;
 
 @Setter
 @Getter
-public class FilmCompanyDTO {
+public class FilmCompanyDto {
 
     @Size(max = 100, message = "Film company name must be between 1 and 100 characters")
     @NotBlank(message = "Film company name can't be blank")
     private String name;
 
-    private List<MovieDTO> movies;
+    private List<MovieDto> movies;
 
     @NotNull(message = "Foundation date can't be null")
     @PastOrPresent(message = "Foundation date can't indicate a future time")

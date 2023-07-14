@@ -1,25 +1,25 @@
 package com.senlainc.services;
 
-import com.senlainc.dto.actors.ActorDTO;
+import com.senlainc.dto.actors.ActorDto;
 import com.senlainc.util.Gender;
 
 import java.util.List;
 
 public interface ActorService {
 
-    List<ActorDTO> findAll();
+    List<ActorDto> findAll();
 
-    ActorDTO findById(int id);
+    ActorDto findById(int id);
 
-    void saveOrUpdate(ActorDTO actor);
+    void saveOrUpdate(ActorDto actor);
 
-    void delete(ActorDTO actor);
+    void delete(ActorDto actor);
 
     void delete(int id);
 
-    List<ActorDTO> findByCountryEqualsAndLastNameEndsWithAndAgeLessThan(String country, String endsWith, int years);
+    List<ActorDto> findByCountryEqualsAndLastNameEndsWithAndAgeLessThan(String country, String endsWith, int years);
 
-    List<ActorDTO> findByGenderAndFromCountry(Gender gender, String country);
+    List<ActorDto> findByGenderAndFromCountry(Gender gender, String country);
 
-    List<ActorDTO> findByMoviesMoreThanAndBornInTwentiethCentury(long amount);
+    List<ActorDto> findByMoviesMoreThanAndBornInTwentiethCentury(long amount);
 }

@@ -7,7 +7,7 @@ import javax.validation.constraints.Min;
 
 @Setter
 @Getter
-public class AmountAndDurationSearchDTO {
+public class AmountAndDurationSearchDto {
 
     @Min(value = 1, message = "Total amount of genres to search can't be less than 1")
     private Long amount;

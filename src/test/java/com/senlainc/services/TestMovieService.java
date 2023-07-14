@@ -41,7 +41,7 @@ public class TestMovieService {
     @Test
     public void testFindAllPagination(){
         List<Movie> expectedMovies = new ArrayList<>();
-        List<Movie> actualMovies = movieService.findAllPagination(1,2);
+        List<Movie> actualMovies = movieService.findWithPagination(1,2);
 
         expectedMovies.add(movieService.findById(1));
         expectedMovies.add(movieService.findById(2));

@@ -1,7 +1,6 @@
 package com.senlainc.services.impl;
 
-import com.senlainc.dto.subscribes.SubscribeDTO;
-import com.senlainc.models.Subscribe;
+import com.senlainc.dto.subscribes.SubscribeDto;
 import com.senlainc.repositories.SubscribeRepository;
 import com.senlainc.services.SubscribeService;
 import com.senlainc.util.Converter;
@@ -23,19 +22,19 @@ public class SubscribeServiceImpl implements SubscribeService {
         this.converter = converter;
     }
 
-    public List<SubscribeDTO> findAll(){
+    public List<SubscribeDto> findAll(){
         return converter.convertListToSubscribeDTO(subscribeRepository.findAll());
     }
 
-    public SubscribeDTO findById(Integer id){
+    public SubscribeDto findById(Integer id){
         return converter.convertToSubscribeDTO(subscribeRepository.findById(id));
     }
 
-    public void saveOrUpdate(SubscribeDTO subscribeDTO){
+    public void saveOrUpdate(SubscribeDto subscribeDTO){
         subscribeRepository.saveOrUpdate(converter.convertToSubscribe(subscribeDTO));
     }
 
-    public void delete(SubscribeDTO subscribeDTO){
+    public void delete(SubscribeDto subscribeDTO){
         subscribeRepository.delete(converter.convertToSubscribe(subscribeDTO));
     }
 

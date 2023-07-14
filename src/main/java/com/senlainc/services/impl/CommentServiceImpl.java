@@ -1,7 +1,7 @@
 package com.senlainc.services.impl;
 
-import com.senlainc.dto.comments.CommentDTO;
-import com.senlainc.dto.reviews.ReviewDTO;
+import com.senlainc.dto.comments.CommentDto;
+import com.senlainc.dto.reviews.ReviewDto;
 import com.senlainc.models.Comment;
 import com.senlainc.models.Review;
 import com.senlainc.models.User;
@@ -26,19 +26,19 @@ public class CommentServiceImpl implements CommentService {
         this.converter = converter;
     }
 
-    public List<CommentDTO> findAll(){
+    public List<CommentDto> findAll(){
         return converter.convertListToCommentDTO(commentRepository.findAll());
     }
 
-    public CommentDTO findById(int id){
+    public CommentDto findById(int id){
         return converter.convertToCommentDTO(commentRepository.findById(id));
     }
 
-    public void saveOrUpdate(CommentDTO commentDTO){
+    public void saveOrUpdate(CommentDto commentDTO){
         commentRepository.saveOrUpdate(converter.convertToComment(commentDTO));
     }
 
-    public void delete(CommentDTO commentDTO){
+    public void delete(CommentDto commentDTO){
         commentRepository.delete(converter.convertToComment(commentDTO));
     }
 
@@ -46,8 +46,8 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.delete(id);
     }
 
-    public List<CommentDTO> findByParentCommentEqualsAndReviewEquals(CommentDTO parentCommentDTO, ReviewDTO reviewDTO){
-        Comment parentComment = converter.convertToComment(parentCommentDTO);
+    public List<CommentDto> findByParentCommentEqualsAndReviewEquals(CommentDto parentCommentDto, ReviewDto reviewDTO){
+        Comment parentComment = converter.convertToComment(parentCommentDto);
         Review review = converter.convertToReview(reviewDTO);
         return converter.convertListToCommentDTO(commentRepository.findByParentCommentAndReviewEquals(parentComment, review));
     }
@@ -56,8 +56,8 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.findTotalUniqueReviewsCommentedBy(user);
     }
 
-    public List<CommentDTO> findByParentCommentSortedASC(CommentDTO parentCommentDTO){
-        Comment parentComment = converter.convertToComment(parentCommentDTO);
+    public List<CommentDto> findByParentCommentSortedASC(CommentDto parentCommentDto){
+        Comment parentComment = converter.convertToComment(parentCommentDto);
         return converter.convertListToCommentDTO(commentRepository.findByParentCommentSortedASC(parentComment));
     }
 

@@ -1,30 +1,28 @@
 package com.senlainc.services;
 
-import com.senlainc.dto.comments.CommentDTO;
-import com.senlainc.dto.reviews.ReviewDTO;
-import com.senlainc.models.Comment;
-import com.senlainc.models.Review;
+import com.senlainc.dto.comments.CommentDto;
+import com.senlainc.dto.reviews.ReviewDto;
 import com.senlainc.models.User;
 
 import java.util.List;
 
 public interface CommentService {
 
-    List<CommentDTO> findAll();
+    List<CommentDto> findAll();
 
-    CommentDTO findById(int id);
+    CommentDto findById(int id);
 
-    void saveOrUpdate(CommentDTO comment);
+    void saveOrUpdate(CommentDto comment);
 
-    void delete(CommentDTO comment);
+    void delete(CommentDto comment);
 
     void delete(int id);
 
-    List<CommentDTO> findByParentCommentEqualsAndReviewEquals(CommentDTO parentComment, ReviewDTO review);
+    List<CommentDto> findByParentCommentEqualsAndReviewEquals(CommentDto parentComment, ReviewDto review);
 
     Long findTotalUniqueReviewsCommentedBy(User user);
 
-    List<CommentDTO> findByParentCommentSortedASC(CommentDTO parentComment);
+    List<CommentDto> findByParentCommentSortedASC(CommentDto parentComment);
 
     Integer findIdMostPopularComment();
 }

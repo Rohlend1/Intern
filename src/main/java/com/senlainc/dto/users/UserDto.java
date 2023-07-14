@@ -1,6 +1,6 @@
 package com.senlainc.dto.users;
 
-import com.senlainc.dto.reviews.ReviewDTO;
+import com.senlainc.dto.reviews.ReviewDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,10 +9,10 @@ import java.util.List;
 
 @Setter
 @Getter
-public class UserDTO {
+public class UserDto {
 
     @NotBlank(message = "Username can't be blank")
     private String username;
 
-    private List<ReviewDTO> reviews;
+    private List<ReviewDto> reviews;
 }

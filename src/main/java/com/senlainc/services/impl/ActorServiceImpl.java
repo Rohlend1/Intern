@@ -1,6 +1,6 @@
 package com.senlainc.services.impl;
 
-import com.senlainc.dto.actors.ActorDTO;
+import com.senlainc.dto.actors.ActorDto;
 import com.senlainc.repositories.ActorRepository;
 import com.senlainc.services.ActorService;
 import com.senlainc.util.Converter;
@@ -24,19 +24,19 @@ public class ActorServiceImpl implements ActorService {
         this.converter = converter;
     }
 
-    public List<ActorDTO> findAll(){
+    public List<ActorDto> findAll(){
         return converter.convertListToActorDTO(actorRepository.findAll());
     }
 
-    public ActorDTO findById(int id){
+    public ActorDto findById(int id){
         return converter.convertToActorDTO(actorRepository.findById(id));
     }
 
-    public void saveOrUpdate(ActorDTO actorDTO){
+    public void saveOrUpdate(ActorDto actorDTO){
         actorRepository.saveOrUpdate(converter.convertToActor(actorDTO));
     }
 
-    public void delete(ActorDTO actorDTO){
+    public void delete(ActorDto actorDTO){
         actorRepository.delete(converter.convertToActor(actorDTO));
     }
 
@@ -44,15 +44,15 @@ public class ActorServiceImpl implements ActorService {
         actorRepository.delete(id);
     }
 
-    public List<ActorDTO> findByCountryEqualsAndLastNameEndsWithAndAgeLessThan(String country, String endsWith, int years){
+    public List<ActorDto> findByCountryEqualsAndLastNameEndsWithAndAgeLessThan(String country, String endsWith, int years){
         return converter.convertListToActorDTO(actorRepository.findByCountryEqualsAndLastNameEndsWithAndAgeLessThan(country, "%"+endsWith, years));
     }
 
-    public List<ActorDTO> findByGenderAndFromCountry(Gender gender, String country) {
+    public List<ActorDto> findByGenderAndFromCountry(Gender gender, String country) {
         return converter.convertListToActorDTO(actorRepository.findByGenderAndFromCountry(gender, country));
     }
 
-    public List<ActorDTO> findByMoviesMoreThanAndBornInTwentiethCentury(long amount) {
+    public List<ActorDto> findByMoviesMoreThanAndBornInTwentiethCentury(long amount) {
         return converter.convertListToActorDTO(actorRepository.findByMoviesMoreThanAndBornInTwentiethCentury(amount));
     }
 }

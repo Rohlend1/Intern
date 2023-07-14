@@ -1,9 +1,9 @@
 package com.senlainc.controllers;
 
-import com.senlainc.dto.DateBetweenSearchDTO;
-import com.senlainc.dto.PaginationSearch;
-import com.senlainc.dto.movies.FilmCompanyAndBoxOfficeSearch;
-import com.senlainc.dto.movies.MovieDTO;
+import com.senlainc.dto.DateBetweenSearchDto;
+import com.senlainc.dto.PaginationDto;
+import com.senlainc.dto.movies.FilmCompanyAndBoxOfficeSearchDto;
+import com.senlainc.dto.movies.MovieDto;
 import com.senlainc.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +17,13 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
-    @GetMapping
-    public List<MovieDTO> getMovies(){
+    @GetMapping("/all")
+    public List<MovieDto> getMovies(){
         return movieService.findAll();
     }
 
     @GetMapping("/{id}")
-    public MovieDTO getMovie(@PathVariable("id") int id){
+    public MovieDto getMovie(@PathVariable("id") int id){
         return movieService.findById(id);
     }
 
@@ -32,33 +32,28 @@ public class MovieController {
         movieService.delete(id);
     }
 
-    @PatchMapping
-    public void updateMovie(@RequestBody MovieDTO movieDTO){
+    @PutMapping
+    public void saveOrUpdateMovie(@RequestBody MovieDto movieDTO){
         movieService.saveOrUpdate(movieDTO);
     }
 
-    @PostMapping
-    public void createMovie(@RequestBody MovieDTO movieDTO){
-        movieService.saveOrUpdate(movieDTO);
-    }
-
-    @GetMapping("/date_between")
-    public List<MovieDTO> getMovieByDateOfReleaseBetween(@RequestBody DateBetweenSearchDTO dto){
+    @GetMapping("/find/release-date/between")
+    public List<MovieDto> getMovieByDateOfReleaseBetween(@RequestBody DateBetweenSearchDto dto){
         return movieService.findByDateOfReleaseBetween(dto.getYear1(), dto.getYear2());
     }
 
-    @GetMapping("/actors")
-    public List<MovieDTO> getMoviesByActorsLessThan(@RequestParam("amount") Long amount){
+    @GetMapping("/find/actors")
+    public List<MovieDto> getMoviesByActorsLessThan(@RequestParam("amount") Long amount){
         return movieService.findByActorsLessThan(amount);
     }
 
-    @GetMapping("/film_company_box_office")
-    public List<MovieDTO> getMoviesByFilmCompanyEqualsAndBoxOfficeGreaterThan(@RequestBody FilmCompanyAndBoxOfficeSearch dto){
+    @GetMapping("/find/film-company/box-office")
+    public List<MovieDto> getMoviesByFilmCompanyEqualsAndBoxOfficeGreaterThan(@RequestBody FilmCompanyAndBoxOfficeSearchDto dto){
         return movieService.findByFilmCompanyEqualsAndBoxOfficeGreaterThan(dto.getFilmCompanyDTO(), dto.getMillions());
     }
 
-    @GetMapping("/pagination")
-    public List<MovieDTO> getMoviesPagination(@RequestBody PaginationSearch dto){
-        return movieService.findAllPagination(dto.getPage(), dto.getItemsPerPage());
+    @GetMapping("/find/page")
+    public List<MovieDto> getPaginatedMovies(@RequestBody PaginationDto dto){
+        return movieService.findWithPagination(dto.getPage(), dto.getItemsPerPage());
     }
 }

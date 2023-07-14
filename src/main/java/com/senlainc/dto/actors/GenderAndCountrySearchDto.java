@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-public class GenderAndCountrySearchDTO {
+public class GenderAndCountrySearchDto {
 
     @NotBlank(message = "Country can't be blank")
     @Size(max = 50, message = "Country name must be between 2 and 50 characters")

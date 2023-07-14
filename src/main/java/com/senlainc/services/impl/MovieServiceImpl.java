@@ -1,9 +1,8 @@
 package com.senlainc.services.impl;
 
-import com.senlainc.dto.filmcompanies.FilmCompanyDTO;
-import com.senlainc.dto.movies.MovieDTO;
+import com.senlainc.dto.filmcompanies.FilmCompanyDto;
+import com.senlainc.dto.movies.MovieDto;
 import com.senlainc.models.FilmCompany;
-import com.senlainc.models.Movie;
 import com.senlainc.repositories.MovieRepository;
 import com.senlainc.services.MovieService;
 import com.senlainc.util.Converter;
@@ -25,19 +24,19 @@ public class MovieServiceImpl implements MovieService {
         this.converter = converter;
     }
 
-    public List<MovieDTO> findAll(){
+    public List<MovieDto> findAll(){
         return converter.convertListToMovieDTO(movieRepository.findAll());
     }
 
-    public MovieDTO findById(int id){
+    public MovieDto findById(int id){
         return converter.convertToMovieDTO(movieRepository.findById(id));
     }
 
-    public void saveOrUpdate(MovieDTO movieDTO){
+    public void saveOrUpdate(MovieDto movieDTO){
         movieRepository.saveOrUpdate(converter.convertToMovie(movieDTO));
     }
 
-    public void delete(MovieDTO movieDTO){
+    public void delete(MovieDto movieDTO){
         movieRepository.delete(converter.convertToMovie(movieDTO));
     }
 
@@ -45,20 +44,20 @@ public class MovieServiceImpl implements MovieService {
         movieRepository.delete(id);
     }
 
-    public List<MovieDTO> findByDateOfReleaseBetween(int year1, int year2){
+    public List<MovieDto> findByDateOfReleaseBetween(int year1, int year2){
         return converter.convertListToMovieDTO(movieRepository.findByDateOfReleaseBetween(year1, year2));
     }
 
-    public List<MovieDTO> findByFilmCompanyEqualsAndBoxOfficeGreaterThan(FilmCompanyDTO filmCompanyDTO, double millions){
+    public List<MovieDto> findByFilmCompanyEqualsAndBoxOfficeGreaterThan(FilmCompanyDto filmCompanyDTO, double millions){
         FilmCompany filmCompany = converter.convertToFilmCompany(filmCompanyDTO);
         return converter.convertListToMovieDTO(movieRepository.findByFilmCompanyEqualsAndBoxOfficeGreaterThan(filmCompany, millions*1_000_000));
     }
 
-    public List<MovieDTO> findByActorsLessThan(long amount){
+    public List<MovieDto> findByActorsLessThan(long amount){
         return converter.convertListToMovieDTO(movieRepository.findByActorsLessThan(amount));
     }
 
-    public List<MovieDTO> findAllPagination(int page, int moviesPerPage){
-        return converter.convertListToMovieDTO(movieRepository.findAllPagination(page, moviesPerPage));
+    public List<MovieDto> findWithPagination(int page, int moviesPerPage){
+        return converter.convertListToMovieDTO(movieRepository.findWithPagination(page, moviesPerPage));
     }
 }

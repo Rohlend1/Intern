@@ -1,6 +1,6 @@
 package com.senlainc.services.impl;
 
-import com.senlainc.dto.filmcompanies.FilmCompanyDTO;
+import com.senlainc.dto.filmcompanies.FilmCompanyDto;
 import com.senlainc.repositories.FilmCompanyRepository;
 import com.senlainc.services.FilmCompanyService;
 import com.senlainc.util.Converter;
@@ -22,19 +22,19 @@ public class FilmCompanyServiceImpl implements FilmCompanyService {
         this.converter = converter;
     }
 
-    public List<FilmCompanyDTO> findAll(){
+    public List<FilmCompanyDto> findAll(){
         return converter.convertListToFilmCompanyDTO(filmCompanyRepository.findAll());
     }
 
-    public FilmCompanyDTO findById(int id){
+    public FilmCompanyDto findById(int id){
         return converter.convertToFilmCompanyDTO(filmCompanyRepository.findById(id));
     }
 
-    public void saveOrUpdate(FilmCompanyDTO filmCompanyDTO){
+    public void saveOrUpdate(FilmCompanyDto filmCompanyDTO){
         filmCompanyRepository.saveOrUpdate(converter.convertToFilmCompany(filmCompanyDTO));
     }
 
-    public void delete(FilmCompanyDTO filmCompanyDTO){
+    public void delete(FilmCompanyDto filmCompanyDTO){
         filmCompanyRepository.delete(converter.convertToFilmCompany(filmCompanyDTO));
     }
 
@@ -42,23 +42,23 @@ public class FilmCompanyServiceImpl implements FilmCompanyService {
         filmCompanyRepository.delete(id);
     }
 
-    public FilmCompanyDTO findByName(String name){
+    public FilmCompanyDto findByName(String name){
         return converter.convertToFilmCompanyDTO(filmCompanyRepository.findByName(name));
     }
 
-    public List<FilmCompanyDTO> findByDateOfFoundationLessThan(int year){
+    public List<FilmCompanyDto> findByDateOfFoundationLessThan(int year){
         return converter.convertListToFilmCompanyDTO(filmCompanyRepository.findByDateOfFoundationLessThan(year));
     }
 
-    public List<FilmCompanyDTO> findAllSortByName() {
+    public List<FilmCompanyDto> findAllSortByName() {
         return converter.convertListToFilmCompanyDTO(filmCompanyRepository.findAllSortByName());
     }
 
-    public List<FilmCompanyDTO> findByNameWithTwoWordsAndDateOfFoundationBetween(int year1, int year2){
+    public List<FilmCompanyDto> findByNameWithTwoWordsAndDateOfFoundationBetween(int year1, int year2){
         return converter.convertListToFilmCompanyDTO(filmCompanyRepository.findByNameWithTwoWordsAndDateOfFoundationBetween(year1,year2));
     }
 
-    public FilmCompanyDTO findLeastPopularFilmCompany(){
+    public FilmCompanyDto findLeastPopularFilmCompany(){
         return converter.convertToFilmCompanyDTO(filmCompanyRepository.findLeastPopularFilmCompany());
     }
 }

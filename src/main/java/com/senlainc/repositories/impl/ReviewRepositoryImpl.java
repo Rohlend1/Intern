@@ -56,7 +56,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
     }
 
     @Transactional(readOnly = true)
-    public List<Review> findAllPagination(int page, int moviesPerPage){
+    public List<Review> findWithPagination(int page, int moviesPerPage){
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Review> query = cb.createQuery(Review.class);
         Root<Review> root = query.from(Review.class);

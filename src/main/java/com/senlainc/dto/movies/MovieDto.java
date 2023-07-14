@@ -1,8 +1,8 @@
 package com.senlainc.dto.movies;
 
-import com.senlainc.dto.actors.ActorDTO;
-import com.senlainc.dto.filmcompanies.FilmCompanyDTO;
-import com.senlainc.dto.genres.GenreDTO;
+import com.senlainc.dto.actors.ActorDto;
+import com.senlainc.dto.filmcompanies.FilmCompanyDto;
+import com.senlainc.dto.genres.GenreDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,18 +16,18 @@ import java.util.List;
 @Setter
 @Getter
 
-public class MovieDTO {
+public class MovieDto {
 
     @NotBlank(message = "Title can't be empty")
     private String title;
 
-    private List<ActorDTO> actors;
+    private List<ActorDto> actors;
 
     @NotNull(message = "Release date can't be null")
     private LocalDate dateOfRelease;
 
     @NotNull(message = "Film company can't be null")
-    private FilmCompanyDTO filmCompany;
+    private FilmCompanyDto filmCompany;
 
     @Min(value = 1, message = "Duration can't be less than 1")
     private Integer duration;
@@ -35,5 +35,5 @@ public class MovieDTO {
     @Positive(message = "Box office can't be negative or equals zero")
     private Double boxOffice;
 
-    private List<GenreDTO> genres;
+    private List<GenreDto> genres;
 }

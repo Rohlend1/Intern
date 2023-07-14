@@ -7,7 +7,7 @@ import javax.validation.constraints.PositiveOrZero;
 
 @Setter
 @Getter
-public class PaginationSearch {
+public class PaginationDto {
 
     @PositiveOrZero(message = "Page can't be negative")
     private Integer page;

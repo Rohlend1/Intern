@@ -1,6 +1,6 @@
 package com.senlainc.dto.actors;
 
-import com.senlainc.dto.movies.MovieDTO;
+import com.senlainc.dto.movies.MovieDto;
 import com.senlainc.util.Gender;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Setter
 @Getter
-public class ActorDTO {
+public class ActorDto {
 
     @NotBlank(message = "First name can't be blank")
     @Size(max = 100, message = "Invalid first name. First name should be between 2 and 100")
@@ -35,5 +35,5 @@ public class ActorDTO {
     @Max(value = 110, message = "Age shouldn't be greater than 110")
     private Integer age;
 
-    private List<MovieDTO> movies;
+    private List<MovieDto> movies;
 }

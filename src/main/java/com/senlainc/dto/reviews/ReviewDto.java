@@ -1,7 +1,7 @@
 package com.senlainc.dto.reviews;
 
-import com.senlainc.dto.comments.CommentDTO;
-import com.senlainc.dto.users.UserDTO;
+import com.senlainc.dto.comments.CommentDto;
+import com.senlainc.dto.users.UserDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Setter
 @Getter
-public class ReviewDTO {
+public class ReviewDto {
 
     @Size(min = 10, max = 3000, message = "Content must be between 10 and 3000 characters")
     private String content;
@@ -25,7 +25,7 @@ public class ReviewDTO {
     private LocalDateTime updatedAt;
 
     @NotNull(message = "Owner can't be null")
-    private UserDTO owner;
+    private UserDto owner;
 
-    private List<CommentDTO> comments;
+    private List<CommentDto> comments;
 }

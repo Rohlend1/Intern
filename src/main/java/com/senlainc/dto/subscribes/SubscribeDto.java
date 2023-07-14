@@ -1,6 +1,6 @@
 package com.senlainc.dto.subscribes;
 
-import com.senlainc.dto.users.UserDTO;
+import com.senlainc.dto.users.UserDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,11 +8,11 @@ import javax.validation.constraints.NotNull;
 
 @Setter
 @Getter
-public class SubscribeDTO {
+public class SubscribeDto {
 
     @NotNull(message = "Subscriber can't be null")
-    private UserDTO subscriber;
+    private UserDto subscriber;
 
     @NotNull(message = "Subscribed to can't be null")
-    private UserDTO subscribedTo;
+    private UserDto subscribedTo;
 }
